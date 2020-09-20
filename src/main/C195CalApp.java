@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class C195CalApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/View/MainScreen.fxml"));
         
         Scene scene = new Scene(root);
         
