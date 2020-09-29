@@ -22,20 +22,20 @@ public class DBConn {
     private static final String JDBCURL = PROTOCOL + VENDOR + IPADDRESS;
 
     // Reference to MySQL JDBC Driver Interface
-    private static final String MYSQLJDBCDriver = "com.mysql.jdbc.Driver";
+    private static final String MYSQLJDBCDRIVER = "com.mysql.jdbc.Driver";
     private static Connection conn = null;
 
     // MySQL DB Username
-    private static final String username = "U06BSb";
+    private static final String USERNAME = "U06BSb";
 
     // MySQL DB Password
-    private static final String password = "53688716173";
+    private static final String PASSWORD = "53688716173";
 
     // Method to start connection to MySQL DB
     public static Connection startConnection() {
         try {
-            Class.forName(MYSQLJDBCDriver);
-            conn = (Connection) DriverManager.getConnection(JDBCURL, username, password);
+            Class.forName(MYSQLJDBCDRIVER);
+            conn = (Connection) DriverManager.getConnection(JDBCURL, USERNAME, PASSWORD);
             System.out.print("Connection successful!");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
