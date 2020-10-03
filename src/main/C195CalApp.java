@@ -35,6 +35,7 @@ public class C195CalApp extends Application {
 
         DBConn.startConnection();
         launch(args);
+        DBConn.closeConnection();
     }
 
 }

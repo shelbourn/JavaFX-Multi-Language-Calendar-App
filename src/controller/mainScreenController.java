@@ -31,49 +31,11 @@ public class mainScreenController implements Initializable {
     @FXML
     private Button exitBtn;
     @FXML
-    private AnchorPane partPanel;
-    @FXML
-    private TableView<?> partsTable;
-    @FXML
-    private TableColumn<?, ?> partsTablePartIDCol;
-    @FXML
-    private TableColumn<?, ?> partsTablePartNameCol;
-    @FXML
-    private TableColumn<?, ?> partsTableInvLevelCol;
-    @FXML
-    private TableColumn<?, ?> partsTablePPUCol;
-    @FXML
-    private Button partsSearchBtn;
-    @FXML
     private TextField partsSearchField;
     @FXML
-    private Button partsAddBtn;
+    private TextField partsSearchField1;
     @FXML
-    private Button partsModifyBtn;
-    @FXML
-    private Button partsDeleteBtn;
-    @FXML
-    private AnchorPane productsPanel;
-    @FXML
-    private TableView<?> productsTable;
-    @FXML
-    private TableColumn<?, ?> productsTableProductIDCol;
-    @FXML
-    private TableColumn<?, ?> productsTableProductNameCol;
-    @FXML
-    private TableColumn<?, ?> productsTableInvLevelCol;
-    @FXML
-    private TableColumn<?, ?> productsTablePPUCol;
-    @FXML
-    private Button productsAddBtn;
-    @FXML
-    private Button productsModifyBtn;
-    @FXML
-    private Button productsDeleteBtn;
-    @FXML
-    private Button productsSearchBtn;
-    @FXML
-    private TextField productsSearchField;
+    private Button loginBtn;
 
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
@@ -90,51 +52,19 @@ public class mainScreenController implements Initializable {
     }
 
     @FXML
-    private void partsSearchBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void partsSearchFieldEnterHandler(KeyEvent event) {
     }
 
     @FXML
-    private void partsAddBtnHandler(ActionEvent event) {
+    private void clearUserFieldHandler(MouseEvent event) {
     }
 
     @FXML
-    private void partsModifyBtnHandler(ActionEvent event) {
+    private void clearPasswordFieldHandler(MouseEvent event) {
     }
 
     @FXML
-    private void partsDeleteBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void clearPartSearchFieldHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void productsAddBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void productsModifyBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void productsDeleteBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void productsSearchBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void productsSearchFieldEnterHandler(KeyEvent event) {
-    }
-
-    @FXML
-    private void clearProductSearchFieldHandler(MouseEvent event) {
+    private void loginBtnHandler(ActionEvent event) {
     }
 
 }
