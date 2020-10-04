@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class LoginScreenController implements Initializable {
+public class loginScreenController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
