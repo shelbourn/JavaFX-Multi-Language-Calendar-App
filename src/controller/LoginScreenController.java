@@ -12,36 +12,40 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
+ * FXML Controller class
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class mainScreenController implements Initializable {
+public class LoginScreenController implements Initializable {
 
-    private Label label;
     @FXML
     private AnchorPane mainScr;
     @FXML
+    private Label appSubHeaderLabel;
+    @FXML
     private Button exitBtn;
     @FXML
-    private TextField partsSearchField;
+    private Label loginPanelLabel;
     @FXML
-    private TextField partsSearchField1;
+    private TextField usernameField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label passwordLabel;
     @FXML
     private Button loginBtn;
 
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

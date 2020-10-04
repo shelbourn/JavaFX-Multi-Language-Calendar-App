@@ -20,7 +20,7 @@ public class C195CalApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/mainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/loginScreen.fxml"));
 
         Scene scene = new Scene(root);
 
