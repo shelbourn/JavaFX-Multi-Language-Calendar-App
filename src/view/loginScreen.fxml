@@ -11,14 +11,14 @@
 
 <AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.loginScreenController">
     <children>
-        <Label fx:id="appSubHeaderLabel" layoutX="35.0" layoutY="88.0" prefHeight="26.0" prefWidth="294.0" text="ABC Co. • Calendar System" textFill="#908e8e" AnchorPane.leftAnchor="35.0">
+        <Label fx:id="appSubHeaderLabel" layoutX="35.0" layoutY="88.0" prefHeight="29.0" prefWidth="301.0" text="ABC Co. • Calendar System" textFill="#908e8e" AnchorPane.leftAnchor="35.0">
             <font>
-                <Font name="System Italic" size="24.0" />
+                <Font name="Helvetica Oblique" size="24.0" />
             </font>
         </Label>
         <Label layoutX="35.0" layoutY="43.0" prefHeight="51.0" prefWidth="326.0" text="ABCal App" textFill="STEELBLUE" AnchorPane.leftAnchor="35.0">
             <font>
-                <Font name="System Bold" size="36.0" />
+                <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
         <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
@@ -28,9 +28,9 @@
         </Button>
         <AnchorPane layoutX="25.0" layoutY="151.0" prefHeight="352.0" prefWidth="550.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <Label fx:id="loginPanelLabel" layoutX="233.0" layoutY="20.0" prefHeight="0.0" prefWidth="85.0" text="Login" textFill="STEELBLUE">
+                <Label fx:id="loginPanelLabel" layoutX="231.0" layoutY="14.0" prefHeight="44.0" prefWidth="89.0" text="Login" textFill="STEELBLUE">
                     <font>
-                        <Font size="36.0" />
+                        <Font name="Helvetica" size="36.0" />
                     </font>
                 </Label>
                 <Group layoutX="130.0" layoutY="119.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
@@ -73,12 +73,12 @@
                 </Group>
                 <Label fx:id="usernameLabel" layoutX="58.0" layoutY="81.0" prefHeight="0.0" prefWidth="130.0" text="Username" textFill="STEELBLUE">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
                 <Label fx:id="passwordLabel" layoutX="58.0" layoutY="174.0" prefHeight="0.0" prefWidth="124.0" text="Password" textFill="STEELBLUE">
                     <font>
-                        <Font size="24.0" />
+                        <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
                 <Button fx:id="loginBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="195.0" layoutY="277.0" mnemonicParsing="false" onAction="#loginBtnHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.15" scaleY="1.15" scaleZ="1.15" style="-fx-border-radius: 5px;" text="LOGIN">
