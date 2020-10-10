@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -19,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class landingScreenController implements Initializable {
+public class calendarScreenController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
@@ -32,13 +34,15 @@ public class landingScreenController implements Initializable {
     @FXML
     private AnchorPane partPanel11;
     @FXML
-    private Button loginBtn1;
+    private AnchorPane partPanel111;
     @FXML
-    private Button loginBtn;
+    private TableView<?> calendarTable;
     @FXML
-    private Button addCustomerBtn;
+    private AnchorPane partPanel112;
     @FXML
-    private Button addAppointmentBtn;
+    private Label appSubHeaderLabel1;
+    @FXML
+    private ToggleGroup calViewToggleGroup;
 
     /**
      * Initializes the controller class.
@@ -53,11 +57,15 @@ public class landingScreenController implements Initializable {
     }
 
     @FXML
-    private void viewReportsBtnHandler(ActionEvent event) {
+    private void addApptHandler(ActionEvent event) {
     }
 
     @FXML
-    private void viewCalBtnHandler(ActionEvent event) {
+    private void updateApptHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteApptHandler(ActionEvent event) {
     }
 
     @FXML
@@ -65,7 +73,19 @@ public class landingScreenController implements Initializable {
     }
 
     @FXML
-    private void addApptHandler(ActionEvent event) {
+    private void updateCustHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void deleteCustHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void weekViewHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void monthViewHandler(ActionEvent event) {
     }
 
 }
