@@ -10,10 +10,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -36,6 +39,8 @@ public class addAppointmentModalController implements Initializable {
     private ComboBox<?> appointmentType;
     @FXML
     private ComboBox<?> appointmentDuration;
+    @FXML
+    private Button cancelBtn;
 
     /**
      * Initializes the controller class.
@@ -43,18 +48,6 @@ public class addAppointmentModalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    @FXML
-    private void exitBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void clearUserFieldHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void clearPasswordFieldHandler(MouseEvent event) {
     }
 
     @FXML
@@ -83,6 +76,17 @@ public class addAppointmentModalController implements Initializable {
 
     @FXML
     private void durationHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelBtnHandler(ActionEvent event) {
+        Scene scene = cancelBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
 
 }

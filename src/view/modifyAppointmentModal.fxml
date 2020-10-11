@@ -21,7 +21,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Exit">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#cancelBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Cancel">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
@@ -43,31 +43,31 @@
                         <Group layoutX="277.0" layoutY="15.0" onMouseClicked="#clearPasswordFieldHandler" scaleX="0.8" scaleY="0.8" />
                     </children>
                 </Group>
-                <DatePicker fx:id="datePicker" layoutX="103.0" layoutY="65.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#dateHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Date" stylesheets="@../utils/calAppStyles.css">
+                <DatePicker fx:id="datePicker" layoutX="103.0" layoutY="65.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#dateHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Date" stylesheets="@../styles/calAppStyles.css">
                     <styleClass>
                         <String fx:value="date-picker" />
                         <String fx:value="text-field" />
                     </styleClass>
                 </DatePicker>
-                <ComboBox fx:id="appointmentTime" layoutX="103.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#timeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment TIme" stylesheets="@../utils/calAppStyles.css" visibleRowCount="20">
+                <ComboBox fx:id="appointmentTime" layoutX="103.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#timeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment TIme" stylesheets="@../styles/calAppStyles.css" visibleRowCount="20">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />
                     </styleClass>
                 </ComboBox>
-                <ComboBox fx:id="consultant" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#consultantHandler" prefHeight="45.0" prefWidth="345.0" promptText="Consultant" stylesheets="@../utils/calAppStyles.css">
+                <ComboBox fx:id="consultant" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#consultantHandler" prefHeight="45.0" prefWidth="345.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />
                     </styleClass>
                 </ComboBox>
-                <ComboBox fx:id="customer" layoutX="103.0" layoutY="230.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#customerHandler" prefHeight="45.0" prefWidth="345.0" promptText="Customer" stylesheets="@../utils/calAppStyles.css">
+                <ComboBox fx:id="customer" layoutX="103.0" layoutY="230.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#customerHandler" prefHeight="45.0" prefWidth="345.0" promptText="Customer" stylesheets="@../styles/calAppStyles.css">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />
                     </styleClass>
                 </ComboBox>
-                <ComboBox fx:id="appointmentType" layoutX="103.0" layoutY="285.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptTypeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Type" stylesheets="@../utils/calAppStyles.css">
+                <ComboBox fx:id="appointmentType" layoutX="103.0" layoutY="285.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptTypeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Type" stylesheets="@../styles/calAppStyles.css">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />

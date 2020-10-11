@@ -27,15 +27,9 @@ public class modifyCustomerModalController implements Initializable {
     @FXML
     private TextField firstName;
     @FXML
-    private TextField lastNight;
-    @FXML
     private TextField streetAddress;
     @FXML
-    private TextField city;
-    @FXML
-    private TextField zipcode;
-    @FXML
-    private ComboBox<?> state;
+    private ComboBox<?> city;
     @FXML
     private TextField phoneNumber;
 
@@ -45,10 +39,6 @@ public class modifyCustomerModalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }
-
-    @FXML
-    private void exitBtnHandler(ActionEvent event) {
     }
 
     @FXML
@@ -64,10 +54,6 @@ public class modifyCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void lastNameHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void streetHandler(ActionEvent event) {
     }
 
@@ -76,19 +62,15 @@ public class modifyCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void zipHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void stateHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void phoneHandler(ActionEvent event) {
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelBtnHandler(ActionEvent event) {
     }
 
 }

@@ -22,19 +22,24 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Exit">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
         </Button>
         <AnchorPane layoutX="284.0" layoutY="152.0" prefHeight="585.0" prefWidth="971.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
-            <TableView fx:id="calendarTable" layoutX="13.0" layoutY="11.0" prefHeight="563.0" prefWidth="945.0">
+            <TableView fx:id="calendarTable" layoutX="13.0" layoutY="56.0" prefHeight="518.0" prefWidth="945.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
+            <Label layoutX="339.0" layoutY="10.0" prefHeight="34.0" prefWidth="293.0" text="Appointments Calendar" textFill="STEELBLUE">
+               <font>
+                  <Font name="Helvetica" size="28.0" />
+               </font>
+            </Label>
          </children></AnchorPane>
         <AnchorPane layoutX="45.0" layoutY="283.0" prefHeight="205.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>

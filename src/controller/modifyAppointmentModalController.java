@@ -43,9 +43,6 @@ public class modifyAppointmentModalController implements Initializable {
         // TODO
     }
 
-    @FXML
-    private void exitBtnHandler(ActionEvent event) {
-    }
 
     @FXML
     private void clearUserFieldHandler(MouseEvent event) {
@@ -77,6 +74,10 @@ public class modifyAppointmentModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelBtnHandler(ActionEvent event) {
     }
 
 }

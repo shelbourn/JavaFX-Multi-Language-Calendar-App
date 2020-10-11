@@ -5,17 +5,23 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -53,6 +59,9 @@ public class loginScreenController implements Initializable {
 
     @FXML
     private void exitBtnHandler(ActionEvent event) {
+        // Add alert for confirmation
+        System.out.println("User confirmed.\nExiting application.\nEND.");
+        System.exit(0);
     }
 
     @FXML
@@ -68,7 +77,14 @@ public class loginScreenController implements Initializable {
     }
 
     @FXML
-    private void loginBtnHandler(ActionEvent event) {
+    private void loginBtnHandler(ActionEvent event) throws IOException {
+        System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+        Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
+        Scene landingScreen = new Scene(root);
+        Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        loginWindow.setTitle("CalApp | Main Screen");
+        loginWindow.setScene(landingScreen);
+        loginWindow.show();
     }
 
 }

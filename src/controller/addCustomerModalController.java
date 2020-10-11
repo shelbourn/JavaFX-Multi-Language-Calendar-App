@@ -10,10 +10,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -27,17 +31,13 @@ public class addCustomerModalController implements Initializable {
     @FXML
     private TextField firstName;
     @FXML
-    private TextField lastNight;
-    @FXML
     private TextField streetAddress;
     @FXML
-    private TextField city;
-    @FXML
-    private TextField zipcode;
-    @FXML
-    private ComboBox<?> state;
+    private ComboBox<?> city;
     @FXML
     private TextField phoneNumber;
+    @FXML
+    private Button cancelBtn;
 
     /**
      * Initializes the controller class.
@@ -48,23 +48,7 @@ public class addCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void exitBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void clearUserFieldHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void clearPasswordFieldHandler(MouseEvent event) {
-    }
-
-    @FXML
     private void firstNameHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void lastNameHandler(ActionEvent event) {
     }
 
     @FXML
@@ -76,19 +60,22 @@ public class addCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void zipHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void stateHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void phoneHandler(ActionEvent event) {
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void cancelBtnHandler(ActionEvent event) {
+        Scene scene = cancelBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
 
 }
