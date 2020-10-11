@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppointmentModalController">
+<AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="668.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.addAppointmentModalController">
     <children>
         <Label layoutX="35.0" layoutY="88.0" prefHeight="29.0" prefWidth="301.0" text="ABC Co. • Calendar System" textFill="#908e8e" AnchorPane.leftAnchor="35.0">
             <font>
@@ -21,12 +21,12 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Exit">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="602.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Exit">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
         </Button>
-        <AnchorPane layoutX="25.0" layoutY="151.0" prefHeight="352.0" prefWidth="550.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+        <AnchorPane layoutX="25.0" layoutY="151.0" prefHeight="408.0" prefWidth="550.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
                 <Label layoutX="182.0" layoutY="14.0" prefHeight="29.0" prefWidth="187.0" text="Add Appointment" textFill="STEELBLUE">
                     <font>
@@ -53,24 +53,30 @@
                   <String fx:value=".combo-box" />
                   <String fx:value=".list-cell" />
                </styleClass></ComboBox>
-            <ComboBox fx:id="consultant" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#consultantHandler" prefHeight="45.0" prefWidth="345.0" promptText="Consultant" stylesheets="@../utils/calAppStyles.css">
+            <ComboBox fx:id="consultant" layoutX="103.0" layoutY="230.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#consultantHandler" prefHeight="45.0" prefWidth="345.0" promptText="Consultant" stylesheets="@../utils/calAppStyles.css">
                <styleClass>
                   <String fx:value=".combo-box" />
                   <String fx:value=".list-cell" />
                </styleClass></ComboBox>
-            <ComboBox fx:id="customer" layoutX="103.0" layoutY="230.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#customerHandler" prefHeight="45.0" prefWidth="345.0" promptText="Customer" stylesheets="@../utils/calAppStyles.css">
+            <ComboBox fx:id="customer" layoutX="103.0" layoutY="285.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#customerHandler" prefHeight="45.0" prefWidth="345.0" promptText="Customer" stylesheets="@../utils/calAppStyles.css">
                <styleClass>
                   <String fx:value=".combo-box" />
                   <String fx:value=".list-cell" />
                </styleClass></ComboBox>
-            <ComboBox fx:id="appointmentType" layoutX="103.0" layoutY="285.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptTypeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Type" stylesheets="@../utils/calAppStyles.css">
+            <ComboBox fx:id="appointmentType" layoutX="103.0" layoutY="340.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptTypeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Type" stylesheets="@../utils/calAppStyles.css">
                <styleClass>
                   <String fx:value=".combo-box" />
                   <String fx:value=".list-cell" />
                </styleClass></ComboBox>
+            <ComboBox fx:id="appointmentDuration" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#durationHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Duration" stylesheets="@../utils/calAppStyles.css" visibleRowCount="20">
+               <styleClass>
+                  <String fx:value=".combo-box" />
+                  <String fx:value=".list-cell" />
+               </styleClass>
+            </ComboBox>
             </children>
         </AnchorPane>
-          <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="535.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
+          <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="602.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
               <font>
                   <Font name="Segoe UI" size="18.0" />
               </font>

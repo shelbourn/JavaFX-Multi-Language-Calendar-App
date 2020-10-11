@@ -20,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class addAppointmentModalController implements Initializable {
+public class modifyAppointmentModalController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
@@ -34,8 +34,6 @@ public class addAppointmentModalController implements Initializable {
     private ComboBox<?> customer;
     @FXML
     private ComboBox<?> appointmentType;
-    @FXML
-    private ComboBox<?> appointmentDuration;
 
     /**
      * Initializes the controller class.
@@ -79,10 +77,6 @@ public class addAppointmentModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void durationHandler(ActionEvent event) {
     }
 
 }

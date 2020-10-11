@@ -11,7 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -20,22 +20,24 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class addAppointmentModalController implements Initializable {
+public class modifyCustomerModalController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
     @FXML
-    private DatePicker datePicker;
+    private TextField firstName;
     @FXML
-    private ComboBox<?> appointmentTime;
+    private TextField lastNight;
     @FXML
-    private ComboBox<?> consultant;
+    private TextField streetAddress;
     @FXML
-    private ComboBox<?> customer;
+    private TextField city;
     @FXML
-    private ComboBox<?> appointmentType;
+    private TextField zipcode;
     @FXML
-    private ComboBox<?> appointmentDuration;
+    private ComboBox<?> state;
+    @FXML
+    private TextField phoneNumber;
 
     /**
      * Initializes the controller class.
@@ -58,31 +60,35 @@ public class addAppointmentModalController implements Initializable {
     }
 
     @FXML
-    private void dateHandler(ActionEvent event) {
+    private void firstNameHandler(ActionEvent event) {
     }
 
     @FXML
-    private void timeHandler(ActionEvent event) {
+    private void lastNameHandler(ActionEvent event) {
     }
 
     @FXML
-    private void consultantHandler(ActionEvent event) {
+    private void streetHandler(ActionEvent event) {
     }
 
     @FXML
-    private void customerHandler(ActionEvent event) {
+    private void cityHandler(ActionEvent event) {
     }
 
     @FXML
-    private void apptTypeHandler(ActionEvent event) {
+    private void zipHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void stateHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void phoneHandler(ActionEvent event) {
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void durationHandler(ActionEvent event) {
     }
 
 }

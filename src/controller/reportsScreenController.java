@@ -10,9 +10,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -20,22 +21,28 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class addAppointmentModalController implements Initializable {
+public class reportsScreenController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
     @FXML
-    private DatePicker datePicker;
+    private TableView<?> apptConsultantResults;
     @FXML
-    private ComboBox<?> appointmentTime;
+    private ComboBox<?> apptConsultant;
     @FXML
-    private ComboBox<?> consultant;
+    private Button apptRun;
     @FXML
-    private ComboBox<?> customer;
+    private ComboBox<?> apptSummConsultant;
     @FXML
-    private ComboBox<?> appointmentType;
+    private Button apptSummRun;
     @FXML
-    private ComboBox<?> appointmentDuration;
+    private TextArea apptSummResults;
+    @FXML
+    private ComboBox<?> apptTypesConsultant;
+    @FXML
+    private Button apptTypesRun;
+    @FXML
+    private TextArea apptTypesResults;
 
     /**
      * Initializes the controller class.
@@ -50,39 +57,27 @@ public class addAppointmentModalController implements Initializable {
     }
 
     @FXML
-    private void clearUserFieldHandler(MouseEvent event) {
+    private void apptConsultantHandler(ActionEvent event) {
     }
 
     @FXML
-    private void clearPasswordFieldHandler(MouseEvent event) {
+    private void apptRunHandler(ActionEvent event) {
     }
 
     @FXML
-    private void dateHandler(ActionEvent event) {
+    private void apptSummConsultantHandler(ActionEvent event) {
     }
 
     @FXML
-    private void timeHandler(ActionEvent event) {
+    private void apptSummRunHandler(ActionEvent event) {
     }
 
     @FXML
-    private void consultantHandler(ActionEvent event) {
+    private void apptTypesConsultantHandler(ActionEvent event) {
     }
 
     @FXML
-    private void customerHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void apptTypeHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void saveBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void durationHandler(ActionEvent event) {
+    private void apptTypsRunHandler(ActionEvent event) {
     }
 
 }

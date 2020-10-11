@@ -4,9 +4,17 @@
 */
 
 .combo-box .list-cell {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
 }
 
 .date-picker .text-field {
-    -fx-font-size: 16px;
+    -fx-font-size: 18px;
+}
+
+.text-field {
+    -fx-font-size: 18px;
+}
+
+.text-area {
+    -fx-font-size: 18px;
 }
