@@ -21,7 +21,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
+        <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Exit">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
@@ -81,7 +81,7 @@
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
-                <Button fx:id="loginBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="195.0" layoutY="277.0" mnemonicParsing="false" onAction="#loginBtnHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.15" scaleY="1.15" scaleZ="1.15" style="-fx-border-radius: 5px;" text="LOGIN">
+                <Button fx:id="loginBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="195.0" layoutY="277.0" mnemonicParsing="false" onAction="#loginBtnHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.15" scaleY="1.15" scaleZ="1.15" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="LOGIN">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
