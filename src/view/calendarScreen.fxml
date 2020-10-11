@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.calendarScreenController">
+<AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.calendarScreenController">
     <children>
         <Label fx:id="appSubHeaderLabel" layoutX="45.0" layoutY="93.0" prefHeight="29.0" prefWidth="300.0" text="ABC Co. • Calendar System" textFill="#908e8e">
             <font>
@@ -22,21 +22,21 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="725.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
+        <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
         </Button>
-        <AnchorPane fx:id="partPanel1" layoutX="284.0" layoutY="152.0" prefHeight="537.0" prefWidth="971.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+        <AnchorPane fx:id="partPanel1" layoutX="284.0" layoutY="152.0" prefHeight="585.0" prefWidth="971.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
-            <TableView fx:id="calendarTable" layoutX="13.0" layoutY="11.0" prefHeight="516.0" prefWidth="945.0">
+            <TableView fx:id="calendarTable" layoutX="13.0" layoutY="11.0" prefHeight="563.0" prefWidth="945.0">
               <columns>
                 <TableColumn prefWidth="75.0" text="C1" />
                 <TableColumn prefWidth="75.0" text="C2" />
               </columns>
             </TableView>
          </children></AnchorPane>
-        <AnchorPane fx:id="partPanel11" layoutX="45.0" layoutY="269.0" prefHeight="205.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+        <AnchorPane fx:id="partPanel11" layoutX="45.0" layoutY="283.0" prefHeight="205.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
                 <Group layoutX="15.0" layoutY="16.0">
                     <children>
@@ -59,21 +59,16 @@
                 </Group>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="partPanel111" layoutX="45.0" layoutY="484.0" prefHeight="205.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+        <AnchorPane fx:id="partPanel111" layoutX="45.0" layoutY="498.0" prefHeight="145.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
                 <Group layoutX="15.0" layoutY="16.0">
                     <children>
-                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Add Customer">
+                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="1.0" mnemonicParsing="false" onAction="#viewCustHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="View Customers">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
                         </Button>
-                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="61.0" mnemonicParsing="false" onAction="#updateCustHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Update Customer">
-                            <font>
-                                <Font name="Segoe UI" size="18.0" />
-                            </font>
-                        </Button>
-                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="122.0" mnemonicParsing="false" onAction="#deleteCustHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Delete Customer">
+                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="62.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Add Customer">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
@@ -82,14 +77,14 @@
                 </Group>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="partPanel112" layoutX="45.0" layoutY="152.0" prefHeight="107.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+      <AnchorPane fx:id="partPanel112" layoutX="45.0" layoutY="153.0" prefHeight="120.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
-            <Label fx:id="appSubHeaderLabel1" layoutX="51.0" layoutY="8.0" prefHeight="0.0" prefWidth="119.0" text="Calendar View" textFill="#908e8e">
+            <Label fx:id="appSubHeaderLabel1" layoutX="51.0" layoutY="14.0" prefHeight="0.0" prefWidth="119.0" text="Calendar View" textFill="#908e8e">
                <font>
                   <Font name="Helvetica Oblique" size="18.0" />
                </font>
             </Label>
-            <RadioButton layoutX="14.0" layoutY="37.0" mnemonicParsing="false" onAction="#weekViewHandler" text="Week View">
+            <RadioButton layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onAction="#weekViewHandler" text="Week View">
                <font>
                   <Font size="16.0" />
                </font>
@@ -97,11 +92,24 @@
                   <ToggleGroup fx:id="calViewToggleGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="14.0" layoutY="69.0" mnemonicParsing="false" onAction="#monthViewHandler" text="Month View" toggleGroup="$calViewToggleGroup">
+            <RadioButton layoutX="14.0" layoutY="80.0" mnemonicParsing="false" onAction="#monthViewHandler" text="Month View" toggleGroup="$calViewToggleGroup">
                <font>
                   <Font size="16.0" />
                </font>
             </RadioButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="partPanel1111" layoutX="45.0" layoutY="653.0" prefHeight="84.0" prefWidth="220.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+         <children>
+            <Group layoutX="15.0" layoutY="16.0">
+               <children>
+                  <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="1.0" mnemonicParsing="false" onAction="#reportsHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Reports">
+                     <font>
+                        <Font name="Segoe UI" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Group>
          </children>
       </AnchorPane>
     </children>

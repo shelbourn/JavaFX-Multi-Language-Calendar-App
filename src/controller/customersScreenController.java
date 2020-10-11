@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -21,7 +20,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class calendarScreenController implements Initializable {
+public class customersScreenController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
@@ -32,17 +31,11 @@ public class calendarScreenController implements Initializable {
     @FXML
     private AnchorPane partPanel1;
     @FXML
+    private TableView<?> customersTable;
+    @FXML
     private AnchorPane partPanel11;
     @FXML
     private AnchorPane partPanel111;
-    @FXML
-    private TableView<?> calendarTable;
-    @FXML
-    private AnchorPane partPanel112;
-    @FXML
-    private Label appSubHeaderLabel1;
-    @FXML
-    private ToggleGroup calViewToggleGroup;
     @FXML
     private AnchorPane partPanel1111;
 
@@ -59,31 +52,23 @@ public class calendarScreenController implements Initializable {
     }
 
     @FXML
-    private void addApptHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void updateApptHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void deleteApptHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void addCustHandler(ActionEvent event) {
     }
 
     @FXML
-    private void weekViewHandler(ActionEvent event) {
+    private void updateCustHandler(ActionEvent event) {
     }
 
     @FXML
-    private void monthViewHandler(ActionEvent event) {
+    private void deleteCustHandler(ActionEvent event) {
     }
 
     @FXML
-    private void viewCustHandler(ActionEvent event) {
+    private void viewCalHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void addApptHandler(ActionEvent event) {
     }
 
     @FXML

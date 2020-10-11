@@ -32,13 +32,7 @@ public class landingScreenController implements Initializable {
     @FXML
     private AnchorPane partPanel11;
     @FXML
-    private Button loginBtn1;
-    @FXML
-    private Button loginBtn;
-    @FXML
-    private Button addCustomerBtn;
-    @FXML
-    private Button addAppointmentBtn;
+    private Button addAppointmetBtn;
 
     /**
      * Initializes the controller class.
@@ -52,13 +46,6 @@ public class landingScreenController implements Initializable {
     private void exitBtnHandler(ActionEvent event) {
     }
 
-    @FXML
-    private void viewReportsBtnHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void viewCalBtnHandler(ActionEvent event) {
-    }
 
     @FXML
     private void addCustHandler(ActionEvent event) {
@@ -66,6 +53,18 @@ public class landingScreenController implements Initializable {
 
     @FXML
     private void addApptHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void viewCustomersHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void viewCalendarHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void viewReportsHandler(ActionEvent event) {
     }
 
 }

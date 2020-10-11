@@ -24,35 +24,40 @@
         </Button>
         <AnchorPane fx:id="partPanel1" layoutX="117.0" layoutY="178.0" prefHeight="139.0" prefWidth="939.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <Button fx:id="loginBtn1" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" onAction="#viewReportsBtnHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Reports" translateX="225.0">
+                <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" onAction="#viewCustomersHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Customers" translateX="225.0">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
                 </Button>
-                <Button fx:id="loginBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" onAction="#viewCalBtnHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Calendar" translateX="-225.0">
+                <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" onAction="#viewCalendarHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Calendar" translateX="-225.0">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
                 </Button>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="partPanel11" layoutX="117.0" layoutY="368.0" prefHeight="207.0" prefWidth="939.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+      <AnchorPane fx:id="partPanel11" layoutX="45.0" layoutY="371.0" prefHeight="207.0" prefWidth="1119.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
-            <Button fx:id="addCustomerBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="109.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Customer" translateX="225.0">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="235.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Customer" translateX="225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="addAppointmentBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="109.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
+            <Button fx:id="addAppointmetBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="345.0" layoutY="110.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
             </Button>
-            <Label layoutX="359.0" layoutY="21.0" prefHeight="0.0" prefWidth="221.0" text="Quick Actions" textFill="STEELBLUE">
+            <Label layoutX="449.0" layoutY="23.0" prefHeight="0.0" prefWidth="221.0" text="Quick Actions" textFill="STEELBLUE">
                <font>
                   <Font name="Helvetica" size="36.0" />
                </font>
             </Label>
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="800.0" layoutY="110.0" mnemonicParsing="false" onAction="#viewReportsHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Reports">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
     </children>
