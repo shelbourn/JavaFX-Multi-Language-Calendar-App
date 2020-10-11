@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="707.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.landingScreenController">
     <children>
-        <Label fx:id="appSubHeaderLabel" layoutX="45.0" layoutY="98.0" prefHeight="29.0" prefWidth="300.0" text="ABC Co. • Calendar System" textFill="#908e8e">
+        <Label layoutX="45.0" layoutY="98.0" prefHeight="29.0" prefWidth="300.0" text="ABC Co. • Calendar System" textFill="#908e8e">
             <font>
                 <Font name="Helvetica Oblique" size="24.0" />
             </font>
@@ -17,12 +17,12 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button fx:id="exitBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1002.0" layoutY="631.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1002.0" layoutY="631.0" mnemonicParsing="false" onAction="#exitBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px;" text="Exit">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
         </Button>
-        <AnchorPane fx:id="partPanel1" layoutX="117.0" layoutY="178.0" prefHeight="139.0" prefWidth="939.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+        <AnchorPane layoutX="117.0" layoutY="178.0" prefHeight="139.0" prefWidth="939.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
                 <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="370.0" layoutY="44.0" mnemonicParsing="false" onAction="#viewCustomersHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Customers" translateX="225.0">
                     <font>
@@ -36,14 +36,14 @@
                 </Button>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="partPanel11" layoutX="45.0" layoutY="371.0" prefHeight="207.0" prefWidth="1119.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
+      <AnchorPane layoutX="45.0" layoutY="371.0" prefHeight="207.0" prefWidth="1119.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
             <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="235.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Customer" translateX="225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="addAppointmetBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="345.0" layoutY="110.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="345.0" layoutY="110.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>

@@ -10,8 +10,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -23,16 +21,6 @@ public class landingScreenController implements Initializable {
 
     @FXML
     private AnchorPane mainScr;
-    @FXML
-    private Label appSubHeaderLabel;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private AnchorPane partPanel1;
-    @FXML
-    private AnchorPane partPanel11;
-    @FXML
-    private Button addAppointmetBtn;
 
     /**
      * Initializes the controller class.
@@ -45,7 +33,6 @@ public class landingScreenController implements Initializable {
     @FXML
     private void exitBtnHandler(ActionEvent event) {
     }
-
 
     @FXML
     private void addCustHandler(ActionEvent event) {

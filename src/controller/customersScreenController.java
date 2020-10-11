@@ -10,10 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -23,21 +20,7 @@ import javafx.scene.layout.AnchorPane;
 public class customersScreenController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
-    private Label appSubHeaderLabel;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private AnchorPane partPanel1;
-    @FXML
     private TableView<?> customersTable;
-    @FXML
-    private AnchorPane partPanel11;
-    @FXML
-    private AnchorPane partPanel111;
-    @FXML
-    private AnchorPane partPanel1111;
 
     /**
      * Initializes the controller class.

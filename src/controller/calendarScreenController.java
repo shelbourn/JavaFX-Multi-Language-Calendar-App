@@ -10,8 +10,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -24,27 +22,11 @@ import javafx.scene.layout.AnchorPane;
 public class calendarScreenController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
-    private Label appSubHeaderLabel;
-    @FXML
-    private Button exitBtn;
-    @FXML
-    private AnchorPane partPanel1;
-    @FXML
-    private AnchorPane partPanel11;
-    @FXML
-    private AnchorPane partPanel111;
-    @FXML
     private TableView<?> calendarTable;
     @FXML
-    private AnchorPane partPanel112;
-    @FXML
-    private Label appSubHeaderLabel1;
+    private AnchorPane mainScr;
     @FXML
     private ToggleGroup calViewToggleGroup;
-    @FXML
-    private AnchorPane partPanel1111;
 
     /**
      * Initializes the controller class.
@@ -88,6 +70,10 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void reportsHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void allAppointmentsHandler(ActionEvent event) {
     }
 
 }
