@@ -10,10 +10,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -22,8 +25,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class modifyAppointmentModalController implements Initializable {
 
-    @FXML
-    private AnchorPane mainScr;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -34,6 +35,8 @@ public class modifyAppointmentModalController implements Initializable {
     private ComboBox<?> customer;
     @FXML
     private ComboBox<?> appointmentType;
+    @FXML
+    private Button cancelBtn;
 
     /**
      * Initializes the controller class.
@@ -42,7 +45,6 @@ public class modifyAppointmentModalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
-
 
     @FXML
     private void clearUserFieldHandler(MouseEvent event) {
@@ -78,6 +80,12 @@ public class modifyAppointmentModalController implements Initializable {
 
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
+        Scene scene = cancelBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
-
 }

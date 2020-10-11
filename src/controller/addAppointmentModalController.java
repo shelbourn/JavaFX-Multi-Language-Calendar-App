@@ -26,8 +26,6 @@ import javafx.stage.Window;
 public class addAppointmentModalController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
     private DatePicker datePicker;
     @FXML
     private ComboBox<?> appointmentTime;

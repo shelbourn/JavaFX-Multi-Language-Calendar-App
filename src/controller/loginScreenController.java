@@ -31,8 +31,6 @@ import javafx.stage.Stage;
 public class loginScreenController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
     private Label appSubHeaderLabel;
     @FXML
     private Button exitBtn;

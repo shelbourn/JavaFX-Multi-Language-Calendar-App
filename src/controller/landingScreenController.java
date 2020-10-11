@@ -28,8 +28,6 @@ import javafx.stage.Stage;
  */
 public class landingScreenController implements Initializable {
 
-    @FXML
-    private AnchorPane mainScr;
 
     /**
      * Initializes the controller class.

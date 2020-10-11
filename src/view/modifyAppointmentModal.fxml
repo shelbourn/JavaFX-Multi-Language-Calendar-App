@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="mainScr" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.modifyAppointmentModalController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.modifyAppointmentModalController">
     <children>
         <Label layoutX="35.0" layoutY="88.0" prefHeight="29.0" prefWidth="301.0" text="ABC Co. • Calendar System" textFill="#908e8e" AnchorPane.leftAnchor="35.0">
             <font>
@@ -21,7 +21,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#cancelBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Cancel">
+        <Button fx:id="cancelBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="412.0" layoutY="535.0" mnemonicParsing="false" onAction="#cancelBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Cancel">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>

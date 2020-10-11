@@ -30,8 +30,6 @@ import javafx.stage.Stage;
 public class reportsScreenController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
     private TableView<?> apptConsultantResults;
     @FXML
     private ComboBox<?> apptConsultant;

@@ -31,8 +31,6 @@ public class calendarScreenController implements Initializable {
     @FXML
     private TableView<?> calendarTable;
     @FXML
-    private AnchorPane mainScr;
-    @FXML
     private ToggleGroup calViewToggleGroup;
 
     /**

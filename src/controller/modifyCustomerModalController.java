@@ -10,10 +10,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -23,8 +26,6 @@ import javafx.scene.layout.AnchorPane;
 public class modifyCustomerModalController implements Initializable {
 
     @FXML
-    private AnchorPane mainScr;
-    @FXML
     private TextField firstName;
     @FXML
     private TextField streetAddress;
@@ -32,6 +33,10 @@ public class modifyCustomerModalController implements Initializable {
     private ComboBox<?> city;
     @FXML
     private TextField phoneNumber;
+    @FXML
+    private ComboBox<?> country;
+    @FXML
+    private Button cancelBtn;
 
     /**
      * Initializes the controller class.
@@ -71,6 +76,16 @@ public class modifyCustomerModalController implements Initializable {
 
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
+        Scene scene = cancelBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
 
+    @FXML
+    private void countryHandler(ActionEvent event) {
+    }
 }
