@@ -1,0 +1,20 @@
+/*
+    Created on : Oct 10, 2020, 6:32:28 PM
+    Author     : Matthew Shelbourn <mshelbo@wgu.edu>
+*/
+
+.combo-box .list-cell {
+    -fx-font-size: 18px;
+}
+
+.date-picker .text-field {
+    -fx-font-size: 18px;
+}
+
+.text-field {
+    -fx-font-size: 18px;
+}
+
+.text-area {
+    -fx-font-size: 18px;
+}
