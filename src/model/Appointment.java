@@ -5,11 +5,6 @@
  */
 package model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
@@ -17,124 +12,95 @@ import javafx.beans.property.StringProperty;
 public class Appointment {
 
     // Properties for Appointment Class
-    private final IntegerProperty customerId;
-    private final StringProperty customerName;
-    private final IntegerProperty addressId;
-    private final StringProperty address;
-    private final IntegerProperty cityId;
-    private final IntegerProperty countryId;
-    private final StringProperty country;
-    private final StringProperty phone;
+    private int appointmentId;
+    private int customerId;
+    private int userId;
+    private String type;
+    private String start;
+    private String end;
+    private String userName;
+    private String customerName;
 
-    // Constructor to Instantiate the Appointment Class
+    // Empty constructor for Appointment Class
     public Appointment() {
-        this.customerId = new SimpleIntegerProperty();
-        this.customerName = new SimpleStringProperty();
-        this.addressId = new SimpleIntegerProperty();
-        this.address = new SimpleStringProperty();
-        this.cityId = new SimpleIntegerProperty();
-        this.countryId = new SimpleIntegerProperty();
-        this.country = new SimpleStringProperty();
-        this.phone = new SimpleStringProperty();
     }
 
-    // Getters for Appointment Property Values
+    // Constructor for Appointment Class
+    public Appointment(int appointmentId, int customerId, int userId, String type, String start, String end, String userName, String customerName) {
+        this.appointmentId = appointmentId;
+        this.customerId = customerId;
+        this.userId = userId;
+        this.type = type;
+        this.start = start;
+        this.end = end;
+        this.userName = userName;
+        this.customerName = customerName;
+    }
+
+    // Getters for Appointment Class
+    public int getAppointmentId() {
+        return appointmentId;
+    }
+
     public int getCustomerId() {
-        return customerId.get();
-    }
-
-    public String getCustomerName() {
-        return customerName.get();
-    }
-
-    public int getAddressId() {
-        return addressId.get();
-    }
-
-    public String getAddress() {
-        return address.get();
-    }
-
-    public int getCityId() {
-        return cityId.get();
-    }
-
-    public int getCountryId() {
-        return countryId.get();
-    }
-
-    public String getCountry() {
-        return country.get();
-    }
-
-    public String getPhone() {
-        return phone.get();
-    }
-
-    // Getters for Appointment Properties
-    public IntegerProperty getCustomerIdProperty() {
         return customerId;
     }
 
-    public StringProperty getCustomerNameProperty() {
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getCustomerName() {
         return customerName;
     }
 
-    public IntegerProperty getAddressIdProperty() {
-        return addressId;
+    // Setters for Appointment Class
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
-    public StringProperty getAddressProperty() {
-        return address;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public IntegerProperty getCityIdProperty() {
-        return cityId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public IntegerProperty getCountryIdProperty() {
-        return countryId;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public StringProperty getCountrPropertyy() {
-        return country;
+    public void setStart(String start) {
+        this.start = start;
     }
 
-    public StringProperty getPhoneProperty() {
-        return phone;
+    public void setEnd(String end) {
+        this.end = end;
     }
 
-    // Setters for Appointment Properties
-    public void setCustomerId(int value) {
-        customerId.set(value);
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setCustomerName(String value) {
-        customerName.set(value);
-    }
-
-    public void setAddressId(int value) {
-        addressId.set(value);
-    }
-
-    public void setAddress(String value) {
-        address.set(value);
-    }
-
-    public void setCityId(int value) {
-        cityId.set(value);
-    }
-
-    public void setCountryId(int value) {
-        countryId.set(value);
-    }
-
-    public void setCountry(String value) {
-        country.set(value);
-    }
-
-    public void setPhone(String value) {
-        phone.set(value);
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
 }
