@@ -5,9 +5,11 @@
  */
 package controller;
 
+import DBQueries.DBCustomer;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +17,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Customer;
 
 /**
  * FXML Controller class
@@ -27,14 +31,41 @@ import javafx.stage.Stage;
 public class customersScreenController implements Initializable {
 
     @FXML
-    private TableView<?> customersTable;
+    private TableView<Customer> customersTable;
+    @FXML
+    private TableColumn<Customer, Integer> customerIdCol;
+    @FXML
+    private TableColumn<Customer, String> customerNameCol;
+    @FXML
+    private TableColumn<Customer, String> addressCol;
+    @FXML
+    private TableColumn<Customer, String> cityCol;
+    @FXML
+    private TableColumn<Customer, String> countryCol;
+    @FXML
+    private TableColumn<Customer, String> phoneCol;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        // Fetching and setting Customers table
+        customerIdCol.setCellValueFactory(cellData -> cellData.getValue().getCustomerIdProperty().asObject());
+        customerNameCol.setCellValueFactory(cellData -> cellData.getValue().getCustomerNameProperty());
+        addressCol.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
+        cityCol.setCellValueFactory(cellData -> cellData.getValue().getCityProperty());
+        countryCol.setCellValueFactory(cellData -> cellData.getValue().getCountryProperty());
+        phoneCol.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
+
+        // Initializing the Customer table view
+        updateCustomersTable();
+    }
+
+    // Helper method for Updating Customers table view
+    private void updateCustomersTable() {
+        customersTable.setItems(DBCustomer.getAllCustomers());
     }
 
     @FXML
