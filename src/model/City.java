@@ -14,15 +14,24 @@ public class City {
     // Properties for City Class
     private int cityId;
     private String city;
+    private int countryId;
+    private String country;
 
-    // Empty Constructor for City Class
+    //City Class Constructors
     public City() {
     }
 
-    // City Class Constructor
-    public City(int cityId, String city) {
+    public City(int cityId, String city, String country) {
         this.cityId = cityId;
         this.city = city;
+        this.country = country;
+    }
+
+    public City(int cityId, String city, int countryId, String country) {
+        this.cityId = cityId;
+        this.city = city;
+        this.countryId = countryId;
+        this.country = country;
     }
 
     // Getters for City Class
@@ -34,6 +43,14 @@ public class City {
         return city;
     }
 
+    public int getCountryId() {
+        return countryId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
     // Setters for City Class
     public void setCityId(int cityId) {
         this.cityId = cityId;
@@ -41,6 +58,14 @@ public class City {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public void setCountryId(int countryId) {
+        this.countryId = countryId;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
 }
