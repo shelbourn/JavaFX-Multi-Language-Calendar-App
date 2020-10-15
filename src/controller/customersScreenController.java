@@ -62,12 +62,6 @@ public class customersScreenController implements Initializable {
         cityCol.setCellValueFactory(new PropertyValueFactory<>("city"));
         countryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
         phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
-//        customerNameCol.setCellValueFactory(cellData -> cellData.getValue().getCustomerNameProperty());
-//        addressCol.setCellValueFactory(cellData -> cellData.getValue().getAddressProperty());
-//        cityCol.setCellValueFactory(cellData -> cellData.getValue().getCityProperty());
-//        countryCol.setCellValueFactory(cellData -> cellData.getValue().getCountryProperty());
-//        phoneCol.setCellValueFactory(cellData -> cellData.getValue().getPhoneProperty());
-
     }
 
     // Helper method for Updating Customers table view
