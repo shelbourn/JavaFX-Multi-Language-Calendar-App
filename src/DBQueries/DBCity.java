@@ -32,9 +32,9 @@ public class DBCity {
 
             while (rs.next()) {
                 int cityId = rs.getInt("cityId");
-                String country = rs.getString("city");
-                String city = rs.getString("country");
-                City c = new City(cityId, country, city);
+                String city = rs.getString("city");
+                String country = rs.getString("country");
+                City c = new City(cityId, city, country);
                 allCities.add(c);
             }
         } catch (SQLException e) {

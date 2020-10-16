@@ -5,10 +5,13 @@
  */
 package controller;
 
+import DBQueries.DBCity;
 import DBQueries.DBCustomer;
 import static controller.customersScreenController.getCustomerToUpdate;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
+import model.City;
 import model.Customer;
 
 /**
@@ -29,7 +33,7 @@ import model.Customer;
 public class updateCustomerModalController implements Initializable {
 
     @FXML
-    private ComboBox<?> city;
+    private ComboBox<City> city;
     @FXML
     private TextField country;
     @FXML
@@ -42,17 +46,43 @@ public class updateCustomerModalController implements Initializable {
     private TextField phone;
 
     // Additional properties required for functionality
-    private Customer customerToUpdate = getCustomerToUpdate();
+    private final Customer customerToUpdate = getCustomerToUpdate();
+    private static ObservableList<City> allCities = FXCollections.observableArrayList();
+    private City selectedCity;
+    private String countryName;
+    private final String customerCityName = customerToUpdate.getCity();
+    private City initCustomerCity;
+    private String initCountryName;
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Fetching and settings fields with data from Customer to update
+        // Fetching and setting fields with data from Customer to update
+        // Initializing City combo box with data from the database
         customerName.setText(customerToUpdate.getCustomerName());
         address.setText(customerToUpdate.getAddress());
         phone.setText(customerToUpdate.getPhone());
+        allCities = DBCity.getAllCities();
+        city.setItems(allCities);
+        city.getSelectionModel().select(initCities());
+        initCountryName = initCustomerCity.getCountry();
+        country.setText(initCountryName);
+    }
+
+    // Helper method to set the Customer's current city in the database
+    public City initCities() {
+        City tempCity = null;
+        for (City i : allCities) {
+            if (i.getCity().equals(customerCityName)) {
+                initCustomerCity = i;
+            }
+        }
+        return initCustomerCity;
     }
 
     @FXML
@@ -65,6 +95,9 @@ public class updateCustomerModalController implements Initializable {
 
     @FXML
     private void cityHandler(ActionEvent event) {
+        selectedCity = city.getValue();
+        countryName = selectedCity.getCountry();
+        country.setText(countryName);
     }
 
     @FXML

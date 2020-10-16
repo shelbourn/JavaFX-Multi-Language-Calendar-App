@@ -6,8 +6,11 @@
 package DBQueries;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +24,10 @@ import utils.DBConn;
  */
 public class DBCustomer {
 
+    public DBCustomer() {
+    }
+
+    // Retrieves all customer records from the database and assigns them to an Observable Array
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> custList = FXCollections.observableArrayList();
 
@@ -58,7 +65,61 @@ public class DBCustomer {
         return custList;
     }
 
-    public static void createCustomer() {
+    // Creates a new Customer records in the database
+    public static void createCustomer(String customerName, String address, String phone, int cityId) {
+
+        try {
+            Date date = new Date();
+            Object dateTime = new Timestamp(date.getTime());
+
+            // Setting the SQL query template with variables for address component of customer record
+            String qAdd = "INSERT INTO address VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Setting the prepared statement
+            PreparedStatement psAdd = DBConn.startConnection().prepareStatement(qAdd, Statement.RETURN_GENERATED_KEYS);
+
+            // Assigning values to the SQL query variables
+            psAdd.setString(1, address);
+            psAdd.setString(2, "N/A");
+            psAdd.setInt(3, cityId);
+            psAdd.setString(4, "N/A");
+            psAdd.setString(5, phone);
+            psAdd.setObject(6, dateTime);
+            psAdd.setString(7, "N/A");
+            psAdd.setObject(8, dateTime);
+            psAdd.setString(9, "N/A");
+
+            // Executing the prepared statement
+            psAdd.execute();
+
+            // Generating the addressId using the index of the Generated Keys
+            ResultSet rs = psAdd.getGeneratedKeys();
+            rs.next();
+            int addressId = rs.getInt(1);
+
+            // Setting the SQL squery template with variables for creating the customer record
+            String qCust = "INSERT INTO customer VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
+
+            // Setting the prepared statement
+            PreparedStatement psCust = DBConn.startConnection().prepareStatement(qCust);
+
+            // Assigning values to the SQL query variables
+            psCust.setString(1, customerName);
+            psCust.setInt(2, addressId);
+            psCust.setInt(3, 1);
+            psCust.setObject(4, dateTime);
+            psCust.setString(5, "N/A");
+            psCust.setObject(6, dateTime);
+            psCust.setString(7, "N.A");
+
+            // Executing the prepared statement
+            psCust.execute();
+
+            System.out.println("Database Query Successful!\nNew Customer Added!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
 
     }
 

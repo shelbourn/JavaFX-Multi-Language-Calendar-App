@@ -6,8 +6,11 @@
 package controller;
 
 import DBQueries.DBCity;
+import DBQueries.DBCustomer;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.City;
+import model.Customer;
 
 /**
  * FXML Controller class
@@ -28,7 +33,9 @@ import javafx.stage.Window;
 public class addCustomerModalController implements Initializable {
 
     @FXML
-    private ComboBox<?> city;
+    private ComboBox<City> city;
+    @FXML
+    private Button saveBtn;
     @FXML
     private Button cancelBtn;
     @FXML
@@ -40,12 +47,23 @@ public class addCustomerModalController implements Initializable {
     @FXML
     private TextField phone;
 
+    // Additional properties required for functionality
+    private static ObservableList<City> allCities = FXCollections.observableArrayList();
+    private City selectedCity;
+    private String countryName;
+    private int DBCityId;
+    private String DBCustomerName;
+    private String DBAddress;
+    private String DBphone;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Initializing City combo box with data from the database
+        allCities = DBCity.getAllCities();
+        city.setItems(allCities);
     }
 
     @FXML
@@ -58,6 +76,9 @@ public class addCustomerModalController implements Initializable {
 
     @FXML
     private void cityHandler(ActionEvent event) {
+        selectedCity = city.getValue();
+        countryName = selectedCity.getCountry();
+        country.setText(countryName);
     }
 
     @FXML
@@ -66,6 +87,19 @@ public class addCustomerModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+        DBCustomerName = customerName.getText();
+        DBAddress = address.getText();
+        DBphone = phone.getText();
+        DBCityId = selectedCity.getCityId();
+        DBCustomer.createCustomer(DBCustomerName, DBAddress, DBphone, DBCityId);
+
+        Scene scene = saveBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
 
     @FXML
@@ -77,6 +111,7 @@ public class addCustomerModalController implements Initializable {
                 window.hide();
             }
         }
+
     }
 
 }

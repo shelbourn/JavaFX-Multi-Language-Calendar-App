@@ -35,10 +35,10 @@
                 <TextField fx:id="address" layoutX="30.0" layoutY="121.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#addressHandler" prefHeight="45.0" prefWidth="490.0" promptText="Street Address" stylesheets="@../styles/calAppStyles.css" />
                 <ComboBox fx:id="city" layoutX="30.0" layoutY="176.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#cityHandler" prefHeight="45.0" prefWidth="240.0" promptText="City" stylesheets="@../styles/calAppStyles.css" />
                 <TextField fx:id="phone" layoutX="30.0" layoutY="231.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#phoneHandler" prefHeight="45.0" prefWidth="240.0" promptText="Phone Number" stylesheets="@../styles/calAppStyles.css" />
-            <TextField fx:id="country" editable="false" layoutX="280.0" layoutY="176.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="240.0" promptText="Country" stylesheets="@../styles/calAppStyles.css" />
+            <TextField fx:id="country" disable="true" editable="false" layoutX="280.0" layoutY="176.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="240.0" promptText="Country" stylesheets="@../styles/calAppStyles.css" />
             </children>
         </AnchorPane>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="490.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
+        <Button fx:id="saveBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="490.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>

@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Customer;
 
 /**
@@ -32,7 +34,7 @@ import model.Customer;
 public class customersScreenController implements Initializable {
 
     @FXML
-    private TableView<Customer> customersTable;
+    public TableView<Customer> customersTable;
     @FXML
     private TableColumn<Customer, Integer> customerIdCol;
     @FXML
@@ -73,7 +75,7 @@ public class customersScreenController implements Initializable {
     }
 
     // Helper method for Updating Customers table view
-    private void updateCustomersTable() {
+    public void updateCustomersTable() {
         customersTable.setItems(DBCustomer.getAllCustomers());
     }
 
@@ -86,6 +88,9 @@ public class customersScreenController implements Initializable {
         Scene addCustomerScreen = new Scene(root);
         addCustomerModal.setTitle("CalApp | Add Customer");
         addCustomerModal.setScene(addCustomerScreen);
+        addCustomerModal.setOnHidden((WindowEvent event1) -> {
+            updateCustomersTable();
+        });
         addCustomerModal.show();
     }
 
