@@ -101,13 +101,16 @@ public class customersScreenController implements Initializable {
 //        String customerUpdateName = customerToUpdate.getCustomerName();
 //        int customerUpdateId = customerToUpdate.getCustomerId();
 
-        final Stage UpdateCustomerModal = new Stage();
+        final Stage updateCustomerModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/updateCustomerModal.fxml"));
-        UpdateCustomerModal.initModality(Modality.APPLICATION_MODAL);
+        updateCustomerModal.initModality(Modality.APPLICATION_MODAL);
         Scene UpdateCustomerScreen = new Scene(root);
-        UpdateCustomerModal.setTitle("CalApp | Update Customer");
-        UpdateCustomerModal.setScene(UpdateCustomerScreen);
-        UpdateCustomerModal.show();
+        updateCustomerModal.setTitle("CalApp | Update Customer");
+        updateCustomerModal.setScene(UpdateCustomerScreen);
+        updateCustomerModal.setOnHidden((WindowEvent event1) -> {
+            updateCustomersTable();
+        });
+        updateCustomerModal.show();
 
     }
 

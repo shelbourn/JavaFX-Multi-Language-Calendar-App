@@ -11,10 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
-import javafx.beans.property.IntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.City;
 import model.Customer;
 import utils.DBConn;
 
@@ -33,25 +31,25 @@ public class DBCustomer {
 
         try {
 
-            String q = "SELECT customerId, customerName, customer.addressId, address, phone, address.cityId, "
+            String qGet = "SELECT customerId, customerName, customer.addressId, address, phone, address.cityId, "
                     + "city, city.countryId, country FROM customer, address, city, country "
                     + "WHERE customer.addressId = address.addressId AND address.cityId = city.cityId "
                     + "AND city.countryId = country.countryId";
 
-            PreparedStatement ps = DBConn.startConnection().prepareStatement(q);
+            PreparedStatement psGet = DBConn.startConnection().prepareStatement(qGet);
 
-            ResultSet rs = ps.executeQuery();
+            ResultSet rsGet = psGet.executeQuery();
 
-            while (rs.next()) {
-                int customerId = rs.getInt("customerId");
-                String customerName = rs.getString("customerName");
-                int addressId = rs.getInt("addressId");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                int cityId = rs.getInt("cityId");
-                String city = rs.getString("city");
-                int countryId = rs.getInt("countryId");
-                String country = rs.getString("country");
+            while (rsGet.next()) {
+                int customerId = rsGet.getInt("customerId");
+                String customerName = rsGet.getString("customerName");
+                int addressId = rsGet.getInt("addressId");
+                String address = rsGet.getString("address");
+                String phone = rsGet.getString("phone");
+                int cityId = rsGet.getInt("cityId");
+                String city = rsGet.getString("city");
+                int countryId = rsGet.getInt("countryId");
+                String country = rsGet.getString("country");
 
                 Customer c = new Customer(customerId, customerName, addressId, address, phone, cityId, city, countryId, country);
                 custList.add(c);
@@ -93,9 +91,9 @@ public class DBCustomer {
             psAdd.execute();
 
             // Generating the addressId using the index of the Generated Keys
-            ResultSet rs = psAdd.getGeneratedKeys();
-            rs.next();
-            int addressId = rs.getInt(1);
+            ResultSet rsAdd = psAdd.getGeneratedKeys();
+            rsAdd.next();
+            int addressId = rsAdd.getInt(1);
 
             // Setting the SQL squery template with variables for creating the customer record
             String qCust = "INSERT INTO customer VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
@@ -123,7 +121,45 @@ public class DBCustomer {
 
     }
 
-    public static void updateCustomer(int customerId, String customerName, int addressId, String address, String phone, int cityId, String city, int countryId, String country) {
+    public static void updateCustomer(int customerId, String customerName, int addressId, String address, String phone, int cityId) {
+
+        try {
+            Date date = new Date();
+            Object dateTime = new Timestamp(date.getTime());
+
+            // Setting the SQL query template with variables for updating the Customer Name component of customer record
+            String qUpdateCust = "UPDATE customer set customerName = ? WHERE customerId = ?";
+
+            // Setting the prepared statement
+            PreparedStatement psUpdateCust = DBConn.startConnection().prepareStatement(qUpdateCust);
+
+            // Assigning values to the SQL query variables
+            psUpdateCust.setString(1, customerName);
+            psUpdateCust.setInt(2, customerId);
+
+            // Executing the prepared statement
+            psUpdateCust.execute();
+
+            // Setting the SQL squery template with variables for updating the Address component of customer record
+            String qUpdateAdd = "UPDATE address set address = ?, cityId = ?, phone = ? WHERE addressId = ?";
+
+            // Setting the prepared statement
+            PreparedStatement psUpdateAdd = DBConn.startConnection().prepareStatement(qUpdateAdd);
+
+            // Assigning values to the SQL query variables
+            psUpdateAdd.setString(1, address);
+            psUpdateAdd.setInt(2, cityId);
+            psUpdateAdd.setString(3, phone);
+            psUpdateAdd.setInt(4, addressId);
+
+            // Executing the prepared statement
+            psUpdateAdd.execute();
+
+            System.out.println("Database Query Successful!\nCustomer Updated!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
 
     }
 

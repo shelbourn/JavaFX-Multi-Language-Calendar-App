@@ -37,6 +37,8 @@ public class updateCustomerModalController implements Initializable {
     @FXML
     private TextField country;
     @FXML
+    private Button saveBtn;
+    @FXML
     private Button cancelBtn;
     @FXML
     private TextField customerName;
@@ -53,6 +55,12 @@ public class updateCustomerModalController implements Initializable {
     private final String customerCityName = customerToUpdate.getCity();
     private City initCustomerCity;
     private String initCountryName;
+    private String updatedCustomerName;
+    private String updatedAddress;
+    private String updatedPhone;
+    private int customerId;
+    private int addressId;
+    private int updatedCityId;
 
     /**
      * Initializes the controller class.
@@ -76,12 +84,9 @@ public class updateCustomerModalController implements Initializable {
 
     // Helper method to set the Customer's current city in the database
     public City initCities() {
-        City tempCity = null;
-        for (City i : allCities) {
-            if (i.getCity().equals(customerCityName)) {
-                initCustomerCity = i;
-            }
-        }
+        allCities.stream().filter((i) -> (i.getCity().equals(customerCityName))).forEachOrdered((i) -> {
+            initCustomerCity = i;
+        });
         return initCustomerCity;
     }
 
@@ -106,10 +111,29 @@ public class updateCustomerModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+        updatedCustomerName = customerName.getText();
+        updatedAddress = address.getText();
+        updatedPhone = phone.getText();
+        customerId = customerToUpdate.getCustomerId();
+        addressId = customerToUpdate.getAddressId();
+        updatedCityId = city.getValue().getCityId();
+
+        DBCustomer.updateCustomer(customerId, updatedCustomerName, addressId, updatedAddress, updatedPhone, updatedCityId);
+
+        // Closes window and refreshes customer table view
+        Scene scene = saveBtn.getScene();
+        if (scene != null) {
+            Window window = scene.getWindow();
+            if (window != null) {
+                window.hide();
+            }
+        }
     }
 
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
+
+        // Closes window
         Scene scene = cancelBtn.getScene();
         if (scene != null) {
             Window window = scene.getWindow();
