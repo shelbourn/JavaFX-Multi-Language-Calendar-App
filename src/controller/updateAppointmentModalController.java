@@ -23,7 +23,7 @@ import javafx.stage.Window;
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class modifyAppointmentModalController implements Initializable {
+public class updateAppointmentModalController implements Initializable {
 
     @FXML
     private DatePicker datePicker;

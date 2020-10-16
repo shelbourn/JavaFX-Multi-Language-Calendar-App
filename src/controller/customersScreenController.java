@@ -46,6 +46,14 @@ public class customersScreenController implements Initializable {
     @FXML
     private TableColumn<Customer, String> phoneCol;
 
+    // Additional Properties required for functionality
+    private static Customer customerToUpdate;
+
+    // Getter for additional private properties
+    public static Customer getCustomerToUpdate() {
+        return customerToUpdate;
+    }
+
     /**
      * Initializes the controller class.
      */
@@ -69,6 +77,7 @@ public class customersScreenController implements Initializable {
         customersTable.setItems(DBCustomer.getAllCustomers());
     }
 
+    // Displays the Add Customer modal
     @FXML
     private void addCustHandler(ActionEvent event) throws IOException {
         final Stage addCustomerModal = new Stage();
@@ -81,13 +90,27 @@ public class customersScreenController implements Initializable {
     }
 
     @FXML
-    private void updateCustHandler(ActionEvent event) {
+    private void updateCustHandler(ActionEvent event) throws IOException {
+//        boolean noActiveSelection = customersTable.getSelectionModel().isEmpty();
+        customerToUpdate = customersTable.getSelectionModel().getSelectedItem();
+//        String customerUpdateName = customerToUpdate.getCustomerName();
+//        int customerUpdateId = customerToUpdate.getCustomerId();
+
+        final Stage UpdateCustomerModal = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/view/updateCustomerModal.fxml"));
+        UpdateCustomerModal.initModality(Modality.APPLICATION_MODAL);
+        Scene UpdateCustomerScreen = new Scene(root);
+        UpdateCustomerModal.setTitle("CalApp | Update Customer");
+        UpdateCustomerModal.setScene(UpdateCustomerScreen);
+        UpdateCustomerModal.show();
+
     }
 
     @FXML
     private void deleteCustHandler(ActionEvent event) {
     }
 
+    // Changes to the Calendar View
     @FXML
     private void viewCalHandler(ActionEvent event) throws IOException {
         System.out.println("Opening CALENDAR screen.");
@@ -99,6 +122,7 @@ public class customersScreenController implements Initializable {
         calendarWindow.show();
     }
 
+    // Displays the Add Appointment modal
     @FXML
     private void addApptHandler(ActionEvent event) throws IOException {
         final Stage addAppointmentModal = new Stage();
@@ -110,6 +134,7 @@ public class customersScreenController implements Initializable {
         addAppointmentModal.show();
     }
 
+    // Changes to the Reports view
     @FXML
     private void reportsHandler(ActionEvent event) throws IOException {
         System.out.println("Opening CALENDAR screen.");
@@ -121,6 +146,7 @@ public class customersScreenController implements Initializable {
         reportsWindow.show();
     }
 
+    // Changes to the Landing Screen view
     @FXML
     private void homeHandler(ActionEvent event) throws IOException {
         System.out.println("Username and Password accepted!\nOpening LANDING screen.");

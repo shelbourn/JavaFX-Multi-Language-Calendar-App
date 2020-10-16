@@ -28,17 +28,17 @@ import javafx.stage.Window;
 public class addCustomerModalController implements Initializable {
 
     @FXML
-    private TextField firstName;
-    @FXML
-    private TextField streetAddress;
-    @FXML
     private ComboBox<?> city;
-    @FXML
-    private TextField phoneNumber;
     @FXML
     private Button cancelBtn;
     @FXML
-    private ComboBox<?> country;
+    private TextField country;
+    @FXML
+    private TextField customerName;
+    @FXML
+    private TextField address;
+    @FXML
+    private TextField phone;
 
     /**
      * Initializes the controller class.
@@ -49,11 +49,11 @@ public class addCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void firstNameHandler(ActionEvent event) {
+    private void customerNameHandler(ActionEvent event) {
     }
 
     @FXML
-    private void streetHandler(ActionEvent event) {
+    private void addressHandler(ActionEvent event) {
     }
 
     @FXML
@@ -77,10 +77,6 @@ public class addCustomerModalController implements Initializable {
                 window.hide();
             }
         }
-    }
-
-    @FXML
-    private void countryHandler(ActionEvent event) {
     }
 
 }

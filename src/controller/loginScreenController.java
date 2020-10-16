@@ -22,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import utils.DBConn;
 
 /**
  * FXML Controller class
@@ -56,9 +57,11 @@ public class loginScreenController implements Initializable {
     }
 
     @FXML
-    private void exitBtnHandler(ActionEvent event) {
+    private void exitBtnHandler(ActionEvent event) throws IOException {
         // Add alert for confirmation
-        System.out.println("User confirmed.\nExiting application.\nEND.");
+        System.out.println("Closing MySQL connection.");
+        DBConn.closeConnection();
+        System.out.println("Exiting application.\nEND.");
         System.exit(0);
     }
 

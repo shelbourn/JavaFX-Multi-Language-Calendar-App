@@ -5,6 +5,8 @@
  */
 package controller;
 
+import DBQueries.DBCustomer;
+import static controller.customersScreenController.getCustomerToUpdate;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -17,49 +19,48 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
+import model.Customer;
 
 /**
  * FXML Controller class
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class modifyCustomerModalController implements Initializable {
+public class updateCustomerModalController implements Initializable {
 
-    @FXML
-    private TextField firstName;
-    @FXML
-    private TextField streetAddress;
     @FXML
     private ComboBox<?> city;
     @FXML
-    private TextField phoneNumber;
-    @FXML
-    private ComboBox<?> country;
+    private TextField country;
     @FXML
     private Button cancelBtn;
+    @FXML
+    private TextField customerName;
+    @FXML
+    private TextField address;
+    @FXML
+    private TextField phone;
+
+    // Additional properties required for functionality
+    private Customer customerToUpdate = getCustomerToUpdate();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Fetching and settings fields with data from Customer to update
+        customerName.setText(customerToUpdate.getCustomerName());
+        address.setText(customerToUpdate.getAddress());
+        phone.setText(customerToUpdate.getPhone());
     }
 
     @FXML
-    private void clearUserFieldHandler(MouseEvent event) {
+    private void customerNameHandler(ActionEvent event) {
     }
 
     @FXML
-    private void clearPasswordFieldHandler(MouseEvent event) {
-    }
-
-    @FXML
-    private void firstNameHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void streetHandler(ActionEvent event) {
+    private void addressHandler(ActionEvent event) {
     }
 
     @FXML
@@ -85,7 +86,4 @@ public class modifyCustomerModalController implements Initializable {
         }
     }
 
-    @FXML
-    private void countryHandler(ActionEvent event) {
-    }
 }

@@ -49,7 +49,9 @@ public class DBCustomer {
                 Customer c = new Customer(customerId, customerName, addressId, address, phone, cityId, city, countryId, country);
                 custList.add(c);
             }
+            System.out.println("Database Query Successful!\nCustomer list retrieved!");
         } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -60,7 +62,7 @@ public class DBCustomer {
 
     }
 
-    public static void modifyCustomer(int customerId, int addressId, int cityId, int countryId, String customerName, String address, String phone) {
+    public static void updateCustomer(int customerId, String customerName, int addressId, String address, String phone, int cityId, String city, int countryId, String country) {
 
     }
 

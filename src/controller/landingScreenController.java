@@ -20,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import utils.DBConn;
 
 /**
  * FXML Controller class
@@ -27,7 +28,6 @@ import javafx.stage.Stage;
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
 public class landingScreenController implements Initializable {
-
 
     /**
      * Initializes the controller class.
@@ -40,6 +40,8 @@ public class landingScreenController implements Initializable {
     @FXML
     private void exitBtnHandler(ActionEvent event) throws IOException {
         // Add alert for confirmation
+        System.out.println("Closing MySQL connection.");
+        DBConn.closeConnection();
         System.out.println("Exiting application.\nEND.");
         System.exit(0);
     }
