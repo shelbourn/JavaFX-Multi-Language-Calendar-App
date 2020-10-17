@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
@@ -16,8 +18,8 @@ public class Appointment {
     private int customerId;
     private int userId;
     private String type;
-    private String start;
-    private String end;
+    private Timestamp start;
+    private Timestamp end;
     private String userName;
     private String customerName;
 
@@ -25,8 +27,8 @@ public class Appointment {
     public Appointment() {
     }
 
-    // Constructor for Appointment Class
-    public Appointment(int appointmentId, int customerId, int userId, String type, String start, String end, String userName, String customerName) {
+    // Constructors for Appointment Class
+    public Appointment(int appointmentId, int customerId, int userId, String type, Timestamp start, Timestamp end, String userName, String customerName) {
         this.appointmentId = appointmentId;
         this.customerId = customerId;
         this.userId = userId;
@@ -54,11 +56,11 @@ public class Appointment {
         return type;
     }
 
-    public String getStart() {
+    public Timestamp getStart() {
         return start;
     }
 
-    public String getEnd() {
+    public Timestamp getEnd() {
         return end;
     }
 
@@ -87,11 +89,11 @@ public class Appointment {
         this.type = type;
     }
 
-    public void setStart(String start) {
+    public void setStart(Timestamp start) {
         this.start = start;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(Timestamp end) {
         this.end = end;
     }
 

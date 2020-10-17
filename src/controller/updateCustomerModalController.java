@@ -82,7 +82,7 @@ public class updateCustomerModalController implements Initializable {
         country.setText(initCountryName);
     }
 
-    // Helper method to set the Customer's current city in the database
+    // Helper method to retrieve the Customer's current city from the database and convert to a City object
     public City initCities() {
         allCities.stream().filter((i) -> (i.getCity().equals(customerCityName))).forEachOrdered((i) -> {
             initCustomerCity = i;

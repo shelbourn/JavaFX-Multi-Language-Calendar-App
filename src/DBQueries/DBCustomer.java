@@ -10,9 +10,13 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import model.Customer;
 import utils.DBConn;
 
@@ -63,12 +67,13 @@ public class DBCustomer {
         return custList;
     }
 
-    // Creates a new Customer records in the database
+    // Creates a new Customer record in the database
     public static void createCustomer(String customerName, String address, String phone, int cityId) {
 
         try {
-            Date date = new Date();
-            Object dateTime = new Timestamp(date.getTime());
+            LocalDate localDate = LocalDate.now();
+            LocalTime localTime = LocalTime.now();
+            String localDateTime = localDate + " " + localTime;
 
             // Setting the SQL query template with variables for address component of customer record
             String qAdd = "INSERT INTO address VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -82,9 +87,9 @@ public class DBCustomer {
             psAdd.setInt(3, cityId);
             psAdd.setString(4, "N/A");
             psAdd.setString(5, phone);
-            psAdd.setObject(6, dateTime);
+            psAdd.setObject(6, localDateTime);
             psAdd.setString(7, "N/A");
-            psAdd.setObject(8, dateTime);
+            psAdd.setObject(8, localDateTime);
             psAdd.setString(9, "N/A");
 
             // Executing the prepared statement
@@ -105,9 +110,9 @@ public class DBCustomer {
             psCust.setString(1, customerName);
             psCust.setInt(2, addressId);
             psCust.setInt(3, 1);
-            psCust.setObject(4, dateTime);
+            psCust.setObject(4, localDateTime);
             psCust.setString(5, "N/A");
-            psCust.setObject(6, dateTime);
+            psCust.setObject(6, localDateTime);
             psCust.setString(7, "N.A");
 
             // Executing the prepared statement

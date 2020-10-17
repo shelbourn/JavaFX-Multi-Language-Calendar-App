@@ -38,7 +38,7 @@
                         <String fx:value="text-field" />
                     </styleClass>
                 </DatePicker>
-                <ComboBox fx:id="appointmentTime" layoutX="103.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#timeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment TIme" stylesheets="@../styles/calAppStyles.css" visibleRowCount="20">
+                <ComboBox fx:id="startTime" layoutX="103.0" layoutY="120.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#startTimeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Start Time" stylesheets="@../styles/calAppStyles.css" visibleRowCount="20">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />
@@ -62,7 +62,7 @@
                         <String fx:value=".list-cell" />
                     </styleClass>
                 </ComboBox>
-                <ComboBox fx:id="appointmentDuration" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#durationHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment Duration" stylesheets="@../styles/calAppStyles.css" visibleRowCount="20">
+                <ComboBox fx:id="endTime" layoutX="103.0" layoutY="175.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#endTimeHandler" prefHeight="45.0" prefWidth="345.0" promptText="Appointment End Time" stylesheets="@../styles/calAppStyles.css" visibleRowCount="20">
                     <styleClass>
                         <String fx:value=".combo-box" />
                         <String fx:value=".list-cell" />
@@ -70,7 +70,7 @@
                 </ComboBox>
             </children>
         </AnchorPane>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="602.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
+        <Button fx:id="saveBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="239.0" layoutY="602.0" mnemonicParsing="false" onAction="#saveBtnHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Save">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>

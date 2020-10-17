@@ -22,7 +22,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
+        <Button fx:id="homeBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
@@ -31,8 +31,13 @@
          <children>
             <TableView fx:id="calendarTable" layoutX="13.0" layoutY="56.0" prefHeight="518.0" prefWidth="945.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="customerIdCol" editable="false" prefWidth="76.0" text="Customer ID" />
+                <TableColumn fx:id="customerNameCol" editable="false" prefWidth="155.0" text="Customer Name" />
+                  <TableColumn fx:id="consultantCol" editable="false" minWidth="0.0" prefWidth="155.0" text="Consultant" />
+                  <TableColumn fx:id="dateCol" editable="false" minWidth="0.0" prefWidth="108.0" text="Date" />
+                  <TableColumn fx:id="startTimeCol" editable="false" prefWidth="160.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeCol" editable="false" prefWidth="160.0" text="End Time" />
+                  <TableColumn fx:id="typeCol" editable="false" prefWidth="142.0" text="Type" />
               </columns>
             </TableView>
             <Label layoutX="339.0" layoutY="10.0" prefHeight="34.0" prefWidth="293.0" text="Appointments Calendar" textFill="STEELBLUE">
@@ -50,7 +55,7 @@
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
                         </Button>
-                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="61.0" mnemonicParsing="false" onAction="#updateApptHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Update Appointment">
+                        <Button fx:id="updateApptBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="61.0" mnemonicParsing="false" onAction="#updateApptHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Update Appointment">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>

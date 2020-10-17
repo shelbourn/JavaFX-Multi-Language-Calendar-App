@@ -8,6 +8,7 @@ package controller;
 import DBQueries.DBCustomer;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -54,7 +55,7 @@ public class customersScreenController implements Initializable {
     private int customerIdToDelete;
     private int addressIdToDelete;
 
-    // Getter for additional private properties
+    // Getters for additional private properties
     public static Customer getCustomerToUpdate() {
         return customerToUpdate;
     }

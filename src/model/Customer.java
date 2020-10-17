@@ -116,4 +116,10 @@ public final class Customer {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    // Overriding the default toString() behavior
+    @Override
+    public String toString() {
+        return (customerName);
+    }
 }

@@ -53,4 +53,10 @@ public class User {
         this.password = password;
     }
 
+    // Overriding the default toString() behavior
+    @Override
+    public String toString() {
+        return (userName);
+    }
+
 }
