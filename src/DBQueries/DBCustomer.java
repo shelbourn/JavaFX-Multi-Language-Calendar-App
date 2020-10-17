@@ -124,9 +124,6 @@ public class DBCustomer {
     public static void updateCustomer(int customerId, String customerName, int addressId, String address, String phone, int cityId) {
 
         try {
-            Date date = new Date();
-            Object dateTime = new Timestamp(date.getTime());
-
             // Setting the SQL query template with variables for updating the Customer Name component of customer record
             String qUpdateCust = "UPDATE customer set customerName = ? WHERE customerId = ?";
 
@@ -164,6 +161,37 @@ public class DBCustomer {
     }
 
     public static void deleteCustomer(int customerId, int addressId) {
+
+        try {
+            // Setting the SQL query template with variables for deleting the Customer Name component of customer record
+            String qDeleteCust = "DELETE from customer WHERE customerId = ?";
+
+            // Setting the prepared statement
+            PreparedStatement psDeleteCust = DBConn.startConnection().prepareStatement(qDeleteCust);
+
+            // Assigning values to the SQL query variables
+            psDeleteCust.setInt(1, customerId);
+
+            // Executing the prepared statement
+            psDeleteCust.execute();
+
+            // Setting the SQL squery template with variables for deleting the Address component of customer record
+            String qDeleteAdd = "DELETE from address WHERE addressId = ?";
+
+            // Setting the prepared statement
+            PreparedStatement psDeleteAdd = DBConn.startConnection().prepareStatement(qDeleteAdd);
+
+            // Assigning values to the SQL query variables
+            psDeleteAdd.setInt(1, addressId);
+
+            // Executing the prepared statement
+            psDeleteAdd.execute();
+
+            System.out.println("Database Query Successful!\nCustomer Deleted!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
 
     }
 

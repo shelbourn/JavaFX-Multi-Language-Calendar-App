@@ -50,6 +50,9 @@ public class customersScreenController implements Initializable {
 
     // Additional Properties required for functionality
     private static Customer customerToUpdate;
+    private Customer customerToDelete;
+    private int customerIdToDelete;
+    private int addressIdToDelete;
 
     // Getter for additional private properties
     public static Customer getCustomerToUpdate() {
@@ -116,6 +119,17 @@ public class customersScreenController implements Initializable {
 
     @FXML
     private void deleteCustHandler(ActionEvent event) {
+
+        // Deletes the currently selected Customer
+        customerToDelete = customersTable.getSelectionModel().getSelectedItem();
+        customerIdToDelete = customerToDelete.getCustomerId();
+        addressIdToDelete = customerToDelete.getAddressId();
+
+        DBCustomer.deleteCustomer(customerIdToDelete, addressIdToDelete);
+
+        // Refreshes Customer table view
+        updateCustomersTable();
+
     }
 
     // Changes to the Calendar View
