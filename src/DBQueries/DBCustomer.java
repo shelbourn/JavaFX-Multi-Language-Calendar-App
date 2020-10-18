@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import model.Customer;
 import utils.DBConn;
+import static utils.HelperMethods.convertToLDT;
+import static utils.HelperMethods.ldtToTimestamp;
 
 /**
  *
@@ -73,49 +75,50 @@ public class DBCustomer {
         try {
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();
-            String localDateTime = localDate + " " + localTime;
+            LocalDateTime ldt = convertToLDT(localDate, localTime);
+            Timestamp dateTime = ldtToTimestamp(ldt);
 
-            // Setting the SQL query template with variables for address component of customer record
+            // Sets the SQL query template with variables for address component of customer record
             String qAdd = "INSERT INTO address VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psAdd = DBConn.startConnection().prepareStatement(qAdd, Statement.RETURN_GENERATED_KEYS);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psAdd.setString(1, address);
             psAdd.setString(2, "N/A");
             psAdd.setInt(3, cityId);
             psAdd.setString(4, "N/A");
             psAdd.setString(5, phone);
-            psAdd.setObject(6, localDateTime);
+            psAdd.setTimestamp(6, dateTime);
             psAdd.setString(7, "N/A");
-            psAdd.setObject(8, localDateTime);
+            psAdd.setTimestamp(8, dateTime);
             psAdd.setString(9, "N/A");
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psAdd.execute();
 
-            // Generating the addressId using the index of the Generated Keys
+            // Generates the addressId using the index of the Generated Keys
             ResultSet rsAdd = psAdd.getGeneratedKeys();
             rsAdd.next();
             int addressId = rsAdd.getInt(1);
 
-            // Setting the SQL squery template with variables for creating the customer record
+            // Sets the SQL squery template with variables for creating the customer record
             String qCust = "INSERT INTO customer VALUES(NULL, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psCust = DBConn.startConnection().prepareStatement(qCust);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psCust.setString(1, customerName);
             psCust.setInt(2, addressId);
             psCust.setInt(3, 1);
-            psCust.setObject(4, localDateTime);
+            psCust.setTimestamp(4, dateTime);
             psCust.setString(5, "N/A");
-            psCust.setObject(6, localDateTime);
+            psCust.setTimestamp(6, dateTime);
             psCust.setString(7, "N.A");
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psCust.execute();
 
             System.out.println("Database Query Successful!\nNew Customer Added!");
@@ -129,32 +132,32 @@ public class DBCustomer {
     public static void updateCustomer(int customerId, String customerName, int addressId, String address, String phone, int cityId) {
 
         try {
-            // Setting the SQL query template with variables for updating the Customer Name component of customer record
+            // Sets the SQL query template with variables for updating the Customer Name component of customer record
             String qUpdateCust = "UPDATE customer set customerName = ? WHERE customerId = ?";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psUpdateCust = DBConn.startConnection().prepareStatement(qUpdateCust);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psUpdateCust.setString(1, customerName);
             psUpdateCust.setInt(2, customerId);
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psUpdateCust.execute();
 
-            // Setting the SQL squery template with variables for updating the Address component of customer record
+            // Sets the SQL squery template with variables for updating the Address component of customer record
             String qUpdateAdd = "UPDATE address set address = ?, cityId = ?, phone = ? WHERE addressId = ?";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psUpdateAdd = DBConn.startConnection().prepareStatement(qUpdateAdd);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psUpdateAdd.setString(1, address);
             psUpdateAdd.setInt(2, cityId);
             psUpdateAdd.setString(3, phone);
             psUpdateAdd.setInt(4, addressId);
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psUpdateAdd.execute();
 
             System.out.println("Database Query Successful!\nCustomer Updated!");
@@ -168,28 +171,28 @@ public class DBCustomer {
     public static void deleteCustomer(int customerId, int addressId) {
 
         try {
-            // Setting the SQL query template with variables for deleting the Customer Name component of customer record
+            // Sets the SQL query template with variables for deleting the Customer Name component of customer record
             String qDeleteCust = "DELETE from customer WHERE customerId = ?";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psDeleteCust = DBConn.startConnection().prepareStatement(qDeleteCust);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psDeleteCust.setInt(1, customerId);
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psDeleteCust.execute();
 
-            // Setting the SQL squery template with variables for deleting the Address component of customer record
+            // Sets the SQL squery template with variables for deleting the Address component of customer record
             String qDeleteAdd = "DELETE from address WHERE addressId = ?";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psDeleteAdd = DBConn.startConnection().prepareStatement(qDeleteAdd);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psDeleteAdd.setInt(1, addressId);
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psDeleteAdd.execute();
 
             System.out.println("Database Query Successful!\nCustomer Deleted!");

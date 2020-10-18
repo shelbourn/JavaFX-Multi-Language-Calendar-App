@@ -69,7 +69,7 @@ public class customersScreenController implements Initializable {
         // Initializes Customers table view
         customersTable.setItems(DBCustomer.getAllCustomers());
 
-        // Fetching and setting Customers table
+        // Fetches and sets Customers table
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         addressCol.setCellValueFactory(new PropertyValueFactory<>("address"));

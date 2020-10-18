@@ -68,7 +68,7 @@ public class City {
         this.country = country;
     }
 
-    // Overriding the default toString() behavior
+    // Overrides the default toString() behavior
     @Override
     public String toString() {
         return (city);

@@ -29,7 +29,7 @@ public class AppointmentType {
         this.type = type;
     }
 
-    // Overriding the default toString() behavior
+    // Overrides the default toString() behavior
     @Override
     public String toString() {
         return (type);

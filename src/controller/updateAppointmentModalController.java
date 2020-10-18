@@ -10,6 +10,8 @@ import DBQueries.DBCustomer;
 import DBQueries.DBUser;
 import static controller.calendarScreenController.getAppointmentToUpdate;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -20,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -29,6 +32,7 @@ import model.AppointmentType;
 import model.City;
 import model.Customer;
 import model.User;
+import static utils.HelperMethods.tweleveHrTime;
 
 /**
  * FXML Controller class
@@ -46,9 +50,9 @@ public class updateAppointmentModalController implements Initializable {
     @FXML
     private ComboBox<AppointmentType> appointmentType;
     @FXML
-    private ComboBox<LocalTime> startTime;
+    private ComboBox<String> startTime;
     @FXML
-    private ComboBox<LocalTime> endTime;
+    private ComboBox<String> endTime;
     @FXML
     private Button saveBtn;
     @FXML
@@ -59,12 +63,28 @@ public class updateAppointmentModalController implements Initializable {
     private final String initUserName = appointmentToUpdate.getUserName();
     private final String initCustomerName = appointmentToUpdate.getCustomerName();
     private final String initAppointmentType = appointmentToUpdate.getType();
-    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
-    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-    private static ObservableList<AppointmentType> allAppointmentTypes = FXCollections.observableArrayList();
     private User initUser;
     private Customer initCustomer;
     private AppointmentType initType;
+    private LocalDate initDate;
+    private String initStartTimeDisplay;
+    private LocalTime initStartTime;
+    private String initEndTimeDisplay;
+    private LocalTime initEndTime;
+    private LocalDate selectedDate;
+    private String selectedStartTime;
+    private String selectedEndTime;
+    private LocalTime convertedSelectedStartTime;
+    private LocalTime convertedSelectedEndTime;
+    private User selectedUser;
+    private Customer selectedCustomer;
+    private AppointmentType selectedAppointmentType;
+    private int customerId;
+    private int userId;
+    private String type;
+    private static ObservableList<User> allUsers = FXCollections.observableArrayList();
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<AppointmentType> allAppointmentTypes = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -74,21 +94,89 @@ public class updateAppointmentModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initializing fields with appointment data from database
-        // Get & Select User
+        // Initializes Start/End Time combo boxes
+        startTimeValues();
+
+        // Initializes fields with appointment data from database
+        // Get & Select Current User
         allUsers = DBUser.getAllUsers();
         consultant.setItems(allUsers);
+        consultant.setVisibleRowCount(5);
         consultant.getSelectionModel().select(initUser());
 
-        // Get & Select Customer
+        // Get & Select Current Customer
         allCustomers = DBCustomer.getAllCustomers();
         customer.setItems(allCustomers);
+        customer.setVisibleRowCount(5);
         customer.getSelectionModel().select(initCustomer());
 
-        // Get & Select Appointment Type
+        // Get & Select Current Appointment Type
         allAppointmentTypes = DBAppointmentType.getAllAppointmentTypes();
         appointmentType.setItems(allAppointmentTypes);
+        appointmentType.setVisibleRowCount(5);
         appointmentType.getSelectionModel().select(initType());
+
+        // Retrieves the current appointment date and convert to LocalDate object
+        initDate = appointmentToUpdate.getStart().toLocalDateTime().toLocalDate();
+
+        // Initializes available dates in DatePicker & selects initial appointment date
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean isEmpty) {
+                super.updateItem(date, isEmpty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(isEmpty || date.compareTo(today) < 0);
+            }
+        });
+
+        datePicker.setValue(initDate);
+
+        // Retrieves the current appointment start time, converts it to LocalDate object then String, and selects it in start time combo box
+        initStartTime = appointmentToUpdate.getStart().toLocalDateTime().toLocalTime();
+        initStartTimeDisplay = tweleveHrTime(initStartTime);
+        startTime.getSelectionModel().select(initStartTimeDisplay);
+
+        // Retrieves the current appointment end time, converts it to LocalDate object then String, and selects it in start time combo box
+        initEndTime = appointmentToUpdate.getEnd().toLocalDateTime().toLocalTime();
+        initEndTimeDisplay = tweleveHrTime(initEndTime);
+        endTime.getSelectionModel().select(initEndTimeDisplay);
+    }
+
+    // Helper method for populating start time combo box
+    private void startTimeValues() {
+        LocalTime startTimeRange = LocalTime.of(8, 0);
+        LocalTime endTimeRange = LocalTime.of(17, 0);
+        String startTimeDisplay;
+
+        while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
+            startTimeDisplay = tweleveHrTime(startTimeRange);
+            startTime.getItems().add(startTimeDisplay);
+            startTimeRange = startTimeRange.plusMinutes(15);
+            startTime.setVisibleRowCount(5);
+        }
+    }
+
+//    // Method to disable End Time combo box if start time hasn't been selected
+//    private void endTimeDisable() {
+//        if (selectedStartTime == null) {
+//            endTime.setDisable(true);
+//        }
+//    }
+    // Helper method for populating end time combo box
+    private void endTimeValues() {
+        LocalTime startTimeRange = convertedSelectedStartTime.plusMinutes(15);
+        LocalTime endTimeRange = LocalTime.of(17, 0);
+        String endTimeDisplay;
+
+        while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
+            endTimeDisplay = tweleveHrTime(startTimeRange);
+            endTime.getItems().add(endTimeDisplay);
+            startTimeRange = startTimeRange.plusMinutes(15);
+            endTime.setVisibleRowCount(5);
+
+        }
+
     }
 
     // Helper method to retrieve the initial user from the database and convert to a User object
@@ -152,5 +240,9 @@ public class updateAppointmentModalController implements Initializable {
                 window.hide();
             }
         }
+    }
+
+    private LocalDate tsToLTD(Timestamp start) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

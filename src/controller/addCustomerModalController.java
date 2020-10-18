@@ -61,9 +61,10 @@ public class addCustomerModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initializing City combo box with data from the database
+        // Initializes City combo box with data from the database
         allCities = DBCity.getAllCities();
         city.setItems(allCities);
+        city.setVisibleRowCount(5);
     }
 
     @FXML

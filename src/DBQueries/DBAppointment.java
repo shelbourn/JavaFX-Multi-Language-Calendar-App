@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import model.Appointment;
 import model.Customer;
 import utils.DBConn;
+import static utils.HelperMethods.convertToLDT;
+import static utils.HelperMethods.ldtToTimestamp;
 
 /**
  *
@@ -69,18 +71,21 @@ public class DBAppointment {
         try {
             LocalDate localDate = LocalDate.now();
             LocalTime localTime = LocalTime.now();
-            String localDateTime = localDate + " " + localTime;
+            LocalDateTime ldt = convertToLDT(localDate, localTime);
+            Timestamp dateTime = ldtToTimestamp(ldt);
 
-            String formattedStartTime = dateParam + " " + startTime;
-            String formattedEndTime = dateParam + " " + endTime;
+            LocalDateTime ldtStart = convertToLDT(dateParam, startTime);
+            LocalDateTime ldtEnd = convertToLDT(dateParam, endTime);
+            Timestamp tsStart = ldtToTimestamp(ldtStart);
+            Timestamp tsEnd = ldtToTimestamp(ldtEnd);
 
-            // Setting the SQL query template with variables for creation of appointment record
+            // Sets the SQL query template with variables for creation of appointment record
             String qAddAppointment = "INSERT INTO appointment VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            // Setting the prepared statement
+            // Sets the prepared statement
             PreparedStatement psAddAppointment = DBConn.startConnection().prepareStatement(qAddAppointment, Statement.RETURN_GENERATED_KEYS);
 
-            // Assigning values to the SQL query variables
+            // Assigns values to the SQL query variables
             psAddAppointment.setInt(1, customerId);
             psAddAppointment.setInt(2, userId);
             psAddAppointment.setString(3, "N/A");
@@ -89,14 +94,14 @@ public class DBAppointment {
             psAddAppointment.setString(6, "N/A");
             psAddAppointment.setString(7, type);
             psAddAppointment.setString(8, "N/A");
-            psAddAppointment.setString(9, formattedStartTime);
-            psAddAppointment.setString(10, formattedEndTime);
-            psAddAppointment.setString(11, localDateTime);
+            psAddAppointment.setTimestamp(9, tsStart);
+            psAddAppointment.setTimestamp(10, tsEnd);
+            psAddAppointment.setTimestamp(11, dateTime);
             psAddAppointment.setString(12, "N/A");
-            psAddAppointment.setString(13, localDateTime);
+            psAddAppointment.setTimestamp(13, dateTime);
             psAddAppointment.setString(14, "N/A");
 
-            // Executing the prepared statement
+            // Executes the prepared statement
             psAddAppointment.execute();
 
             System.out.println("Database Query Successful!\nNew Appointment Added!");

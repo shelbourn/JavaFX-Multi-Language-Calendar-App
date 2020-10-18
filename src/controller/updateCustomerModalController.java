@@ -70,14 +70,15 @@ public class updateCustomerModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Fetching and setting fields with data from Customer to update
-        // Initializing City combo box with data from the database
+        // Fetches and sets fields with data from Customer to update
+        // Initializes City combo box with data from the database
         customerName.setText(customerToUpdate.getCustomerName());
         address.setText(customerToUpdate.getAddress());
         phone.setText(customerToUpdate.getPhone());
         allCities = DBCity.getAllCities();
         city.setItems(allCities);
         city.getSelectionModel().select(initCities());
+        city.setVisibleRowCount(5);
         initCountryName = initCustomerCity.getCountry();
         country.setText(initCountryName);
     }

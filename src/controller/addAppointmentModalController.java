@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +32,9 @@ import model.AppointmentType;
 import model.City;
 import model.Customer;
 import model.User;
+import utils.HelperMethods;
+import static utils.HelperMethods.stringToLT;
+import static utils.HelperMethods.tweleveHrTime;
 
 /**
  * FXML Controller class
@@ -42,9 +46,9 @@ public class addAppointmentModalController implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ComboBox<LocalTime> startTime;
+    private ComboBox<String> startTime;
     @FXML
-    private ComboBox<LocalTime> endTime;
+    private ComboBox<String> endTime;
     @FXML
     private ComboBox<User> consultant;
     @FXML
@@ -58,8 +62,10 @@ public class addAppointmentModalController implements Initializable {
 
     // Additional properties required for functionality
     private LocalDate selectedDate;
-    private LocalTime selectedStartTime;
-    private LocalTime selectedEndTime;
+    private String selectedStartTime;
+    private String selectedEndTime;
+    private LocalTime convertedSelectedStartTime;
+    private LocalTime convertedSelectedEndTime;
     private User selectedUser;
     private Customer selectedCustomer;
     private AppointmentType selectedAppointmentType;
@@ -75,34 +81,48 @@ public class addAppointmentModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initializing Start/End Time combo boxes
+        // Initializes Start/End Time combo boxes
         startTimeValues();
         endTimeDisable();
 
-        // Initializing Consultant combo box
+        // Initializes Consultant combo box
         allUsers = DBUser.getAllUsers();
         consultant.setItems(allUsers);
         consultant.setVisibleRowCount(5);
 
-        // Initializing Customer combo box
+        // Initializes Customer combo box
         allCustomers = DBCustomer.getAllCustomers();
         customer.setItems(allCustomers);
         customer.setVisibleRowCount(5);
 
-        // Initializing Appointment Type combo box
+        // Initializes Appointment Type combo box
         allAppointmentTypes = DBAppointmentType.getAllAppointmentTypes();
         appointmentType.setItems(allAppointmentTypes);
         appointmentType.setVisibleRowCount(5);
+
+        // Initializes available dates in DatePicker & selects current date by default
+        datePicker.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean isEmpty) {
+                super.updateItem(date, isEmpty);
+                LocalDate today = LocalDate.now();
+
+                setDisable(isEmpty || date.compareTo(today) < 0);
+            }
+        });
+
+        datePicker.setValue(LocalDate.now());
     }
 
     // Helper method for populating start time combo box
     private void startTimeValues() {
         LocalTime startTimeRange = LocalTime.of(8, 0);
         LocalTime endTimeRange = LocalTime.of(17, 0);
+        String startTimeDisplay;
 
         while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
-
-            startTime.getItems().add(startTimeRange);
+            startTimeDisplay = tweleveHrTime(startTimeRange);
+            startTime.getItems().add(startTimeDisplay);
             startTimeRange = startTimeRange.plusMinutes(15);
             startTime.setVisibleRowCount(5);
         }
@@ -117,12 +137,13 @@ public class addAppointmentModalController implements Initializable {
 
     // Helper method for populating end time combo box
     private void endTimeValues() {
-        LocalTime startTimeRange = selectedStartTime.plusMinutes(15);
+        LocalTime startTimeRange = convertedSelectedStartTime.plusMinutes(15);
         LocalTime endTimeRange = LocalTime.of(17, 0);
+        String endTimeDisplay;
 
         while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
-
-            endTime.getItems().add(startTimeRange);
+            endTimeDisplay = tweleveHrTime(startTimeRange);
+            endTime.getItems().add(endTimeDisplay);
             startTimeRange = startTimeRange.plusMinutes(15);
             endTime.setVisibleRowCount(5);
 
@@ -132,57 +153,61 @@ public class addAppointmentModalController implements Initializable {
 
     @FXML
     private void dateHandler(ActionEvent event) {
-        // Getting the appointment date
+        // Gets the appointment date
         selectedDate = datePicker.getValue();
     }
 
     @FXML
     private void startTimeHandler(ActionEvent event) {
-        // Getting the start time value and enabling End Time combo box
+        // Gets the start time value and enabling End Time combo box
         selectedStartTime = startTime.getValue();
-        if (selectedStartTime != null) {
+        convertedSelectedStartTime = stringToLT(selectedStartTime);
+        if (convertedSelectedStartTime != null) {
             endTime.setDisable(false);
         }
 
-        // Setting end time values once start time value is selected
+        // Sets end time values once start time value is selected
         endTimeValues();
+
+        System.out.println(convertedSelectedStartTime.getClass().getName());
     }
 
     @FXML
     private void endTimeHandler(ActionEvent event) {
-        // Getting the end time value
+        // Gets the end time value
         selectedEndTime = endTime.getValue();
+        convertedSelectedEndTime = stringToLT(selectedEndTime);
     }
 
     @FXML
     private void consultantHandler(ActionEvent event) {
-        // Getting the consultant (user)
+        // Gets the consultant (user)
         selectedUser = consultant.getValue();
     }
 
     @FXML
     private void customerHandler(ActionEvent event) {
-        // Getting the customer
+        // Gets the customer
         selectedCustomer = customer.getValue();
     }
 
     @FXML
     private void apptTypeHandler(ActionEvent event) {
-        // Getting the appointment type
+        // Gets the appointment type
         selectedAppointmentType = appointmentType.getValue();
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        if (selectedDate == null || selectedStartTime == null || selectedEndTime == null || selectedUser == null || selectedCustomer == null || selectedAppointmentType == null) {
+        if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || selectedAppointmentType == null) {
         } else {
             customerId = selectedCustomer.getCustomerId();
             userId = selectedUser.getUserId();
             type = selectedAppointmentType.getType();
 
-            DBAppointment.createAppointment(customerId, userId, selectedDate, selectedStartTime, selectedEndTime, type);
+            DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
 
-            // Closing modal on successful submission
+            // Closes modal on successful submission
             Scene scene = saveBtn.getScene();
             if (scene != null) {
                 Window window = scene.getWindow();

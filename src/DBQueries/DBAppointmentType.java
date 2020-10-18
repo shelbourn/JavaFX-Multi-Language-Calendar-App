@@ -29,7 +29,7 @@ public class DBAppointmentType {
 
         try {
 
-            String qGetTypes = "SELECT type from appointment";
+            String qGetTypes = "SELECT DISTINCT type from appointment";
 
             PreparedStatement psGetTypes = DBConn.startConnection().prepareStatement(qGetTypes);
 
