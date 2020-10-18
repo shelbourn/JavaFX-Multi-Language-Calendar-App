@@ -8,8 +8,12 @@ package controller;
 import DBQueries.DBAppointment;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,11 +49,11 @@ public class calendarScreenController implements Initializable {
     @FXML
     private TableColumn<Appointment, String> consultantCol;
     @FXML
-    private TableColumn<Appointment, LocalDate> dateCol;
+    private TableColumn<Appointment, Timestamp> dateCol;
     @FXML
-    private TableColumn<Appointment, LocalTime> startTimeCol;
+    private TableColumn<Appointment, Timestamp> startTimeCol;
     @FXML
-    private TableColumn<Appointment, LocalTime> endTimeCol;
+    private TableColumn<Appointment, Timestamp> endTimeCol;
     @FXML
     private TableColumn<Appointment, String> typeCol;
     @FXML
@@ -76,6 +80,9 @@ public class calendarScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Initializes the Appointments table view
         calendarTable.setItems(DBAppointment.getAllAppointments());
+
+        DateTimeFormatter formatTwelveHr = DateTimeFormatter.ofPattern("hh:mm a");
+        LocalDateTime ldt;
 
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -124,6 +131,12 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void deleteApptHandler(ActionEvent event) {
+        appointmentToDelete = calendarTable.getSelectionModel().getSelectedItem();
+        appointmentIdToDelete = appointmentToDelete.getAppointmentId();
+
+        DBAppointment.deleteAppointment(appointmentIdToDelete);
+
+        updateAppointmentsTable();
     }
 
     @FXML

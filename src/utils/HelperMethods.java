@@ -44,7 +44,7 @@ public class HelperMethods {
     }
 
     // Converts LocalTime (24hr) into LocalTime (12hr)
-    public static String tweleveHrTime(LocalTime lt) {
+    public static String twelveHrTime(LocalTime lt) {
         DateTimeFormatter formatTwelveHrTime = DateTimeFormatter.ofPattern("hh:mm a");
         return formatTwelveHrTime.format(lt);
     }

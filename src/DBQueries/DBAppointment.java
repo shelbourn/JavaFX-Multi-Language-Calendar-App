@@ -68,16 +68,17 @@ public class DBAppointment {
     // Creates a new Appointment record in the database
     public static void createAppointment(int customerId, int userId, LocalDate dateParam, LocalTime startTime, LocalTime endTime, String type) {
 
-        try {
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            LocalDateTime ldt = convertToLDT(localDate, localTime);
-            Timestamp dateTime = ldtToTimestamp(ldt);
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+        LocalDateTime ldt = convertToLDT(localDate, localTime);
+        Timestamp dateTime = ldtToTimestamp(ldt);
 
-            LocalDateTime ldtStart = convertToLDT(dateParam, startTime);
-            LocalDateTime ldtEnd = convertToLDT(dateParam, endTime);
-            Timestamp tsStart = ldtToTimestamp(ldtStart);
-            Timestamp tsEnd = ldtToTimestamp(ldtEnd);
+        LocalDateTime ldtStart = convertToLDT(dateParam, startTime);
+        LocalDateTime ldtEnd = convertToLDT(dateParam, endTime);
+        Timestamp tsStart = ldtToTimestamp(ldtStart);
+        Timestamp tsEnd = ldtToTimestamp(ldtEnd);
+
+        try {
 
             // Sets the SQL query template with variables for creation of appointment record
             String qAddAppointment = "INSERT INTO appointment VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -105,6 +106,64 @@ public class DBAppointment {
             psAddAppointment.execute();
 
             System.out.println("Database Query Successful!\nNew Appointment Added!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+    }
+
+    // Updates an Appointment record in the database
+    public static void updateAppointment(int appointmentId, int customerId, int userId, LocalDate dateParam, LocalTime startTime, LocalTime endTime, String type) {
+
+        LocalDateTime ldtStart = convertToLDT(dateParam, startTime);
+        LocalDateTime ldtEnd = convertToLDT(dateParam, endTime);
+        Timestamp tsStart = ldtToTimestamp(ldtStart);
+        Timestamp tsEnd = ldtToTimestamp(ldtEnd);
+
+        try {
+            // Sets the SQL query template with variables for updating the Appointment Record
+            String qUpdateAppt = "UPDATE appointment set customerId = ?, userId = ?, start = ?, end = ?, type  = ? WHERE appointmentId = ?";
+
+            // Sets the prepared statement
+            PreparedStatement psUpdateAppt = DBConn.startConnection().prepareStatement(qUpdateAppt);
+
+            // Assigns values to the SQL query variables
+            psUpdateAppt.setInt(1, customerId);
+            psUpdateAppt.setInt(2, userId);
+            psUpdateAppt.setTimestamp(3, tsStart);
+            psUpdateAppt.setTimestamp(4, tsEnd);
+            psUpdateAppt.setString(5, type);
+            psUpdateAppt.setInt(6, appointmentId);
+
+            // Executes the prepared statement
+            psUpdateAppt.execute();
+
+            System.out.println("Database Query Successful!\nAppointment Updated!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+    }
+
+    // Deletes an Appointment record in the database
+    public static void deleteAppointment(int appointmentId) {
+
+        try {
+            // Sets the SQL query template with variables for deleting the Appointment Record
+            String qDeleteAppt = "DELETE FROM appointment WHERE appointmentId = ?";
+
+            // Sets the prepared statement
+            PreparedStatement psDeleteAppt = DBConn.startConnection().prepareStatement(qDeleteAppt);
+
+            // Assigns values to the SQL query variables
+            psDeleteAppt.setInt(1, appointmentId);
+
+            // Executes the prepared statement
+            psDeleteAppt.execute();
+
+            System.out.println("Database Query Successful!\nAppointment Deleted!");
         } catch (SQLException e) {
             System.out.println("Database Query Failed!");
             e.printStackTrace();

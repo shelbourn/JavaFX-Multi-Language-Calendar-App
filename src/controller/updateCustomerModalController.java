@@ -92,22 +92,10 @@ public class updateCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void customerNameHandler(ActionEvent event) {
-    }
-
-    @FXML
-    private void addressHandler(ActionEvent event) {
-    }
-
-    @FXML
     private void cityHandler(ActionEvent event) {
         selectedCity = city.getValue();
         countryName = selectedCity.getCountry();
         country.setText(countryName);
-    }
-
-    @FXML
-    private void phoneHandler(ActionEvent event) {
     }
 
     @FXML

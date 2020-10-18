@@ -6,6 +6,9 @@
 package model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -104,5 +107,4 @@ public class Appointment {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
 }
