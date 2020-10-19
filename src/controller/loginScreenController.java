@@ -7,6 +7,9 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.DBConn;
+import utils.TimeConverters;
 
 /**
  * FXML Controller class
@@ -47,6 +51,7 @@ public class loginScreenController implements Initializable {
     private Label passwordLabel;
     @FXML
     private Button loginBtn;
+    private Timestamp ts = TimeConverters.ldtToUTCTimestamp(LocalDate.now(), LocalTime.now());
 
     /**
      * Initializes the controller class.
@@ -75,6 +80,10 @@ public class loginScreenController implements Initializable {
 
     @FXML
     private void clearPasswordFieldHandler(MouseEvent event) {
+
+        System.out.println(ts);
+        Timestamp newTS = ts;
+        System.out.println(TimeConverters.utcTimestampToLDT(LocalDate.now(), LocalTime.now(), newTS));
     }
 
     @FXML

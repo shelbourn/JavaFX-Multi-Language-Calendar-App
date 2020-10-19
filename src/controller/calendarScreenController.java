@@ -15,6 +15,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Callback;
 import model.Appointment;
 
 /**
@@ -49,11 +53,11 @@ public class calendarScreenController implements Initializable {
     @FXML
     private TableColumn<Appointment, String> consultantCol;
     @FXML
-    private TableColumn<Appointment, Timestamp> dateCol;
+    private TableColumn<Appointment, LocalDate> dateCol;
     @FXML
-    private TableColumn<Appointment, Timestamp> startTimeCol;
+    private TableColumn<Appointment, LocalTime> startTimeCol;
     @FXML
-    private TableColumn<Appointment, Timestamp> endTimeCol;
+    private TableColumn<Appointment, LocalTime> endTimeCol;
     @FXML
     private TableColumn<Appointment, String> typeCol;
     @FXML
@@ -87,7 +91,7 @@ public class calendarScreenController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
         startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));

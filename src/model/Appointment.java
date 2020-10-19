@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 /**
  *
@@ -21,21 +22,23 @@ public class Appointment {
     private int customerId;
     private int userId;
     private String type;
-    private Timestamp start;
-    private Timestamp end;
+    private LocalTime start;
+    private LocalTime end;
     private String userName;
     private String customerName;
+    private LocalDate date;
 
     // Empty constructor for Appointment Class
     public Appointment() {
     }
 
     // Constructors for Appointment Class
-    public Appointment(int appointmentId, int customerId, int userId, String type, Timestamp start, Timestamp end, String userName, String customerName) {
+    public Appointment(int appointmentId, int customerId, int userId, String type, LocalDate date, LocalTime start, LocalTime end, String userName, String customerName) {
         this.appointmentId = appointmentId;
         this.customerId = customerId;
         this.userId = userId;
         this.type = type;
+        this.date = date;
         this.start = start;
         this.end = end;
         this.userName = userName;
@@ -59,11 +62,11 @@ public class Appointment {
         return type;
     }
 
-    public Timestamp getStart() {
+    public LocalTime getStart() {
         return start;
     }
 
-    public Timestamp getEnd() {
+    public LocalTime getEnd() {
         return end;
     }
 
@@ -73,6 +76,10 @@ public class Appointment {
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     // Setters for Appointment Class
@@ -92,11 +99,11 @@ public class Appointment {
         this.type = type;
     }
 
-    public void setStart(Timestamp start) {
+    public void setStart(LocalTime start) {
         this.start = start;
     }
 
-    public void setEnd(Timestamp end) {
+    public void setEnd(LocalTime end) {
         this.end = end;
     }
 
@@ -106,5 +113,9 @@ public class Appointment {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

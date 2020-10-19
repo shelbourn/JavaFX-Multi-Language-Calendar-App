@@ -53,7 +53,11 @@ public class DBAppointment {
                 String customerName = rsGetAppointments.getString("customerName");
                 String userName = rsGetAppointments.getString("userName");
 
-                Appointment a = new Appointment(appointmentId, customerId, userId, type, start, end, userName, customerName);
+                LocalDate date = start.toLocalDateTime().toLocalDate();
+                LocalTime convertedStart = start.toLocalDateTime().toLocalTime();
+                LocalTime convertedEnd = end.toLocalDateTime().toLocalTime();
+
+                Appointment a = new Appointment(appointmentId, customerId, userId, type, date, convertedStart, convertedEnd, userName, customerName);
                 appointmentList.add(a);
             }
             System.out.println("Database Query Successful!\nAppointment list retrieved!");

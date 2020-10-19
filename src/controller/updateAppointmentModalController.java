@@ -70,8 +70,10 @@ public class updateAppointmentModalController implements Initializable {
     private AppointmentType initType;
     private LocalDate initDate;
     private String initStartTimeDisplay;
+    private String startTimeDisplay;
     private LocalTime initStartTime;
     private String initEndTimeDisplay;
+    private String endTimeDisplay;
     private LocalTime initEndTime;
     private LocalDate selectedDate;
     private String selectedStartTime;
@@ -97,7 +99,7 @@ public class updateAppointmentModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Initializes Start/End Time combo boxes
+        // Initializes Start Time combo box
         startTimeValues();
 
         // Initializes fields with appointment data from database
@@ -120,7 +122,7 @@ public class updateAppointmentModalController implements Initializable {
         appointmentType.getSelectionModel().select(initType());
 
         // Retrieves the current appointment date and convert to LocalDate object
-        initDate = appointmentToUpdate.getStart().toLocalDateTime().toLocalDate();
+        initDate = appointmentToUpdate.getDate();
 
         // Initializes available dates in DatePicker & selects initial appointment date
         datePicker.setDayCellFactory(picker -> new DateCell() {
@@ -136,22 +138,29 @@ public class updateAppointmentModalController implements Initializable {
         datePicker.setValue(initDate);
 
         // Retrieves the current appointment start time, converts it to LocalDate object then String, and selects it in start time combo box
-        initStartTime = appointmentToUpdate.getStart().toLocalDateTime().toLocalTime();
+        initStartTime = appointmentToUpdate.getStart();
         initStartTimeDisplay = twelveHrTime(initStartTime);
+        startTimeDisplay = initStartTimeDisplay;
         startTime.getSelectionModel().select(initStartTimeDisplay);
+        startTime.setValue(initStartTimeDisplay);
         convertedSelectedStartTime = initStartTime;
 
         // Retrieves the current appointment end time, converts it to LocalDate object then String, and selects it in start time combo box
-        initEndTime = appointmentToUpdate.getEnd().toLocalDateTime().toLocalTime();
+        initEndTime = appointmentToUpdate.getEnd();
         initEndTimeDisplay = twelveHrTime(initEndTime);
+        endTimeDisplay = initEndTimeDisplay;
         endTime.getSelectionModel().select(initEndTimeDisplay);
+        endTime.setValue(initEndTimeDisplay);
+        convertedSelectedEndTime = initEndTime;
+
+        // // Initializes End Time combo box
+        endTimeValues();
     }
 
     // Helper method for populating start time combo box
     private void startTimeValues() {
         LocalTime startTimeRange = LocalTime.of(8, 0);
         LocalTime endTimeRange = LocalTime.of(17, 0);
-        String startTimeDisplay;
 
         while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
             startTimeDisplay = twelveHrTime(startTimeRange);
@@ -171,11 +180,11 @@ public class updateAppointmentModalController implements Initializable {
     private void endTimeValues() {
         LocalTime startTimeRange = convertedSelectedStartTime.plusMinutes(15);
         LocalTime endTimeRange = LocalTime.of(17, 0);
-        String endTimeDisplay;
+        endTime.getItems().clear();
 
         while (startTimeRange.isBefore(endTimeRange.plusSeconds(1))) {
-            initEndTimeDisplay = twelveHrTime(startTimeRange);
-            endTime.getItems().add(initEndTimeDisplay);
+            endTimeDisplay = twelveHrTime(startTimeRange);
+            endTime.getItems().add(endTimeDisplay);
             startTimeRange = startTimeRange.plusMinutes(15);
             endTime.setVisibleRowCount(5);
 
@@ -212,38 +221,51 @@ public class updateAppointmentModalController implements Initializable {
         // Gets the start time value and enabling End Time combo box
         selectedStartTime = startTime.getValue();
         convertedSelectedStartTime = stringToLT(selectedStartTime);
-//        if (convertedSelectedStartTime != null) {
-//            endTime.setDisable(false);
-//        }
+
+        if (convertedSelectedStartTime != null) {
+            endTime.setDisable(false);
+            endTimeValues();
+        }
 
         // Sets/Resets end time values once start time value is selected
-        endTime.getItems().clear();
-        endTimeValues();
+        if (convertedSelectedEndTime != null && convertedSelectedEndTime.isBefore(convertedSelectedStartTime.plusSeconds(1))) {
+            convertedSelectedEndTime = null;
+            endTime.getSelectionModel().clearSelection();
+            endTimeValues();
+        }
     }
 
     @FXML
     private void endTimeHandler(ActionEvent event) {
         // Gets the end time value
-        selectedEndTime = endTime.getValue();
-        convertedSelectedEndTime = stringToLT(selectedEndTime);
+        if (endTime.getValue() != null) {
+            selectedEndTime = endTime.getValue();
+            convertedSelectedEndTime = stringToLT(selectedEndTime);
+        } else {
+            try {
+                selectedEndTime = endTime.getValue();
+                convertedSelectedEndTime = stringToLT(selectedEndTime);
+            } catch (NullPointerException e) {
+            }
+        }
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-
-        appointmentId = appointmentToUpdate.getAppointmentId();
         customerId = customer.getValue().getCustomerId();
+        selectedUser = consultant.getValue();
+        selectedCustomer = customer.getValue();
         userId = consultant.getValue().getUserId();
         selectedDate = datePicker.getValue();
         convertedSelectedStartTime = stringToLT(startTime.getValue());
         convertedSelectedEndTime = stringToLT(endTime.getValue());
         type = appointmentType.getValue().getType();
 
-        if (selectedDate == null) {
+        if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
 
         } else {
 
-            DBAppointment.updateAppointment(appointmentId, customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+            DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
 
             // Closes modal on successful submission
             Scene scene = saveBtn.getScene();
