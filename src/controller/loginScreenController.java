@@ -83,7 +83,7 @@ public class loginScreenController implements Initializable {
 
         System.out.println(ts);
         Timestamp newTS = ts;
-        System.out.println(TimeConverters.utcTimestampToLDT(LocalDate.now(), LocalTime.now(), newTS));
+        System.out.println(TimeConverters.utcTimestampToLDT(newTS));
     }
 
     @FXML

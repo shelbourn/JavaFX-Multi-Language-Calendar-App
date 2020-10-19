@@ -31,13 +31,14 @@ public class TimeConverters {
     }
 
     // Method to convert UTC Timestamp to LocalDateTime (in user's locale)
-    public static LocalDateTime utcTimestampToLDT(LocalDate ld, LocalTime lt, Timestamp ts) {
+    public static LocalDateTime utcTimestampToLDT(Timestamp ts) {
 
-        ZoneId zId = ZoneId.systemDefault();
+        ZoneId localZId = ZoneId.systemDefault();
         ZoneId utcZId = ZoneId.of("UTC");
-        ZonedDateTime localZDT = ZonedDateTime.of(ld, lt, zId);
-        ZonedDateTime utcZDT = ZonedDateTime.ofInstant(localZDT.toInstant(), utcZId);
-
-        return localZDT.ofInstant(utcZDT.toInstant(), zId).toLocalDateTime();
+        LocalDateTime utcLDT = ts.toLocalDateTime();
+        ZonedDateTime utcZDT = utcLDT.atZone(utcZId);
+        ZonedDateTime localZDT = utcZDT.withZoneSameInstant(localZId);
+        LocalDateTime localLDT = localZDT.toLocalDateTime();
+        return localLDT;
     }
 }
