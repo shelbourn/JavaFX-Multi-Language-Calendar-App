@@ -179,7 +179,7 @@ public class DBAppointment {
             String qAddAppointment = "INSERT INTO appointment VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             // Sets the prepared statement
-            PreparedStatement psAddAppointment = DBConn.startConnection().prepareStatement(qAddAppointment, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement psAddAppointment = DBConn.startConnection().prepareStatement(qAddAppointment);
 
             // Assigns values to the SQL query variables
             psAddAppointment.setInt(1, customerId);

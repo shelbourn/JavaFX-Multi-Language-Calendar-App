@@ -5,6 +5,7 @@
  */
 package controller;
 
+import DBQueries.DBAuth;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
@@ -21,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -51,7 +53,10 @@ public class loginScreenController implements Initializable {
     private Label passwordLabel;
     @FXML
     private Button loginBtn;
-    private Timestamp ts = TimeConverters.ldtToUTCTimestamp(LocalDate.now(), LocalTime.now());
+
+    // Additional properties required for functionality
+    private String userName;
+    private String password;
 
     /**
      * Initializes the controller class.
@@ -71,30 +76,82 @@ public class loginScreenController implements Initializable {
     }
 
     @FXML
-    private void partsSearchFieldEnterHandler(KeyEvent event) {
-    }
-
-    @FXML
     private void clearUserFieldHandler(MouseEvent event) {
     }
 
     @FXML
     private void clearPasswordFieldHandler(MouseEvent event) {
 
-        System.out.println(ts);
-        Timestamp newTS = ts;
-        System.out.println(TimeConverters.utcTimestampToLDT(newTS));
     }
 
     @FXML
     private void loginBtnHandler(ActionEvent event) throws IOException {
-        System.out.println("Username and Password accepted!\nOpening LANDING screen.");
-        Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
-        Scene landingScreen = new Scene(root);
-        Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        loginWindow.setTitle("CalApp | Main Screen");
-        loginWindow.setScene(landingScreen);
-        loginWindow.show();
+        userName = usernameField.getText();
+        password = passwordField.getText();
+
+        if (userName.equals("") || password.equals("")) {
+            System.err.println("Username and Password are required fields!");
+            return;
+        }
+
+        if (DBAuth.validateUser(userName, password) == true) {
+            System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+            Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
+            Scene landingScreen = new Scene(root);
+            Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            loginWindow.setTitle("CalApp | Main Screen");
+            loginWindow.setScene(landingScreen);
+            loginWindow.show();
+        }
+
+    }
+
+    // Handling form submission when Enter key is pressed in Username field
+    @FXML
+    private void usernameEnterHandler(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            userName = usernameField.getText();
+            password = passwordField.getText();
+
+            if (userName.equals("") || password.equals("")) {
+                System.err.println("Username and Password are required fields!");
+                return;
+            }
+
+            if (DBAuth.validateUser(userName, password) == true) {
+                System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+                Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
+                Scene landingScreen = new Scene(root);
+                Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                loginWindow.setTitle("CalApp | Main Screen");
+                loginWindow.setScene(landingScreen);
+                loginWindow.show();
+            }
+        }
+    }
+
+    // Handling form submission when Enter key is pressed in Password field
+    @FXML
+    private void passwordEnterHandler(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            userName = usernameField.getText();
+            password = passwordField.getText();
+
+            if (userName.equals("") || password.equals("")) {
+                System.err.println("Username and Password are required fields!");
+                return;
+            }
+
+            if (DBAuth.validateUser(userName, password) == true) {
+                System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+                Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
+                Scene landingScreen = new Scene(root);
+                Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                loginWindow.setTitle("CalApp | Main Screen");
+                loginWindow.setScene(landingScreen);
+                loginWindow.show();
+            }
+        }
     }
 
 }
