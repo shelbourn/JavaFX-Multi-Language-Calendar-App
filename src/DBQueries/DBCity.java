@@ -30,10 +30,13 @@ public class DBCity {
 
             ResultSet rs = ps.executeQuery();
 
+            // Building out the City Objects
             while (rs.next()) {
                 int cityId = rs.getInt("cityId");
                 String city = rs.getString("city");
                 String country = rs.getString("country");
+
+                // Creating City Object with data
                 City c = new City(cityId, city, country);
                 allCities.add(c);
             }

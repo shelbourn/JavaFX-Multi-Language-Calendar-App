@@ -25,6 +25,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -47,6 +50,8 @@ public class calendarScreenController implements Initializable {
     @FXML
     private TableView<Appointment> calendarTable;
     @FXML
+    private Label appointmentLabel;
+    @FXML
     private TableColumn<Appointment, Integer> customerIdCol;
     @FXML
     private TableColumn<Appointment, String> customerNameCol;
@@ -62,6 +67,12 @@ public class calendarScreenController implements Initializable {
     private TableColumn<Appointment, String> typeCol;
     @FXML
     private ToggleGroup calViewToggleGroup;
+    @FXML
+    private RadioButton weekViewToggle;
+    @FXML
+    private RadioButton monthViewToggle;
+    @FXML
+    private RadioButton allAppointmentsToggle;
     @FXML
     private Button updateApptBtn;
     @FXML
@@ -85,21 +96,73 @@ public class calendarScreenController implements Initializable {
         // Initializes the Appointments table view
         calendarTable.setItems(DBAppointment.getAllAppointments());
 
-        DateTimeFormatter formatTwelveHr = DateTimeFormatter.ofPattern("hh:mm a");
-        LocalDateTime ldt;
+        DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("hh:mm a");
+        DateTimeFormatter dtfDate = DateTimeFormatter.ofPattern("MMM dd, YYYY");
 
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateCol.setCellFactory(col -> new TableCell<Appointment, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(String.format(item.format(dtfDate)));
+                }
+            }
+        });
         startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        startTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
+            @Override
+            protected void updateItem(LocalTime item, boolean empty) {
+
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(String.format(item.format(dtfTime)));
+                }
+            }
+        });
         endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        endTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
+            @Override
+            protected void updateItem(LocalTime item, boolean empty) {
+
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(String.format(item.format(dtfTime)));
+                }
+            }
+        });
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        // Pre-selects the All Appointments toggle
+        allAppointmentsToggle.setSelected(true);
+
+        // Sets the label text
+        appointmentLabel.setText("Appointments Table • All Appointments");
     }
 
-    // Helper method for Updating Customers table view
-    public void updateAppointmentsTable() {
+    // Helper method for Updating All Appointments table view
+    public void updateAllAppointmentsTable() {
         calendarTable.setItems(DBAppointment.getAllAppointments());
+    }
+
+    // Helper method for Updating Weekly Appointments table view
+    public void updateWeeklyAppointmentsTable() {
+        calendarTable.setItems(DBAppointment.getWeeklyAppointments());
+    }
+
+    // Helper method for Updating Monthly Appointments table view
+    public void updateMonthlyAppointmentsTable() {
+        calendarTable.setItems(DBAppointment.getMonthlyAppointments());
     }
 
     @FXML
@@ -111,7 +174,17 @@ public class calendarScreenController implements Initializable {
         addAppointmentModal.setTitle("CalApp | Add Appointment");
         addAppointmentModal.setScene(addAppointmentScreen);
         addAppointmentModal.setOnHidden((WindowEvent event1) -> {
-            updateAppointmentsTable();
+            if (allAppointmentsToggle.isSelected()) {
+                updateAllAppointmentsTable();
+            }
+
+            if (weekViewToggle.isSelected()) {
+                updateWeeklyAppointmentsTable();
+            }
+
+            if (monthViewToggle.isSelected()) {
+                updateMonthlyAppointmentsTable();
+            }
         });
         addAppointmentModal.show();
     }
@@ -128,7 +201,17 @@ public class calendarScreenController implements Initializable {
         updateAppointmentModal.setTitle("CalApp | Update Appointment");
         updateAppointmentModal.setScene(updateAppointmentScreen);
         updateAppointmentModal.setOnHidden((WindowEvent event1) -> {
-            updateAppointmentsTable();
+            if (allAppointmentsToggle.isSelected()) {
+                updateAllAppointmentsTable();
+            }
+
+            if (weekViewToggle.isSelected()) {
+                updateWeeklyAppointmentsTable();
+            }
+
+            if (monthViewToggle.isSelected()) {
+                updateMonthlyAppointmentsTable();
+            }
         });
         updateAppointmentModal.show();
     }
@@ -140,7 +223,7 @@ public class calendarScreenController implements Initializable {
 
         DBAppointment.deleteAppointment(appointmentIdToDelete);
 
-        updateAppointmentsTable();
+        updateAllAppointmentsTable();
     }
 
     @FXML
@@ -156,10 +239,56 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void weekViewHandler(ActionEvent event) {
+
+        // Retrives and sets weekly appointsments in Calendar view
+        calendarTable.setItems(DBAppointment.getWeeklyAppointments());
+
+        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        // Sets the label text
+        appointmentLabel.setText("Appointments Table • Week View");
     }
 
     @FXML
     private void monthViewHandler(ActionEvent event) {
+
+        // Retrives and sets monthly appointsments in Calendar view
+        calendarTable.setItems(DBAppointment.getMonthlyAppointments());
+
+        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        // Sets the label text
+        appointmentLabel.setText("Appointments Table • Month View");
+    }
+
+    @FXML
+    private void allAppointmentsHandler(ActionEvent event) {
+
+        // Retrives and sets all appointsments in Calendar view
+        calendarTable.setItems(DBAppointment.getAllAppointments());
+
+        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+        // Sets the label text
+        appointmentLabel.setText("Appointments Table • All Appointments");
     }
 
     @FXML
@@ -182,10 +311,6 @@ public class calendarScreenController implements Initializable {
         reportsWindow.setTitle("CalApp | Reports");
         reportsWindow.setScene(reportsScreen);
         reportsWindow.show();
-    }
-
-    @FXML
-    private void allAppointmentsHandler(ActionEvent event) {
     }
 
     @FXML

@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import javafx.collections.FXCollections;
@@ -21,6 +20,7 @@ import model.Customer;
 import utils.DBConn;
 import static utils.HelperMethods.convertToLDT;
 import static utils.HelperMethods.ldtToTimestamp;
+import static utils.TimeConverters.ldtToUTCTimestamp;
 
 /**
  *
@@ -46,6 +46,7 @@ public class DBCustomer {
 
             ResultSet rsGet = psGet.executeQuery();
 
+            // Building out the Customer Objects
             while (rsGet.next()) {
                 int customerId = rsGet.getInt("customerId");
                 String customerName = rsGet.getString("customerName");
@@ -57,6 +58,7 @@ public class DBCustomer {
                 int countryId = rsGet.getInt("countryId");
                 String country = rsGet.getString("country");
 
+                // Creating Customer Object with data
                 Customer c = new Customer(customerId, customerName, addressId, address, phone, cityId, city, countryId, country);
                 custList.add(c);
             }
@@ -72,11 +74,12 @@ public class DBCustomer {
     // Creates a new Customer record in the database
     public static void createCustomer(String customerName, String address, String phone, int cityId) {
 
+        // Converting LocalDate and LocalTime Objects into SQL Timestamp properties (in UTC)
+        LocalDate localDate = LocalDate.now();
+        LocalTime localTime = LocalTime.now();
+        Timestamp zonedTS = ldtToUTCTimestamp(localDate, localTime);
+
         try {
-            LocalDate localDate = LocalDate.now();
-            LocalTime localTime = LocalTime.now();
-            LocalDateTime ldt = convertToLDT(localDate, localTime);
-            Timestamp dateTime = ldtToTimestamp(ldt);
 
             // Sets the SQL query template with variables for address component of customer record
             String qAdd = "INSERT INTO address VALUES(NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -90,9 +93,9 @@ public class DBCustomer {
             psAdd.setInt(3, cityId);
             psAdd.setString(4, "N/A");
             psAdd.setString(5, phone);
-            psAdd.setTimestamp(6, dateTime);
+            psAdd.setTimestamp(6, zonedTS);
             psAdd.setString(7, "N/A");
-            psAdd.setTimestamp(8, dateTime);
+            psAdd.setTimestamp(8, zonedTS);
             psAdd.setString(9, "N/A");
 
             // Executes the prepared statement
@@ -113,9 +116,9 @@ public class DBCustomer {
             psCust.setString(1, customerName);
             psCust.setInt(2, addressId);
             psCust.setInt(3, 1);
-            psCust.setTimestamp(4, dateTime);
+            psCust.setTimestamp(4, zonedTS);
             psCust.setString(5, "N/A");
-            psCust.setTimestamp(6, dateTime);
+            psCust.setTimestamp(6, zonedTS);
             psCust.setString(7, "N.A");
 
             // Executes the prepared statement

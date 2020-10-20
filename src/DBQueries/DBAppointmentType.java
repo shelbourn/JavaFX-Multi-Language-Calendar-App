@@ -35,9 +35,11 @@ public class DBAppointmentType {
 
             ResultSet rsGetTypes = psGetTypes.executeQuery();
 
+            // Building out the Appointment Type Objects
             while (rsGetTypes.next()) {
                 String type = rsGetTypes.getString("type");
 
+                // Creating Appointment Type Object with data
                 AppointmentType a = new AppointmentType(type);
                 appointmentTypesList.add(a);
             }

@@ -40,11 +40,13 @@ public class DBUser {
 
             ResultSet rsGetUsers = psGetUsers.executeQuery();
 
+            // Building out the User Objects
             while (rsGetUsers.next()) {
                 int userId = rsGetUsers.getInt("userId");
                 String userName = rsGetUsers.getString("userName");
                 String password = rsGetUsers.getString("password");
 
+                // Creating User Object with data
                 User u = new User(userId, userName, password);
                 userList.add(u);
             }

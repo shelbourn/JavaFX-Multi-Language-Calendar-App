@@ -25,8 +25,9 @@ public class TimeConverters {
         ZoneId utcZId = ZoneId.of("UTC");
         ZonedDateTime localZDT = ZonedDateTime.of(ld, lt, zId);
         ZonedDateTime utcZDT = ZonedDateTime.ofInstant(localZDT.toInstant(), utcZId);
+        Timestamp zonedTS = Timestamp.valueOf(utcZDT.toLocalDateTime());
 
-        return Timestamp.valueOf(utcZDT.toLocalDateTime());
+        return zonedTS;
 
     }
 
@@ -39,6 +40,7 @@ public class TimeConverters {
         ZonedDateTime utcZDT = utcLDT.atZone(utcZId);
         ZonedDateTime localZDT = utcZDT.withZoneSameInstant(localZId);
         LocalDateTime localLDT = localZDT.toLocalDateTime();
+
         return localLDT;
     }
 }
