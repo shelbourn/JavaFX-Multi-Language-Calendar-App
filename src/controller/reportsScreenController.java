@@ -83,6 +83,7 @@ public class reportsScreenController implements Initializable {
     private int selectedUserTypes;
     private int numberOfAppointmentsSumm;
     private int numberOfAppointmentTypes;
+    private int[] totalAppointmentTime;
     private int appointmentDuration;
     private int numberOfCustomers;
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
@@ -93,7 +94,7 @@ public class reportsScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initializes Consultant combo boxes
-        allUsers = DBUser.getAllUsers();
+        allUsers = DBReports.getAllUsers();
         apptSummConsultant.setItems(allUsers);
         apptSummConsultant.setVisibleRowCount(5);
         apptTypesConsultant.setItems(allUsers);
@@ -163,10 +164,12 @@ public class reportsScreenController implements Initializable {
     private void apptSummRunHandler(ActionEvent event) {
         selectedUserSumm = apptSummConsultant.getValue().getUserId();
         numberOfAppointmentsSumm = DBReports.getNumUserAppointments(selectedUserSumm);
+        totalAppointmentTime = DBReports.getTotalAppointmentTime(selectedUserSumm);
+
         apptSummResults.setText("Number of Appointments: " + numberOfAppointmentsSumm);
-        apptSummResults.appendText("\n\nTotal Appointment Duration: " + appointmentDuration);
-        apptSummResults.appendText("\n\nNumber of Customers Meeting with: " + numberOfCustomers);
-        apptSummResults.appendText("\n\nNumber of Different Appointment Types: " + numberOfAppointmentTypes);
+        apptSummResults.appendText("\n\nTotal Appointment Duration: " + totalAppointmentTime[0] + " hours, " + totalAppointmentTime[1] + " minutes, " + totalAppointmentTime[2] + " seconds");
+        apptSummResults.appendText("\n\nDistinct Customer Meetings: " + numberOfCustomers);
+        apptSummResults.appendText("\n\nDistinct Appointment Types: " + numberOfAppointmentTypes);
     }
 
     @FXML
