@@ -74,4 +74,65 @@ public class DBReports {
         return userAppointmentsList;
     }
 
+    // Retrieves Appointment summary data for specified User (or all users) from database
+    // Retrieves number of appointments by user
+    public static int getNumUserAppointments(int consultantId) {
+
+        int numAppointments = 0;
+
+        try {
+
+            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment where userId = ?";
+
+            PreparedStatement psGetNumUserAppointments = DBConn.startConnection().prepareStatement(qGetNumUserAppointments);
+
+            // Assigns values to the SQL query variables
+            psGetNumUserAppointments.setInt(1, consultantId);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetNumUserAppointments = psGetNumUserAppointments.executeQuery();
+
+            // Returning value of result set
+            rsGetNumUserAppointments.next();
+            numAppointments = rsGetNumUserAppointments.getInt(1);
+
+            System.out.println("Database Query Successful!\nNumber of appointments by Consultant retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numAppointments;
+    }
+
+    // Retrieves number of appointments by user
+    public static int getNumUserAppointments(int consultantId) {
+
+        int numAppointments = 0;
+
+        try {
+
+            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment where userId = ?";
+
+            PreparedStatement psGetNumUserAppointments = DBConn.startConnection().prepareStatement(qGetNumUserAppointments);
+
+            // Assigns values to the SQL query variables
+            psGetNumUserAppointments.setInt(1, consultantId);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetNumUserAppointments = psGetNumUserAppointments.executeQuery();
+
+            // Returning value of result set
+            rsGetNumUserAppointments.next();
+            numAppointments = rsGetNumUserAppointments.getInt(1);
+
+            System.out.println("Database Query Successful!\nNumber of appointments by Consultant retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numAppointments;
+    }
+
 }

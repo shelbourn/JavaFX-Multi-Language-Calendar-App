@@ -78,7 +78,13 @@ public class reportsScreenController implements Initializable {
     private Button homeBtn;
 
     // Additional properties required for functionality
-    private int selectedUser;
+    private int selectedUserAppt;
+    private int selectedUserSumm;
+    private int selectedUserTypes;
+    private int numberOfAppointmentsSumm;
+    private int numberOfAppointmentTypes;
+    private int appointmentDuration;
+    private int numberOfCustomers;
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
 
     /**
@@ -147,14 +153,20 @@ public class reportsScreenController implements Initializable {
     @FXML
     private void apptRunHandler(ActionEvent event) {
         // Retrieves the Consultant for repot generation
-        selectedUser = apptConsultant.getValue().getUserId();
+        selectedUserAppt = apptConsultant.getValue().getUserId();
 
         // Fetches data for Consultant from database and populates Appointments table view with data
-        apptByConsTable.setItems(DBReports.getUserAppointments(selectedUser));
+        apptByConsTable.setItems(DBReports.getUserAppointments(selectedUserAppt));
     }
 
     @FXML
     private void apptSummRunHandler(ActionEvent event) {
+        selectedUserSumm = apptSummConsultant.getValue().getUserId();
+        numberOfAppointmentsSumm = DBReports.getNumUserAppointments(selectedUserSumm);
+        apptSummResults.setText("Number of Appointments: " + numberOfAppointmentsSumm);
+        apptSummResults.appendText("\n\nTotal Appointment Duration: " + appointmentDuration);
+        apptSummResults.appendText("\n\nNumber of Customers Meeting with: " + numberOfCustomers);
+        apptSummResults.appendText("\n\nNumber of Different Appointment Types: " + numberOfAppointmentTypes);
     }
 
     @FXML
