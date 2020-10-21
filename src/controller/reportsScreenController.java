@@ -162,14 +162,23 @@ public class reportsScreenController implements Initializable {
 
     @FXML
     private void apptSummRunHandler(ActionEvent event) {
-        selectedUserSumm = apptSummConsultant.getValue().getUserId();
-        numberOfAppointmentsSumm = DBReports.getNumUserAppointments(selectedUserSumm);
-        totalAppointmentTime = DBReports.getTotalAppointmentTime(selectedUserSumm);
+        if (apptSummConsultant.getValue().getUserId() == 999) {
+            numberOfAppointmentsSumm = DBReports.getNumAppointments();
+            totalAppointmentTime = DBReports.getTotalAppointmentTimeAll();
+            numberOfCustomers = DBReports.getDistinctCustomersAll();
+            numberOfAppointmentTypes = DBReports.getDistinctTypesAll();
+        } else {
+            selectedUserSumm = apptSummConsultant.getValue().getUserId();
+            numberOfAppointmentsSumm = DBReports.getNumUserAppointments(selectedUserSumm);
+            totalAppointmentTime = DBReports.getTotalAppointmentTime(selectedUserSumm);
+            numberOfCustomers = DBReports.getDistinctCustomers(selectedUserSumm);
+            numberOfAppointmentTypes = DBReports.getDistinctTypes(selectedUserSumm);
+        }
 
         apptSummResults.setText("Number of Appointments: " + numberOfAppointmentsSumm);
-        apptSummResults.appendText("\n\nTotal Appointment Duration: " + totalAppointmentTime[0] + " hours, " + totalAppointmentTime[1] + " minutes, " + totalAppointmentTime[2] + " seconds");
-        apptSummResults.appendText("\n\nDistinct Customer Meetings: " + numberOfCustomers);
-        apptSummResults.appendText("\n\nDistinct Appointment Types: " + numberOfAppointmentTypes);
+        apptSummResults.appendText("\nTotal Appointment Duration: " + totalAppointmentTime[0] + " hrs. & " + totalAppointmentTime[1] + " min.");
+        apptSummResults.appendText("\nDistinct Customer Meetings: " + numberOfCustomers);
+        apptSummResults.appendText("\nDistinct Appointment Types: " + numberOfAppointmentTypes);
     }
 
     @FXML

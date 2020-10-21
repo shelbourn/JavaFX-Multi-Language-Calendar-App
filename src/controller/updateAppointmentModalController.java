@@ -221,16 +221,20 @@ public class updateAppointmentModalController implements Initializable {
         // Gets the start time value and enabling End Time combo box
         selectedStartTime = startTime.getValue();
         convertedSelectedStartTime = stringToLT(selectedStartTime);
+        //        if (convertedSelectedStartTime != null) {
+        //            endTime.setDisable(false);
+        //            endTimeValues();
+        //        }
 
-        if (convertedSelectedStartTime != null) {
-            endTime.setDisable(false);
+//       // Sets / Resets end time values once start time value is selected based on impossible conditions
+        if (convertedSelectedEndTime != null && convertedSelectedEndTime.isBefore(convertedSelectedStartTime.plusMinutes(1))) {
+//            endTime.setValue(null);
+            endTime.getSelectionModel().clearSelection();
+            convertedSelectedEndTime = null;
             endTimeValues();
         }
 
-        // Sets/Resets end time values once start time value is selected
-        if (convertedSelectedEndTime != null && convertedSelectedEndTime.isBefore(convertedSelectedStartTime.plusSeconds(1))) {
-            convertedSelectedEndTime = null;
-            endTime.getSelectionModel().clearSelection();
+        if (convertedSelectedEndTime == null && convertedSelectedStartTime != null) {
             endTimeValues();
         }
     }
@@ -252,6 +256,7 @@ public class updateAppointmentModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+        appointmentId = appointmentToUpdate.getAppointmentId();
         customerId = customer.getValue().getCustomerId();
         selectedUser = consultant.getValue();
         selectedCustomer = customer.getValue();
@@ -262,10 +267,9 @@ public class updateAppointmentModalController implements Initializable {
         type = appointmentType.getValue().getType();
 
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
-
         } else {
 
-            DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+            DBAppointment.updateAppointment(appointmentId, customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
 
             // Closes modal on successful submission
             Scene scene = saveBtn.getScene();

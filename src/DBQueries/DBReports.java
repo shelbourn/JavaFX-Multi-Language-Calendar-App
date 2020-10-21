@@ -196,7 +196,6 @@ public class DBReports {
 
             splitTime[0] = t2;
             splitTime[1] = t3;
-            splitTime[2] = t1;
 
             System.out.println("Database Query Successful!\nTotal appointment time by Consultant retrieved!");
         } catch (SQLException e) {
@@ -205,6 +204,160 @@ public class DBReports {
         }
 
         return splitTime;
+    }
+
+    // Retrieves total Appointment time for all users
+    public static int[] getTotalAppointmentTimeAll() {
+
+        int[] splitTime = new int[3];
+
+        try {
+
+            String qGetTotalAppointmentTime = "SELECT SUM(timestampdiff(SECOND,start,end)) from appointment";
+
+            PreparedStatement psGetTotalAppointmentTime = DBConn.startConnection().prepareStatement(qGetTotalAppointmentTime);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetTotalAppointmentTime = psGetTotalAppointmentTime.executeQuery();
+
+            // Returning value of result set
+            rsGetTotalAppointmentTime.next();
+            int seconds = rsGetTotalAppointmentTime.getInt(1);
+
+            // Splits time into hours, minutes, seconds and puts them in array
+            int t1 = seconds % 60;
+            int t2 = seconds / 60;
+            int t3 = t2 % 60;
+            t2 = t2 / 60;
+
+            splitTime[0] = t2;
+            splitTime[1] = t3;
+
+            System.out.println("Database Query Successful!\nTotal appointment time for all Consultants retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return splitTime;
+    }
+
+    // Retrieves total number of distinct Customers the user has meeting with
+    public static int getDistinctCustomers(int consultantId) {
+
+        int numberOfCustomers = 0;
+
+        try {
+
+            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment where userId = ?";
+
+            PreparedStatement psGetDistinctCustomers = DBConn.startConnection().prepareStatement(qGetDistinctCustomers);
+
+            // Assigns values to the SQL query variables
+            psGetDistinctCustomers.setInt(1, consultantId);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetDistinctCustomers = psGetDistinctCustomers.executeQuery();
+
+            // Returning value of result set
+            rsGetDistinctCustomers.next();
+            int numCustomers = rsGetDistinctCustomers.getInt(1);
+            numberOfCustomers = numCustomers;
+
+            System.out.println("Database Query Successful!\nTotal number of distinct Customers by Consultant retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numberOfCustomers;
+    }
+
+    // Retrieves total number of distinct Customers all users have meetings with
+    public static int getDistinctCustomersAll() {
+
+        int numberOfCustomers = 0;
+
+        try {
+
+            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment";
+
+            PreparedStatement psGetDistinctCustomers = DBConn.startConnection().prepareStatement(qGetDistinctCustomers);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetDistinctCustomers = psGetDistinctCustomers.executeQuery();
+
+            // Returning value of result set
+            rsGetDistinctCustomers.next();
+            int numCustomers = rsGetDistinctCustomers.getInt(1);
+            numberOfCustomers = numCustomers;
+
+            System.out.println("Database Query Successful!\nTotal number of distinct Customers for all Consultants retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numberOfCustomers;
+    }
+
+    // Retrieves total number of distinct Appointment Types the user has
+    public static int getDistinctTypes(int consultantId) {
+
+        int distinctAppointmentTypes = 0;
+
+        try {
+
+            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment where userId = ?";
+
+            PreparedStatement psGetDistinctTypes = DBConn.startConnection().prepareStatement(qGetDistinctTypes);
+
+            // Assigns values to the SQL query variables
+            psGetDistinctTypes.setInt(1, consultantId);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetDistinctTypes = psGetDistinctTypes.executeQuery();
+
+            // Returning value of result set
+            rsGetDistinctTypes.next();
+            int distinctTypes = rsGetDistinctTypes.getInt(1);
+            distinctAppointmentTypes = distinctTypes;
+
+            System.out.println("Database Query Successful!\nTotal number of distinct Appointment Types by Consultant retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return distinctAppointmentTypes;
+    }
+
+    // Retrieves total number of distinct Appointment Types all users have
+    public static int getDistinctTypesAll() {
+
+        int distinctAppointmentTypes = 0;
+
+        try {
+
+            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment";
+
+            PreparedStatement psGetDistinctTypes = DBConn.startConnection().prepareStatement(qGetDistinctTypes);
+
+            // Executes the prepared statement and assigns results to a Result Set
+            ResultSet rsGetDistinctTypes = psGetDistinctTypes.executeQuery();
+
+            // Returning value of result set
+            rsGetDistinctTypes.next();
+            int distinctTypes = rsGetDistinctTypes.getInt(1);
+            distinctAppointmentTypes = distinctTypes;
+
+            System.out.println("Database Query Successful!\nTotal number of distinct Appointment Types for all Consultants retrieved!");
+        } catch (SQLException e) {
+            System.out.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return distinctAppointmentTypes;
     }
 
 }
