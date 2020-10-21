@@ -21,17 +21,22 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
+        <Button fx:id="homeBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
         </Button>
         <AnchorPane layoutX="44.0" layoutY="411.0" prefHeight="324.0" prefWidth="1212.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <TableView fx:id="apptConsultantResults" layoutX="250.0" layoutY="64.0" prefHeight="246.0" prefWidth="946.0">
+                <TableView fx:id="apptByConsTable" layoutX="250.0" layoutY="64.0" prefHeight="246.0" prefWidth="946.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="custIdCol" editable="false" prefWidth="76.0" text="Customer ID" />
+                        <TableColumn fx:id="custNameCol" editable="false" prefWidth="155.0" text="Customer Name" />
+                  <TableColumn fx:id="consultantCol" editable="false" prefWidth="155.0" text="Consultant" />
+                  <TableColumn fx:id="dateCol" editable="false" prefWidth="108.0" text="Date" />
+                  <TableColumn fx:id="startTimeCol" editable="false" prefWidth="160.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeCol" editable="false" prefWidth="160.0" text="End Time" />
+                  <TableColumn fx:id="typeCol" editable="false" prefWidth="142.0" text="Type" />
                     </columns>
                 </TableView>
                 <Label layoutX="453.0" layoutY="17.0" prefHeight="29.0" prefWidth="306.0" text="Appointments by Consultant" textFill="STEELBLUE">
@@ -39,7 +44,7 @@
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="apptConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptConsultantHandler" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
+                <ComboBox fx:id="apptConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
                 <Button fx:id="apptRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="126.0" mnemonicParsing="false" onAction="#apptRunHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
@@ -54,7 +59,7 @@
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="apptSummConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptSummConsultantHandler" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
+                <ComboBox fx:id="apptSummConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
                 <Button fx:id="apptSummRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="126.0" mnemonicParsing="false" onAction="#apptSummRunHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
@@ -70,7 +75,7 @@
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
-                <ComboBox fx:id="apptTypesConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#apptTypesConsultantHandler" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
+                <ComboBox fx:id="apptTypesConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
                 <Button fx:id="apptTypesRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="126.0" mnemonicParsing="false" onAction="#apptTypsRunHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
