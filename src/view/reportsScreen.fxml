@@ -70,7 +70,7 @@
         </AnchorPane>
         <AnchorPane layoutX="656.0" layoutY="137.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="600.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="313.0" text="Appointment Types by Month" textFill="STEELBLUE">
+                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="313.0" text="Appointment Type Summary" textFill="STEELBLUE">
                     <font>
                         <Font name="Helvetica" size="24.0" />
                     </font>

@@ -70,7 +70,7 @@ public class DBAppointment {
             }
             System.out.println("Database Query Successful!\nAppointment list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -114,7 +114,7 @@ public class DBAppointment {
             }
             System.out.println("Database Query Successful!\nAppointment list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -158,7 +158,7 @@ public class DBAppointment {
             }
             System.out.println("Database Query Successful!\nAppointment list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -202,7 +202,7 @@ public class DBAppointment {
 
             System.out.println("Database Query Successful!\nNew Appointment Added!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -235,7 +235,7 @@ public class DBAppointment {
 
             System.out.println("Database Query Successful!\nAppointment Updated!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -259,7 +259,7 @@ public class DBAppointment {
 
             System.out.println("Database Query Successful!\nAppointment Deleted!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 

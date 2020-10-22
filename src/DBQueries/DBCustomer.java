@@ -64,7 +64,7 @@ public class DBCustomer {
             }
             System.out.println("Database Query Successful!\nCustomer list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -126,7 +126,7 @@ public class DBCustomer {
 
             System.out.println("Database Query Successful!\nNew Customer Added!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -165,7 +165,7 @@ public class DBCustomer {
 
             System.out.println("Database Query Successful!\nCustomer Updated!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -200,7 +200,7 @@ public class DBCustomer {
 
             System.out.println("Database Query Successful!\nCustomer Deleted!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 

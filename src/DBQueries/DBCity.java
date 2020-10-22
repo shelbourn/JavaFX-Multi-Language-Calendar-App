@@ -41,6 +41,7 @@ public class DBCity {
                 allCities.add(c);
             }
         } catch (SQLException e) {
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
         return allCities;

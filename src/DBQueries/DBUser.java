@@ -52,7 +52,7 @@ public class DBUser {
             }
             System.out.println("Database Query Successful!\nUser list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 

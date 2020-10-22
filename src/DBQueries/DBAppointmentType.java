@@ -45,7 +45,7 @@ public class DBAppointmentType {
             }
             System.out.println("Database Query Successful!\nAppointment Types list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 

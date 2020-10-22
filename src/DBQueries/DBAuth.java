@@ -62,7 +62,7 @@ public class DBAuth {
             }
 
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 

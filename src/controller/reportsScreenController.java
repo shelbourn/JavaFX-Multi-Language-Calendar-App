@@ -33,6 +33,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Appointment;
+import model.AppointmentType;
 import model.User;
 
 /**
@@ -87,6 +88,7 @@ public class reportsScreenController implements Initializable {
     private int appointmentDuration;
     private int numberOfCustomers;
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
+    private static ObservableList<AppointmentType> typesList = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -153,15 +155,19 @@ public class reportsScreenController implements Initializable {
 
     @FXML
     private void apptRunHandler(ActionEvent event) {
-        // Retrieves the Consultant for repot generation
-        selectedUserAppt = apptConsultant.getValue().getUserId();
-
-        // Fetches data for Consultant from database and populates Appointments table view with data
-        apptByConsTable.setItems(DBReports.getUserAppointments(selectedUserAppt));
+        // Retieves appointment data for all users if all users option is selected in combo box
+        // Else: Retrieves appointment data for the selected user in combo box
+        if (apptConsultant.getValue().getUserId() == 999) {
+            apptByConsTable.setItems(DBAppointment.getAllAppointments());
+        } else {
+            apptByConsTable.setItems(DBReports.getUserAppointments(selectedUserAppt));
+        }
     }
 
     @FXML
     private void apptSummRunHandler(ActionEvent event) {
+        // Retrieves appointment summary info for all users if all users option is selected in combo box
+        // Else: Retrieves appointment summary info for the selected user in combo box
         if (apptSummConsultant.getValue().getUserId() == 999) {
             numberOfAppointmentsSumm = DBReports.getNumAppointments();
             totalAppointmentTime = DBReports.getTotalAppointmentTimeAll();
@@ -183,6 +189,23 @@ public class reportsScreenController implements Initializable {
 
     @FXML
     private void apptTypsRunHandler(ActionEvent event) {
+        // Retrieves total number of meetings for each distinct Appointment Type for all users for the current month
+        // Else: Retrieves total number of meetings for each distinct Appointment Type per user for the current month
+        if (apptTypesConsultant.getValue().getUserId() == 999) {
+            typesList = DBReports.getNumAppointmentTypesAll();
+
+            typesList.forEach((type) -> {
+                apptTypesResults.appendText(type.getType() + ": " + type.getTypeCount() + (type.getTypeCount() > 1 ? " appointments\n" : " appointment\n"));
+            });
+        } else {
+            selectedUserTypes = apptTypesConsultant.getValue().getUserId();
+            typesList = DBReports.getNumAppointmentTypes(selectedUserTypes);
+
+            typesList.forEach((type) -> {
+                apptTypesResults.appendText(type.getType() + ": " + type.getTypeCount() + (type.getTypeCount() > 1 ? " appointments\n" : " appointment\n"));
+            });
+        }
+
     }
 
     @FXML

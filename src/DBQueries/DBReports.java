@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointment;
+import model.AppointmentType;
 import model.User;
 import utils.DBConn;
 import utils.TimeConverters;
@@ -42,6 +43,9 @@ public class DBReports {
             ResultSet rsGetUsers = psGetUsers.executeQuery();
 
             // Building out the User Objects
+            User all = new User(999, "All Consultants", "1234");
+            userList.add(all);
+
             while (rsGetUsers.next()) {
                 int userId = rsGetUsers.getInt("userId");
                 String userName = rsGetUsers.getString("userName");
@@ -51,11 +55,9 @@ public class DBReports {
                 User u = new User(userId, userName, password);
                 userList.add(u);
             }
-            User all = new User(999, "All Consultants", "1234");
-            userList.add(all);
             System.out.println("Database Query Successful!\nUser list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -102,7 +104,7 @@ public class DBReports {
             }
             System.out.println("Database Query Successful!\nConsultant appointment list retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
@@ -110,14 +112,14 @@ public class DBReports {
     }
 
     // Retrieves Appointment summary data for specified User (or all users) from database
-    // Retrieves number of appointments by user
+    // Retrieves number of appointments by user for current month
     public static int getNumUserAppointments(int consultantId) {
 
         int numAppointments = 0;
 
         try {
 
-            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment where userId = ?";
+            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date()) AND userId = ?";
 
             PreparedStatement psGetNumUserAppointments = DBConn.startConnection().prepareStatement(qGetNumUserAppointments);
 
@@ -133,21 +135,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nNumber of appointments by Consultant retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return numAppointments;
     }
 
-    // Retrieves number of appointments for all users
+    // Retrieves number of appointments for all users for current month
     public static int getNumAppointments() {
 
         int numAppointments = 0;
 
         try {
 
-            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment";
+            String qGetNumUserAppointments = "SELECT COUNT(*) FROM appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date())";
 
             PreparedStatement psGetNumUserAppointments = DBConn.startConnection().prepareStatement(qGetNumUserAppointments);
 
@@ -160,21 +162,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nNumber of appointments for all Consultants retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return numAppointments;
     }
 
-    // Retrieves total Appointment time per user
+    // Retrieves total Appointment time per user for current month
     public static int[] getTotalAppointmentTime(int consultantId) {
 
         int[] splitTime = new int[3];
 
         try {
 
-            String qGetTotalAppointmentTime = "SELECT SUM(timestampdiff(SECOND,start,end)) from appointment where userId = ?";
+            String qGetTotalAppointmentTime = "SELECT SUM(timestampdiff(SECOND,start,end)) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date()) AND userId = ?";
 
             PreparedStatement psGetTotalAppointmentTime = DBConn.startConnection().prepareStatement(qGetTotalAppointmentTime);
 
@@ -199,21 +201,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal appointment time by Consultant retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return splitTime;
     }
 
-    // Retrieves total Appointment time for all users
+    // Retrieves total Appointment time for all users for current month
     public static int[] getTotalAppointmentTimeAll() {
 
         int[] splitTime = new int[3];
 
         try {
 
-            String qGetTotalAppointmentTime = "SELECT SUM(timestampdiff(SECOND,start,end)) from appointment";
+            String qGetTotalAppointmentTime = "SELECT SUM(timestampdiff(SECOND,start,end)) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date())";
 
             PreparedStatement psGetTotalAppointmentTime = DBConn.startConnection().prepareStatement(qGetTotalAppointmentTime);
 
@@ -235,21 +237,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal appointment time for all Consultants retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return splitTime;
     }
 
-    // Retrieves total number of distinct Customers the user has meeting with
+    // Retrieves total number of distinct Customers the user has meeting with for current month
     public static int getDistinctCustomers(int consultantId) {
 
         int numberOfCustomers = 0;
 
         try {
 
-            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment where userId = ?";
+            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date()) AND userId = ?";
 
             PreparedStatement psGetDistinctCustomers = DBConn.startConnection().prepareStatement(qGetDistinctCustomers);
 
@@ -266,21 +268,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal number of distinct Customers by Consultant retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return numberOfCustomers;
     }
 
-    // Retrieves total number of distinct Customers all users have meetings with
+    // Retrieves total number of distinct Customers all users have meetings with for current month
     public static int getDistinctCustomersAll() {
 
         int numberOfCustomers = 0;
 
         try {
 
-            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment";
+            String qGetDistinctCustomers = "SELECT COUNT(DISTINCT customerId) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date())";
 
             PreparedStatement psGetDistinctCustomers = DBConn.startConnection().prepareStatement(qGetDistinctCustomers);
 
@@ -294,21 +296,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal number of distinct Customers for all Consultants retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return numberOfCustomers;
     }
 
-    // Retrieves total number of distinct Appointment Types the user has
+    // Retrieves total number of distinct Appointment Types the user has for current month
     public static int getDistinctTypes(int consultantId) {
 
         int distinctAppointmentTypes = 0;
 
         try {
 
-            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment where userId = ?";
+            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date()) AND userId = ?";
 
             PreparedStatement psGetDistinctTypes = DBConn.startConnection().prepareStatement(qGetDistinctTypes);
 
@@ -325,21 +327,21 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal number of distinct Appointment Types by Consultant retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return distinctAppointmentTypes;
     }
 
-    // Retrieves total number of distinct Appointment Types all users have
+    // Retrieves total number of distinct Appointment Types all users have for current month
     public static int getDistinctTypesAll() {
 
         int distinctAppointmentTypes = 0;
 
         try {
 
-            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment";
+            String qGetDistinctTypes = "SELECT COUNT(DISTINCT type) from appointment WHERE month(start) = month(current_date()) AND year(start) = year(current_date())";
 
             PreparedStatement psGetDistinctTypes = DBConn.startConnection().prepareStatement(qGetDistinctTypes);
 
@@ -353,11 +355,74 @@ public class DBReports {
 
             System.out.println("Database Query Successful!\nTotal number of distinct Appointment Types for all Consultants retrieved!");
         } catch (SQLException e) {
-            System.out.println("Database Query Failed!");
+            System.err.println("Database Query Failed!");
             e.printStackTrace();
         }
 
         return distinctAppointmentTypes;
+    }
+
+    // Retrieves total number of meetings for each distinct Appointment Type per user for the current month
+    public static ObservableList<AppointmentType> getNumAppointmentTypes(int consultantId) {
+        ObservableList<AppointmentType> numAppointmentTypesList = FXCollections.observableArrayList();
+
+        try {
+
+            String qGetNumAppointmentTypes = "SELECT type, count(type) FROM appointment WHERE userId = ? GROUP BY type";
+
+            PreparedStatement psNumAppointmentTypes = DBConn.startConnection().prepareStatement(qGetNumAppointmentTypes);
+
+            // Assigns values to the SQL query variables
+            psNumAppointmentTypes.setInt(1, consultantId);
+
+            ResultSet rsNumAppointmentTypes = psNumAppointmentTypes.executeQuery();
+
+            // Building out the AppointmentType Objects
+            while (rsNumAppointmentTypes.next()) {
+                String type = rsNumAppointmentTypes.getString(1);
+                int typeCount = rsNumAppointmentTypes.getInt(2);
+
+                // Create AppointmentType Object with data
+                AppointmentType aT = new AppointmentType(type, typeCount);
+                numAppointmentTypesList.add(aT);
+            }
+            System.out.println("Database Query Successful!\nNumber of appointments by Appointment Type for consultant retrieved!");
+        } catch (SQLException e) {
+            System.err.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numAppointmentTypesList;
+    }
+
+    // Retrieves total number of meetings for each distinct Appointment Type for all users for the current month
+    public static ObservableList<AppointmentType> getNumAppointmentTypesAll() {
+        ObservableList<AppointmentType> numAppointmentTypesList = FXCollections.observableArrayList();
+
+        try {
+
+            String qGetNumAppointmentTypes = "SELECT type, count(type) FROM appointment GROUP BY type";
+
+            PreparedStatement psNumAppointmentTypes = DBConn.startConnection().prepareStatement(qGetNumAppointmentTypes);
+
+            ResultSet rsNumAppointmentTypes = psNumAppointmentTypes.executeQuery();
+
+            // Building out the AppointmentType Objects
+            while (rsNumAppointmentTypes.next()) {
+                String type = rsNumAppointmentTypes.getString(1);
+                int typeCount = rsNumAppointmentTypes.getInt(2);
+
+                // Create AppointmentType Object with data
+                AppointmentType aT = new AppointmentType(type, typeCount);
+                numAppointmentTypesList.add(aT);
+            }
+            System.out.println("Database Query Successful!\nNumber of appointments by Appointment Type for all consultants retrieved!");
+        } catch (SQLException e) {
+            System.err.println("Database Query Failed!");
+            e.printStackTrace();
+        }
+
+        return numAppointmentTypesList;
     }
 
 }
