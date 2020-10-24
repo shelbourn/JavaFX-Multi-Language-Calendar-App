@@ -11,6 +11,8 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -63,7 +65,28 @@ public class loginScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+
+        // Geting the default user locale and assigning it to Resource Bundle
+        try {
+            rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
+
+            // Checking if default user language is Spanish
+            // If Spanish, then assign all screen properties to values in "es" properties file
+            if (Locale.getDefault().getLanguage().equals("es")) {
+                appSubHeaderLabel.setText(rb.getString("appSubHeaderLabel"));
+                loginPanelLabel.setText(rb.getString("loginPanelLabel"));
+                usernameLabel.setText(rb.getString("usernameLabel"));
+                usernameField.setPromptText(rb.getString("usernameField"));
+                passwordLabel.setText(rb.getString("passwordLabel"));
+                passwordField.setPromptText(rb.getString("passwordField"));
+                loginBtn.setText(rb.getString("loginBtn"));
+                exitBtn.setText(rb.getString("exitBtn"));
+
+            }
+        } catch (MissingResourceException e) {
+            System.err.println("English languauge Resource Bundle not found, nor needed. You may ignore this error.");
+        }
+
     }
 
     @FXML

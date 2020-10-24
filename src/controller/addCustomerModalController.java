@@ -35,6 +35,8 @@ public class addCustomerModalController implements Initializable {
     @FXML
     private ComboBox<City> city;
     @FXML
+    private Button clearFieldsBtn;
+    @FXML
     private Button saveBtn;
     @FXML
     private Button cancelBtn;
@@ -72,6 +74,10 @@ public class addCustomerModalController implements Initializable {
         selectedCity = city.getValue();
         countryName = selectedCity.getCountry();
         country.setText(countryName);
+    }
+
+    @FXML
+    private void clearFieldsHandler(ActionEvent event) {
     }
 
     @FXML

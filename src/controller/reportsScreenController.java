@@ -48,15 +48,21 @@ public class reportsScreenController implements Initializable {
     @FXML
     private Button apptRun;
     @FXML
+    private Button apptReset;
+    @FXML
     private ComboBox<User> apptSummConsultant;
     @FXML
     private Button apptSummRun;
+    @FXML
+    private Button apptSummReset;
     @FXML
     private TextArea apptSummResults;
     @FXML
     private ComboBox<User> apptTypesConsultant;
     @FXML
     private Button apptTypesRun;
+    @FXML
+    private Button apptTypesReset;
     @FXML
     private TextArea apptTypesResults;
     @FXML
@@ -188,7 +194,7 @@ public class reportsScreenController implements Initializable {
     }
 
     @FXML
-    private void apptTypsRunHandler(ActionEvent event) {
+    private void apptTypesRunHandler(ActionEvent event) {
         // Retrieves total number of meetings for each distinct Appointment Type for all users for the current month
         // Else: Retrieves total number of meetings for each distinct Appointment Type per user for the current month
         if (apptTypesConsultant.getValue().getUserId() == 999) {
@@ -205,7 +211,10 @@ public class reportsScreenController implements Initializable {
                 apptTypesResults.appendText(type.getType() + ": " + type.getTypeCount() + (type.getTypeCount() > 1 ? " appointments\n" : " appointment\n"));
             });
         }
+    }
 
+    @FXML
+    private void apptTypesResetHandler(ActionEvent event) {
     }
 
     @FXML
@@ -217,6 +226,10 @@ public class reportsScreenController implements Initializable {
         loginWindow.setTitle("CalApp | Main Screen");
         loginWindow.setScene(landingScreen);
         loginWindow.show();
+    }
+
+    @FXML
+    private void apptResetHandler(ActionEvent event) {
     }
 
 }
