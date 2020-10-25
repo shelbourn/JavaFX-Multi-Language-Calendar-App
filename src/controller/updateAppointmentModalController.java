@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for Update Appointment modal
  */
 package controller;
 
@@ -11,7 +9,6 @@ import DBQueries.DBCustomer;
 import DBQueries.DBUser;
 import static controller.calendarScreenController.getAppointmentToUpdate;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -21,16 +18,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import model.Appointment;
 import model.AppointmentType;
-import model.City;
 import model.Customer;
 import model.User;
 import static utils.HelperMethods.stringToLT;
@@ -90,6 +85,7 @@ public class updateAppointmentModalController implements Initializable {
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<AppointmentType> allAppointmentTypes = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -153,7 +149,7 @@ public class updateAppointmentModalController implements Initializable {
         endTime.setValue(initEndTimeDisplay);
         convertedSelectedEndTime = initEndTime;
 
-        // // Initializes End Time combo box
+        // Initializes End Time combo box
         endTimeValues();
     }
 
@@ -170,12 +166,6 @@ public class updateAppointmentModalController implements Initializable {
         }
     }
 
-//    // Method to disable End Time combo box if start time hasn't been selected
-//    private void endTimeDisable() {
-//        if (selectedStartTime == null) {
-//            endTime.setDisable(true);
-//        }
-//    }
     // Helper method for populating end time combo box
     private void endTimeValues() {
         LocalTime startTimeRange = convertedSelectedStartTime.plusMinutes(15);
@@ -187,9 +177,7 @@ public class updateAppointmentModalController implements Initializable {
             endTime.getItems().add(endTimeDisplay);
             startTimeRange = startTimeRange.plusMinutes(15);
             endTime.setVisibleRowCount(5);
-
         }
-
     }
 
     // Helper method to retrieve the initial user from the database and convert to a User object
@@ -221,19 +209,15 @@ public class updateAppointmentModalController implements Initializable {
         // Gets the start time value and enabling End Time combo box
         selectedStartTime = startTime.getValue();
         convertedSelectedStartTime = stringToLT(selectedStartTime);
-        //        if (convertedSelectedStartTime != null) {
-        //            endTime.setDisable(false);
-        //            endTimeValues();
-        //        }
 
-//       // Sets / Resets end time values once start time value is selected based on impossible conditions
+        // Sets / Resets end time values once start time value is selected based on impossible conditions
         if (convertedSelectedEndTime != null && convertedSelectedEndTime.isBefore(convertedSelectedStartTime.plusMinutes(1))) {
-//            endTime.setValue(null);
             endTime.getSelectionModel().clearSelection();
             convertedSelectedEndTime = null;
             endTimeValues();
         }
 
+        // Resets the end time values whenever a new start time is selected
         if (convertedSelectedEndTime == null && convertedSelectedStartTime != null) {
             endTimeValues();
         }
@@ -245,43 +229,81 @@ public class updateAppointmentModalController implements Initializable {
         if (endTime.getValue() != null) {
             selectedEndTime = endTime.getValue();
             convertedSelectedEndTime = stringToLT(selectedEndTime);
+
         } else {
             try {
                 selectedEndTime = endTime.getValue();
                 convertedSelectedEndTime = stringToLT(selectedEndTime);
+
             } catch (NullPointerException e) {
             }
         }
     }
 
+    // Saves updated appointment after validation
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        appointmentId = appointmentToUpdate.getAppointmentId();
-        customerId = customer.getValue().getCustomerId();
-        selectedUser = consultant.getValue();
-        selectedCustomer = customer.getValue();
-        userId = consultant.getValue().getUserId();
-        selectedDate = datePicker.getValue();
-        convertedSelectedStartTime = stringToLT(startTime.getValue());
-        convertedSelectedEndTime = stringToLT(endTime.getValue());
-        type = appointmentType.getValue().getType();
-
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
+            // Throw alert if any Appointment fields are empty
+            Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+            requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
+            requiredFields.setHeaderText("All fields are required");
+            requiredFields.setContentText("Please enter values for all fields.");
+            requiredFields.showAndWait();
+            return;
+
         } else {
+            boolean okayToSave = true;
 
-            DBAppointment.updateAppointment(appointmentId, customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+            // Checks for overlapping appointment start time, end time, or both
+            // If overlapping appointment, new Exception thrown and caught
+            for (Appointment appt : allAppointments) {
+                appointmentId = appointmentToUpdate.getAppointmentId();
+                customerId = customer.getValue().getCustomerId();
+                selectedUser = consultant.getValue();
+                selectedCustomer = customer.getValue();
+                userId = consultant.getValue().getUserId();
+                selectedDate = datePicker.getValue();
+                convertedSelectedStartTime = stringToLT(startTime.getValue());
+                convertedSelectedEndTime = stringToLT(endTime.getValue());
+                type = appointmentType.getValue().getType();
 
-            // Closes modal on successful submission
-            Scene scene = saveBtn.getScene();
-            if (scene != null) {
-                Window window = scene.getWindow();
-                if (window != null) {
-                    window.hide();
+                try {
+                    if ((userId == (appt.getUserId())) && selectedDate.equals(appt.getDate()) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
+                        okayToSave = false;
+                        throw new Exception("Overlapping appointment error!");
+                    }
+
+                } catch (Exception e) {
+                    System.err.println("Overlapping appointment error!");
+
+                    // Throw alert if any Appointments for a user overlap
+                    Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+                    requiredFields.setTitle("OVERLAPPING APPOINTMENT VIOLATION");
+                    requiredFields.setHeaderText("Appointment Start and/or End time overlap another appointment for this user");
+                    requiredFields.setContentText("Please select new Start and/or End times for this appointment.");
+                    requiredFields.showAndWait();
+                    e.printStackTrace();
+                }
+            }
+
+            // Saves appointment if validation passes
+            if (okayToSave == true) {
+                DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+
+                // Closes modal on successful submission
+                Scene scene = saveBtn.getScene();
+                if (scene != null) {
+                    Window window = scene.getWindow();
+                    if (window != null) {
+                        window.hide();
+                    }
                 }
             }
         }
     }
 
+    // Closes modal
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
         Scene scene = cancelBtn.getScene();
@@ -291,9 +313,5 @@ public class updateAppointmentModalController implements Initializable {
                 window.hide();
             }
         }
-    }
-
-    private LocalDate tsToLTD(Timestamp start) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

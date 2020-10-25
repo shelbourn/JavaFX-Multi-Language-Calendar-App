@@ -1,16 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Login Screen
  */
 package controller;
 
 import DBQueries.DBAuth;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -29,10 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import utils.DBConn;
-import utils.TimeConverters;
 
 /**
  * FXML Controller class
@@ -73,10 +66,12 @@ public class loginScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         // Geting the default user locale and assigning it to Resource Bundle
         try {
             rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
@@ -108,7 +103,7 @@ public class loginScreenController implements Initializable {
             exitingApplication = "Exiting application.\nEND.";
             confirmExitTitle = "EXIT APPLICATION CONFIRMATION";
             confirmExitHeader = "Are you sure you would like to exit CalApp?";
-            confirmExitContext = "Click YES to exit or NO to return to the application.";
+            confirmExitContext = "Click OK to exit or CANCEL to return to the application.";
             requiredFieldsTitle = "USERNAME & PASSWORD REQUIRED";
             requiredFieldsHeader = "Username and Password are required fields";
             requiredFieldsContext = "Please enter your Username and Password.";
@@ -119,7 +114,6 @@ public class loginScreenController implements Initializable {
 
     @FXML
     private void exitBtnHandler(ActionEvent event) throws IOException {
-
         // Exit Confirmation Dialog
         Alert confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
         confirmExit.setTitle(confirmExitTitle);

@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Add Customer modal
  */
 package controller;
 
@@ -15,15 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.City;
-import model.Customer;
 
 /**
  * FXML Controller class
@@ -34,8 +29,6 @@ public class addCustomerModalController implements Initializable {
 
     @FXML
     private ComboBox<City> city;
-    @FXML
-    private Button clearFieldsBtn;
     @FXML
     private Button saveBtn;
     @FXML
@@ -60,6 +53,9 @@ public class addCustomerModalController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,25 +74,44 @@ public class addCustomerModalController implements Initializable {
 
     @FXML
     private void clearFieldsHandler(ActionEvent event) {
+        customerName.clear();
+        address.clear();
+        phone.clear();
+        city.getSelectionModel().clearSelection();
     }
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        DBCustomerName = customerName.getText();
-        DBAddress = address.getText();
-        DBphone = phone.getText();
-        DBCityId = selectedCity.getCityId();
-        DBCustomer.createCustomer(DBCustomerName, DBAddress, DBphone, DBCityId);
+        if (DBCustomerName == null || DBAddress == null || DBphone == null || city.getValue() == null) {
+            // Throw alert if any Appointment fields are empty
+            Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+            requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
+            requiredFields.setHeaderText("All fields are required");
+            requiredFields.setContentText("Please enter values for all fields.");
+            requiredFields.showAndWait();
+            return;
 
-        Scene scene = saveBtn.getScene();
-        if (scene != null) {
-            Window window = scene.getWindow();
-            if (window != null) {
-                window.hide();
+        } else {
+            // Saves customer if validation passes
+            DBCustomerName = customerName.getText();
+            DBAddress = address.getText();
+            DBphone = phone.getText();
+            DBCityId = city.getValue().getCityId();
+
+            DBCustomer.createCustomer(DBCustomerName, DBAddress, DBphone, DBCityId);
+
+            // Closes modal on successful submission
+            Scene scene = saveBtn.getScene();
+            if (scene != null) {
+                Window window = scene.getWindow();
+                if (window != null) {
+                    window.hide();
+                }
             }
         }
     }
 
+    // Closes modal
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
         Scene scene = cancelBtn.getScene();

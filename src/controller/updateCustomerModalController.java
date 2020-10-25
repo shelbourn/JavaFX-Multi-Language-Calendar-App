@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for Update Customer modal
  */
 package controller;
 
@@ -16,11 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import model.City;
 import model.Customer;
@@ -91,6 +88,7 @@ public class updateCustomerModalController implements Initializable {
         return initCustomerCity;
     }
 
+    // Sets Country value upon city selection
     @FXML
     private void cityHandler(ActionEvent event) {
         selectedCity = city.getValue();
@@ -100,29 +98,40 @@ public class updateCustomerModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        updatedCustomerName = customerName.getText();
-        updatedAddress = address.getText();
-        updatedPhone = phone.getText();
-        customerId = customerToUpdate.getCustomerId();
-        addressId = customerToUpdate.getAddressId();
-        updatedCityId = city.getValue().getCityId();
+        if (updatedCustomerName == null || updatedAddress == null || updatedPhone == null || city.getValue() == null) {
+            // Throw alert if any Appointment fields are empty
+            Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+            requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
+            requiredFields.setHeaderText("All fields are required");
+            requiredFields.setContentText("Please enter values for all fields.");
+            requiredFields.showAndWait();
+            return;
 
-        DBCustomer.updateCustomer(customerId, updatedCustomerName, addressId, updatedAddress, updatedPhone, updatedCityId);
+        } else {
+            // Saves updated customer if validation passes
+            updatedCustomerName = customerName.getText();
+            updatedAddress = address.getText();
+            updatedPhone = phone.getText();
+            customerId = customerToUpdate.getCustomerId();
+            addressId = customerToUpdate.getAddressId();
+            updatedCityId = city.getValue().getCityId();
 
-        // Closes window and refreshes customer table view
-        Scene scene = saveBtn.getScene();
-        if (scene != null) {
-            Window window = scene.getWindow();
-            if (window != null) {
-                window.hide();
+            DBCustomer.updateCustomer(customerId, updatedCustomerName, addressId, updatedAddress, updatedPhone, updatedCityId);
+
+            // Closes modal and refreshes customer table view
+            Scene scene = saveBtn.getScene();
+            if (scene != null) {
+                Window window = scene.getWindow();
+                if (window != null) {
+                    window.hide();
+                }
             }
         }
     }
 
+    // Closes modal
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
-
-        // Closes window
         Scene scene = cancelBtn.getScene();
         if (scene != null) {
             Window window = scene.getWindow();
@@ -131,5 +140,4 @@ public class updateCustomerModalController implements Initializable {
             }
         }
     }
-
 }

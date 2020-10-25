@@ -1,24 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Customers Screen
  */
 package controller;
 
 import DBQueries.DBCustomer;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,10 +59,12 @@ public class customersScreenController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         // Initializes Customers table view
         customersTable.setItems(DBCustomer.getAllCustomers());
 
@@ -83,9 +82,9 @@ public class customersScreenController implements Initializable {
         customersTable.setItems(DBCustomer.getAllCustomers());
     }
 
-    // Displays the Add Customer modal
     @FXML
     private void addCustHandler(ActionEvent event) throws IOException {
+        // Opens Add Customer modal
         final Stage addCustomerModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/addCustomerModal.fxml"));
         addCustomerModal.initModality(Modality.APPLICATION_MODAL);
@@ -100,11 +99,10 @@ public class customersScreenController implements Initializable {
 
     @FXML
     private void updateCustHandler(ActionEvent event) throws IOException {
-//        boolean noActiveSelection = customersTable.getSelectionModel().isEmpty();
+        // Retrieves Customer data for selected Customer
         customerToUpdate = customersTable.getSelectionModel().getSelectedItem();
-//        String customerUpdateName = customerToUpdate.getCustomerName();
-//        int customerUpdateId = customerToUpdate.getCustomerId();
 
+        // Opens Update Customer modal
         final Stage updateCustomerModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/updateCustomerModal.fxml"));
         updateCustomerModal.initModality(Modality.APPLICATION_MODAL);
@@ -120,22 +118,34 @@ public class customersScreenController implements Initializable {
 
     @FXML
     private void deleteCustHandler(ActionEvent event) {
-
-        // Deletes the currently selected Customer
+        // Retrieves Customer data for selected Customer
         customerToDelete = customersTable.getSelectionModel().getSelectedItem();
         customerIdToDelete = customerToDelete.getCustomerId();
         addressIdToDelete = customerToDelete.getAddressId();
 
-        DBCustomer.deleteCustomer(customerIdToDelete, addressIdToDelete);
+        // Delete Confirmation Dialog
+        Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDelete.setTitle("DELETE CUSTOMER CONFIRMATION");
+        confirmDelete.setHeaderText("Are you sure you would like to delete this customer?");
+        confirmDelete.setContentText("Click OK to delete or CANCEL to return to the application.");
+        confirmDelete.showAndWait();
+
+        if (confirmDelete.getResult() == ButtonType.OK) {
+            System.out.println("Customer deleted!");
+            DBCustomer.deleteCustomer(customerIdToDelete, addressIdToDelete);
+
+        } else {
+            confirmDelete.close();
+        }
 
         // Refreshes Customer table view
         updateCustomersTable();
 
     }
 
-    // Changes to the Calendar View
     @FXML
     private void viewCalHandler(ActionEvent event) throws IOException {
+        // Opens the Calendar Screen
         System.out.println("Opening CALENDAR screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/calendarScreen.fxml"));
         Scene calendarScreen = new Scene(root);
@@ -145,9 +155,9 @@ public class customersScreenController implements Initializable {
         calendarWindow.show();
     }
 
-    // Displays the Add Appointment modal
     @FXML
     private void addApptHandler(ActionEvent event) throws IOException {
+        // Opens the Add Appointment modal
         final Stage addAppointmentModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/addAppointmentModal.fxml"));
         addAppointmentModal.initModality(Modality.APPLICATION_MODAL);
@@ -157,10 +167,10 @@ public class customersScreenController implements Initializable {
         addAppointmentModal.show();
     }
 
-    // Changes to the Reports view
     @FXML
     private void reportsHandler(ActionEvent event) throws IOException {
-        System.out.println("Opening CALENDAR screen.");
+        // Opens the Reports Screen
+        System.out.println("Opening REPORTS screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsScreen.fxml"));
         Scene reportsScreen = new Scene(root);
         Stage reportsWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -169,10 +179,10 @@ public class customersScreenController implements Initializable {
         reportsWindow.show();
     }
 
-    // Changes to the Landing Screen view
     @FXML
     private void homeHandler(ActionEvent event) throws IOException {
-        System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+        // Opens the Landing Screen
+        System.out.println("Opening LANDING screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
         Scene landingScreen = new Scene(root);
         Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();

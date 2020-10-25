@@ -1,13 +1,10 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Reports Screen
  */
 package controller;
 
 import DBQueries.DBAppointment;
 import DBQueries.DBReports;
-import DBQueries.DBUser;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -23,14 +20,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Appointment;
 import model.AppointmentType;
@@ -46,23 +41,11 @@ public class reportsScreenController implements Initializable {
     @FXML
     private ComboBox<User> apptConsultant;
     @FXML
-    private Button apptRun;
-    @FXML
-    private Button apptReset;
-    @FXML
     private ComboBox<User> apptSummConsultant;
-    @FXML
-    private Button apptSummRun;
-    @FXML
-    private Button apptSummReset;
     @FXML
     private TextArea apptSummResults;
     @FXML
     private ComboBox<User> apptTypesConsultant;
-    @FXML
-    private Button apptTypesRun;
-    @FXML
-    private Button apptTypesReset;
     @FXML
     private TextArea apptTypesResults;
     @FXML
@@ -81,23 +64,22 @@ public class reportsScreenController implements Initializable {
     private TableColumn<Appointment, LocalTime> endTimeCol;
     @FXML
     private TableColumn<Appointment, String> typeCol;
-    @FXML
-    private Button homeBtn;
 
     // Additional properties required for functionality
-    private int selectedUserAppt;
     private int selectedUserSumm;
     private int selectedUserTypes;
     private int numberOfAppointmentsSumm;
     private int numberOfAppointmentTypes;
     private int[] totalAppointmentTime;
-    private int appointmentDuration;
     private int numberOfCustomers;
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<AppointmentType> typesList = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -166,7 +148,7 @@ public class reportsScreenController implements Initializable {
         if (apptConsultant.getValue().getUserId() == 999) {
             apptByConsTable.setItems(DBAppointment.getAllAppointments());
         } else {
-            apptByConsTable.setItems(DBReports.getUserAppointments(selectedUserAppt));
+            apptByConsTable.setItems(DBReports.getUserAppointments(apptConsultant.getValue().getUserId()));
         }
     }
 
@@ -215,11 +197,28 @@ public class reportsScreenController implements Initializable {
 
     @FXML
     private void apptTypesResetHandler(ActionEvent event) {
+        // Resets the Appointment Types Summary Report
+        apptTypesConsultant.getSelectionModel().clearSelection();
+        apptTypesResults.clear();
+    }
+
+    @FXML
+    private void apptResetHandler(ActionEvent event) {
+        // Resets the Appointments by Consultant Report
+        apptConsultant.getSelectionModel().clearSelection();
+        apptByConsTable.setItems(null);
+    }
+
+    @FXML
+    private void apptSummResetHandler(ActionEvent event) {
+        // Resets the Consultant Appointments Summary Report
+        apptSummConsultant.getSelectionModel().clearSelection();
+        apptSummResults.clear();
     }
 
     @FXML
     private void homeHandler(ActionEvent event) throws IOException {
-        System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+        System.out.println("Opening LANDING screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
         Scene landingScreen = new Scene(root);
         Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -227,9 +226,4 @@ public class reportsScreenController implements Initializable {
         loginWindow.setScene(landingScreen);
         loginWindow.show();
     }
-
-    @FXML
-    private void apptResetHandler(ActionEvent event) {
-    }
-
 }

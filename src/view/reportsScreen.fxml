@@ -21,7 +21,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button fx:id="homeBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
@@ -45,12 +45,12 @@
                     </font>
                 </Label>
                 <ComboBox fx:id="apptConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="220.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
-                <Button fx:id="apptRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptRunHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
+                <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptRunHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
                 </Button>
-            <Button fx:id="apptReset" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptResetHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptResetHandler" prefHeight="51.0" prefWidth="220.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
@@ -59,19 +59,19 @@
         </AnchorPane>
         <AnchorPane layoutX="45.0" layoutY="137.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="600.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="366.0" text="Consultant Appointment Summary" textFill="STEELBLUE">
+                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="392.0" text="Consultant Appointments Summary" textFill="STEELBLUE">
                     <font>
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="apptSummConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="162.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
-                <Button fx:id="apptSummRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptSummRunHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
+                <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptSummRunHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
                 </Button>
                 <TextArea fx:id="apptSummResults" editable="false" layoutX="193.0" layoutY="64.0" prefHeight="184.0" prefWidth="392.0" promptText="Displays a summary including the number of appointments, total duration for all appointments, number of different customers booked for appointments, and the number of different appointment types this month. Can be run per consultant or for all consultants." stylesheets="@../styles/calAppStyles.css" />
-            <Button fx:id="apptSummReset" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptSummRunHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptSummResetHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
@@ -80,19 +80,19 @@
         </AnchorPane>
         <AnchorPane layoutX="656.0" layoutY="137.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="600.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
             <children>
-                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="313.0" text="Appointment Type Summary" textFill="STEELBLUE">
+                <Label layoutX="17.0" layoutY="14.0" prefHeight="29.0" prefWidth="326.0" text="Appointment Types Summary" textFill="STEELBLUE">
                     <font>
                         <Font name="Helvetica" size="24.0" />
                     </font>
                 </Label>
                 <ComboBox fx:id="apptTypesConsultant" layoutX="17.0" layoutY="64.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="51.0" prefWidth="162.0" promptText="Consultant" stylesheets="@../styles/calAppStyles.css" />
-                <Button fx:id="apptTypesRun" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptTypesRunHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
+                <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="125.0" mnemonicParsing="false" onAction="#apptTypesRunHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #81c784;" text="Run Report">
                     <font>
                         <Font name="Segoe UI" size="18.0" />
                     </font>
                 </Button>
                 <TextArea fx:id="apptTypesResults" editable="false" layoutX="193.0" layoutY="64.0" prefHeight="184.0" prefWidth="392.0" promptText="Displays a summary including the number of appointments by appointment type this month. Can be run per consultant or for all consultants." stylesheets="@../styles/calAppStyles.css" />
-            <Button fx:id="apptTypesReset" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptTypesResetHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="17.0" layoutY="186.0" mnemonicParsing="false" onAction="#apptTypesResetHandler" prefHeight="51.0" prefWidth="162.0" style="-fx-border-radius: 5px; -fx-background-color: #ff8a65;" text="Reset">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>

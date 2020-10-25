@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Add Appointment modal
  */
 package controller;
 
@@ -13,27 +11,22 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
-import javafx.beans.binding.BooleanExpression;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 import model.Appointment;
 import model.AppointmentType;
-import model.City;
 import model.Customer;
 import model.User;
-import utils.HelperMethods;
 import static utils.HelperMethods.stringToLT;
 import static utils.HelperMethods.twelveHrTime;
 
@@ -69,7 +62,6 @@ public class addAppointmentModalController implements Initializable {
     private LocalTime convertedSelectedEndTime;
     private User selectedUser;
     private Customer selectedCustomer;
-    private AppointmentType selectedAppointmentType;
     private int customerId;
     private int userId;
     private String type;
@@ -80,6 +72,9 @@ public class addAppointmentModalController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -196,16 +191,14 @@ public class addAppointmentModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        customerId = customer.getValue().getCustomerId();
-        selectedUser = consultant.getValue();
-        selectedCustomer = customer.getValue();
-        userId = consultant.getValue().getUserId();
-        selectedDate = datePicker.getValue();
-        convertedSelectedStartTime = stringToLT(startTime.getValue());
-        convertedSelectedEndTime = stringToLT(endTime.getValue());
-        type = appointmentType.getValue().getType();
-
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
+            // Throw alert if any Appointment fields are empty
+            Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+            requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
+            requiredFields.setHeaderText("All fields are required");
+            requiredFields.setContentText("Please enter values for all fields.");
+            requiredFields.showAndWait();
+            return;
 
         } else {
             boolean okayToSave = true;
@@ -213,17 +206,35 @@ public class addAppointmentModalController implements Initializable {
             // Checks for overlapping appointment start time, end time, or both
             // If overlapping appointment, new Exception thrown and caught
             for (Appointment appt : allAppointments) {
+                customerId = customer.getValue().getCustomerId();
+                selectedUser = consultant.getValue();
+                selectedCustomer = customer.getValue();
+                userId = consultant.getValue().getUserId();
+                selectedDate = datePicker.getValue();
+                convertedSelectedStartTime = stringToLT(startTime.getValue());
+                convertedSelectedEndTime = stringToLT(endTime.getValue());
+                type = appointmentType.getValue().getType();
+
                 try {
                     if ((userId == (appt.getUserId())) && selectedDate.equals(appt.getDate()) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
                         okayToSave = false;
                         throw new Exception("Overlapping appointment error!");
                     }
+
                 } catch (Exception e) {
                     System.err.println("Overlapping appointment error!");
+
+                    // Throw alert if any Appointments for a user overlap
+                    Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+                    requiredFields.setTitle("OVERLAPPING APPOINTMENT VIOLATION");
+                    requiredFields.setHeaderText("Appointment Start and/or End time overlap another appointment for this user");
+                    requiredFields.setContentText("Please select new Start and/or End times for this appointment.");
+                    requiredFields.showAndWait();
                     e.printStackTrace();
                 }
             }
 
+            // Saves appointment if validation passes
             if (okayToSave == true) {
                 DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
 
@@ -240,6 +251,7 @@ public class addAppointmentModalController implements Initializable {
         }
     }
 
+    // Closes modal
     @FXML
     private void cancelBtnHandler(ActionEvent event
     ) {

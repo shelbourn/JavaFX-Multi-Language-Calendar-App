@@ -1,26 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Defines the DBAuth Class
+ * Contains SQL operations related to user authentication for Login Screen
  */
 package DBQueries;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import model.Appointment;
 import utils.DBConn;
-import utils.TimeConverters;
 
 /**
  *
@@ -35,7 +26,7 @@ public class DBAuth {
     public static boolean validateUser(String userName, String password) {
 
         // Instantiating the Spanish Resource Bundle and initializing local translation variables
-        ResourceBundle rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
+        ResourceBundle rb;
         String querySuccessful = "";
         String systemLoginFailed = "";
         String alertTitle = "";
@@ -45,6 +36,7 @@ public class DBAuth {
 
         // Geting the default user locale and assigning it to Resource Bundle
         try {
+            rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
 
             // Checking if default user language is Spanish
             // If Spanish, then assign all System Out messages and Dialog text to values in "es" properties file

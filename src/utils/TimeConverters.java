@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Helper Methods for Converting Date/Time Values
  */
 package utils;
 
@@ -28,7 +26,6 @@ public class TimeConverters {
         Timestamp zonedTS = Timestamp.valueOf(utcZDT.toLocalDateTime());
 
         return zonedTS;
-
     }
 
     // Method to convert UTC Timestamp to LocalDateTime (in user's locale)

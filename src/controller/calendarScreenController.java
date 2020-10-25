@@ -1,22 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Controller for the Calendar Screen
  */
 package controller;
 
 import DBQueries.DBAppointment;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,20 +17,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Callback;
 import model.Appointment;
 
 /**
@@ -73,10 +64,6 @@ public class calendarScreenController implements Initializable {
     private RadioButton monthViewToggle;
     @FXML
     private RadioButton allAppointmentsToggle;
-    @FXML
-    private Button updateApptBtn;
-    @FXML
-    private Button homeBtn;
 
     // Additional Properties required for functionality
     private static Appointment appointmentToUpdate;
@@ -170,6 +157,7 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void addApptHandler(ActionEvent event) throws IOException {
+        // Opens Add Appointment modal
         final Stage addAppointmentModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/addAppointmentModal.fxml"));
         addAppointmentModal.initModality(Modality.APPLICATION_MODAL);
@@ -197,6 +185,7 @@ public class calendarScreenController implements Initializable {
         // Gets the appointment to update
         appointmentToUpdate = calendarTable.getSelectionModel().getSelectedItem();
 
+        // Opens the Update Appointment modal
         final Stage updateAppointmentModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/updateAppointmentModal.fxml"));
         updateAppointmentModal.initModality(Modality.APPLICATION_MODAL);
@@ -224,13 +213,37 @@ public class calendarScreenController implements Initializable {
         appointmentToDelete = calendarTable.getSelectionModel().getSelectedItem();
         appointmentIdToDelete = appointmentToDelete.getAppointmentId();
 
-        DBAppointment.deleteAppointment(appointmentIdToDelete);
+        // Delete Confirmation Dialog
+        Alert confirmDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmDelete.setTitle("DELETE APPOINTMENT CONFIRMATION");
+        confirmDelete.setHeaderText("Are you sure you would like to delete this appointment?");
+        confirmDelete.setContentText("Click OK to delete or CANCEL to return to the application.");
+        confirmDelete.showAndWait();
 
-        updateAllAppointmentsTable();
+        if (confirmDelete.getResult() == ButtonType.OK) {
+            System.out.println("Appointment deleted!");
+            DBAppointment.deleteAppointment(appointmentIdToDelete);
+
+            if (allAppointmentsToggle.isSelected()) {
+                updateAllAppointmentsTable();
+            }
+
+            if (weekViewToggle.isSelected()) {
+                updateWeeklyAppointmentsTable();
+            }
+
+            if (monthViewToggle.isSelected()) {
+                updateMonthlyAppointmentsTable();
+            }
+
+        } else {
+            confirmDelete.close();
+        }
     }
 
     @FXML
     private void addCustHandler(ActionEvent event) throws IOException {
+        // Opens the Add Customer modal
         final Stage addCustomerModal = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/view/addCustomerModal.fxml"));
         addCustomerModal.initModality(Modality.APPLICATION_MODAL);
@@ -242,7 +255,6 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void weekViewHandler(ActionEvent event) {
-
         // Retrives and sets weekly appointsments in Calendar view
         calendarTable.setItems(DBAppointment.getWeeklyAppointments());
 
@@ -260,7 +272,6 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void monthViewHandler(ActionEvent event) {
-
         // Retrives and sets monthly appointsments in Calendar view
         calendarTable.setItems(DBAppointment.getMonthlyAppointments());
 
@@ -278,7 +289,6 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void allAppointmentsHandler(ActionEvent event) {
-
         // Retrives and sets all appointsments in Calendar view
         calendarTable.setItems(DBAppointment.getAllAppointments());
 
@@ -296,6 +306,7 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void viewCustHandler(ActionEvent event) throws IOException {
+        // Opens the Customers Screen
         System.out.println("Opening CUSTOMERS screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/customersScreen.fxml"));
         Scene customersScreen = new Scene(root);
@@ -307,7 +318,8 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void reportsHandler(ActionEvent event) throws IOException {
-        System.out.println("Opening CALENDAR screen.");
+        // Opens the Reports Screen
+        System.out.println("Opening REPORTS screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/reportsScreen.fxml"));
         Scene reportsScreen = new Scene(root);
         Stage reportsWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -318,7 +330,8 @@ public class calendarScreenController implements Initializable {
 
     @FXML
     private void homeHandler(ActionEvent event) throws IOException {
-        System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+        // Opens Landing Screen
+        System.out.println("Opening LANDING screen.");
         Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
         Scene landingScreen = new Scene(root);
         Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();

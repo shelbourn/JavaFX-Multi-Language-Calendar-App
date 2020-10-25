@@ -22,7 +22,7 @@
                 <Font name="Helvetica" size="36.0" />
             </font>
         </Label>
-        <Button fx:id="homeBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
+        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="1092.0" layoutY="775.0" mnemonicParsing="false" onAction="#homeHandler" prefHeight="51.0" prefWidth="163.0" style="-fx-border-radius: 5px; -fx-background-color: #e57373;" text="Home">
             <font>
                 <Font name="Segoe UI" size="18.0" />
             </font>
@@ -55,7 +55,7 @@
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
                         </Button>
-                        <Button fx:id="updateApptBtn" accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="61.0" mnemonicParsing="false" onAction="#updateApptHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Update Appointment">
+                        <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutY="61.0" mnemonicParsing="false" onAction="#updateApptHandler" prefHeight="51.0" prefWidth="190.0" style="-fx-border-radius: 5px;" text="Update Appointment">
                             <font>
                                 <Font name="Segoe UI" size="18.0" />
                             </font>
