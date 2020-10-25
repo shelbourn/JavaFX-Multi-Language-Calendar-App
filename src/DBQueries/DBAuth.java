@@ -36,7 +36,7 @@ public class DBAuth {
         try {
 
             // Sets the SQL query template with variables for authenticating the User
-            String qValidateUser = "SELECT EXISTS(SELECT * from user WHERE userName = ? AND password = ?)";
+            String qValidateUser = "SELECT * from user WHERE userName = ? AND password = ?";
 
             // Sets the prepared statement
             PreparedStatement psValidateUser = DBConn.startConnection().prepareStatement(qValidateUser);
@@ -48,16 +48,16 @@ public class DBAuth {
             // Executes the prepared statement and assigns results to a Result Set
             ResultSet rsValidateUser = psValidateUser.executeQuery();
 
-            // Returning value of result set
-            int validatedUser;
-            rsValidateUser.next();
-            validatedUser = rsValidateUser.getInt(1);
-
-            if (validatedUser == 1) {
+            // If Result Set has entries, set userValidated to true
+            // If Result Set does not have entries catch the SQL Exception
+            try {
+                rsValidateUser.next();
+                int validatedUser = rsValidateUser.getInt(1);
                 System.out.println(
                         "Database Query Successful!\nUser Authentication Successful!\nWelcome to ABC Co. | CalApp!");
                 userValidated = true;
-            } else {
+
+            } catch (SQLException e) {
                 System.err.println("User Authentication Failed.\nPlease try again.");
             }
 

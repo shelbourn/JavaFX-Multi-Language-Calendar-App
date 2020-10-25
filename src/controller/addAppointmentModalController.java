@@ -28,6 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
+import model.Appointment;
 import model.AppointmentType;
 import model.City;
 import model.Customer;
@@ -75,6 +76,7 @@ public class addAppointmentModalController implements Initializable {
     private static ObservableList<User> allUsers = FXCollections.observableArrayList();
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<AppointmentType> allAppointmentTypes = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
     /**
      * Initializes the controller class.
@@ -84,6 +86,9 @@ public class addAppointmentModalController implements Initializable {
         // Initializes Start Time combo box
         startTimeValues();
         endTimeDisable();
+
+        // Retrieves Appointment data needed for overlapping appointment checks
+        allAppointments = DBAppointment.getAllAppointments();
 
         // Initializes Consultant combo box
         allUsers = DBUser.getAllUsers();
@@ -203,17 +208,35 @@ public class addAppointmentModalController implements Initializable {
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
 
         } else {
+            boolean okayToSave = true;
 
-            DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
-
-            // Closes modal on successful submission
-            Scene scene = saveBtn.getScene();
-            if (scene != null) {
-                Window window = scene.getWindow();
-                if (window != null) {
-                    window.hide();
+            // Checks for overlapping appointment start time, end time, or both
+            // If overlapping appointment, new Exception thrown and caught
+            for (Appointment appt : allAppointments) {
+                try {
+                    if ((userId == (appt.getUserId())) && selectedDate.equals(appt.getDate()) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
+                        okayToSave = false;
+                        throw new Exception("Overlapping appointment error!");
+                    }
+                } catch (Exception e) {
+                    System.err.println("Overlapping appointment error!");
+                    e.printStackTrace();
                 }
             }
+
+            if (okayToSave == true) {
+                DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+
+                // Closes modal on successful submission
+                Scene scene = saveBtn.getScene();
+                if (scene != null) {
+                    Window window = scene.getWindow();
+                    if (window != null) {
+                        window.hide();
+                    }
+                }
+            }
+
         }
     }
 
