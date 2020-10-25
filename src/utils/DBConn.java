@@ -6,12 +6,39 @@ package utils;
 import com.mysql.jdbc.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
 public class DBConn {
+
+    // Geting the default user locale and assigning it to Resource Bundle
+    private static ResourceBundle rb;
+    private static String sqlConnectionSuccessful = "";
+    private static String sqlConnectionClosed = "";
+
+    private static void rb() {
+
+        try {
+            rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
+
+            // Checking if default user language is Spanish
+            // If Spanish, then assign all screen properties to values in "es" properties file
+            if (Locale.getDefault().getLanguage().equals("es")) {
+                sqlConnectionSuccessful = rb.getString("sqlConnectionSuccessful");
+                sqlConnectionClosed = rb.getString("sqlConnectionClosed");
+            }
+
+        } catch (MissingResourceException e) {
+            sqlConnectionSuccessful = "MySQL database connection successful!";
+            sqlConnectionClosed = "MySQL database connection closed!";
+            System.err.println("English languauge Resource Bundle not found, nor needed. You may ignore this error.");
+        }
+    }
 
     // JDBC URL Components
     private static final String PROTOCOL = "jdbc";
@@ -33,21 +60,28 @@ public class DBConn {
 
     // Method to start connection to MySQL DB
     public static Connection startConnection() {
+        rb();
+
         try {
             Class.forName(MYSQLJDBCDRIVER);
             conn = (Connection) DriverManager.getConnection(JDBCURL, USERNAME, PASSWORD);
-            System.out.print("MySQL database connection successful!\n");
+            System.out.println(sqlConnectionSuccessful);
+
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
+
         return conn;
     }
 
     // Method to close the MySQL DB Connection
     public static void closeConnection() {
+        rb();
+
         try {
             conn.close();
-            System.out.println("MySQL database connection closed!\n");
+            System.out.println(sqlConnectionClosed);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

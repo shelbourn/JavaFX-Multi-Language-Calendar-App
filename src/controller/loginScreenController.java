@@ -21,7 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -59,6 +61,15 @@ public class loginScreenController implements Initializable {
     // Additional properties required for functionality
     private String userName;
     private String password;
+    private String closingSQLConnection;
+    private String exitingApplication;
+    private String confirmExitTitle;
+    private String confirmExitHeader;
+    private String confirmExitContext;
+    private String requiredFieldsTitle;
+    private String requiredFieldsHeader;
+    private String requiredFieldsContext;
+    private String openingCalApp;
 
     /**
      * Initializes the controller class.
@@ -81,29 +92,61 @@ public class loginScreenController implements Initializable {
                 passwordField.setPromptText(rb.getString("passwordField"));
                 loginBtn.setText(rb.getString("loginBtn"));
                 exitBtn.setText(rb.getString("exitBtn"));
-
+                closingSQLConnection = rb.getString("closingSQLConnection");
+                exitingApplication = rb.getString("exitingApplication");
+                confirmExitTitle = rb.getString("confirmExitTitle");
+                confirmExitHeader = rb.getString("confirmExitHeader");
+                confirmExitContext = rb.getString("confirmExitContext");
+                requiredFieldsTitle = rb.getString("requiredFieldsTitle");
+                requiredFieldsHeader = rb.getString("requiredFieldsHeader");
+                requiredFieldsContext = rb.getString("requiredFieldsContext");
+                openingCalApp = rb.getString("openingCalApp");
             }
+
         } catch (MissingResourceException e) {
+            closingSQLConnection = "Closing MySQL connection.";
+            exitingApplication = "Exiting application.\nEND.";
+            confirmExitTitle = "EXIT APPLICATION CONFIRMATION";
+            confirmExitHeader = "Are you sure you would like to exit CalApp?";
+            confirmExitContext = "Click YES to exit or NO to return to the application.";
+            requiredFieldsTitle = "USERNAME & PASSWORD REQUIRED";
+            requiredFieldsHeader = "Username and Password are required fields";
+            requiredFieldsContext = "Please enter your Username and Password.";
+            openingCalApp = "Username and Password accepted!\nOpening LANDING screen.";
             System.err.println("English languauge Resource Bundle not found, nor needed. You may ignore this error.");
         }
-
     }
 
     @FXML
     private void exitBtnHandler(ActionEvent event) throws IOException {
-        // Add alert for confirmation
-        System.out.println("Closing MySQL connection.");
-        DBConn.closeConnection();
-        System.out.println("Exiting application.\nEND.");
-        System.exit(0);
+
+        // Exit Confirmation Dialog
+        Alert confirmExit = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmExit.setTitle(confirmExitTitle);
+        confirmExit.setHeaderText(confirmExitHeader);
+        confirmExit.setContentText(confirmExitContext);
+        confirmExit.showAndWait();
+
+        // Close app on exit confirmation
+        if (confirmExit.getResult() == ButtonType.OK) {
+            System.out.println(closingSQLConnection);
+            DBConn.closeConnection();
+            System.out.println(exitingApplication);
+            System.exit(0);
+
+        } else {
+            confirmExit.close();
+        }
     }
 
     @FXML
     private void clearUserFieldHandler(MouseEvent event) {
+        usernameField.clear();
     }
 
     @FXML
     private void clearPasswordFieldHandler(MouseEvent event) {
+        passwordField.clear();
 
     }
 
@@ -112,13 +155,19 @@ public class loginScreenController implements Initializable {
         userName = usernameField.getText();
         password = passwordField.getText();
 
+        // Thows alert if Username and/or Password fields are empty
         if (userName.equals("") || password.equals("")) {
-            System.err.println("Username and Password are required fields!");
+            Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+            requiredFields.setTitle(requiredFieldsTitle);
+            requiredFields.setHeaderText(requiredFieldsHeader);
+            requiredFields.setContentText(requiredFieldsContext);
+            requiredFields.showAndWait();
             return;
         }
 
+        // Opens application on successful authentication
         if (DBAuth.validateUser(userName, password) == true) {
-            System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+            System.out.println(openingCalApp);
             Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
             Scene landingScreen = new Scene(root);
             Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -136,13 +185,19 @@ public class loginScreenController implements Initializable {
             userName = usernameField.getText();
             password = passwordField.getText();
 
+            // Thows alert if Username and/or Password fields are empty
             if (userName.equals("") || password.equals("")) {
-                System.err.println("Username and Password are required fields!");
+                Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+                requiredFields.setTitle(requiredFieldsTitle);
+                requiredFields.setHeaderText(requiredFieldsHeader);
+                requiredFields.setContentText(requiredFieldsContext);
+                requiredFields.showAndWait();
                 return;
             }
 
+            // Opens application on successful authentication
             if (DBAuth.validateUser(userName, password) == true) {
-                System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+                System.out.println(openingCalApp);
                 Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
                 Scene landingScreen = new Scene(root);
                 Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -160,13 +215,19 @@ public class loginScreenController implements Initializable {
             userName = usernameField.getText();
             password = passwordField.getText();
 
+            // Thows alert if Username and/or Password fields are empty
             if (userName.equals("") || password.equals("")) {
-                System.err.println("Username and Password are required fields!");
+                Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+                requiredFields.setTitle(requiredFieldsTitle);
+                requiredFields.setHeaderText(requiredFieldsHeader);
+                requiredFields.setContentText(requiredFieldsContext);
+                requiredFields.showAndWait();
                 return;
             }
 
+            // Opens application on successful authentication
             if (DBAuth.validateUser(userName, password) == true) {
-                System.out.println("Username and Password accepted!\nOpening LANDING screen.");
+                System.out.println(openingCalApp);
                 Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
                 Scene landingScreen = new Scene(root);
                 Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
