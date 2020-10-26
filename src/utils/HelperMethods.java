@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
@@ -51,6 +53,15 @@ public class HelperMethods {
     public static LocalTime stringToLT(String timeString) {
         DateTimeFormatter stringToLT = DateTimeFormatter.ofPattern("hh:mm a");
         return LocalTime.parse(timeString, stringToLT);
+    }
+
+    // Gets Current Local Date/Time and User's Zone Id and returns a Zoned Date Time
+    public static ZonedDateTime currentUserZDT() {
+        LocalDate ld = LocalDate.now();
+        LocalTime lt = LocalTime.now();
+        ZoneId zId = ZoneId.systemDefault();
+        ZonedDateTime userZDT = ZonedDateTime.of(ld, lt, zId);
+        return userZDT;
     }
 
 }

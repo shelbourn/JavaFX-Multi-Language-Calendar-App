@@ -6,12 +6,19 @@ package controller;
 import DBQueries.DBAppointment;
 import DBQueries.DBCustomer;
 import DBQueries.DBUser;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,6 +36,7 @@ import model.Appointment;
 import model.Customer;
 import model.User;
 import utils.DBConn;
+import utils.HelperMethods;
 
 /**
  * FXML Controller class
@@ -43,6 +51,12 @@ public class landingScreenController implements Initializable {
     private static ObservableList<Customer> customers = FXCollections.observableArrayList();
     private static ObservableList<Appointment> alertAppointments = FXCollections.observableArrayList();
     private String fifteenMinuteWarningText = "";
+    private static String logsFilename;
+    private static String logEntry;
+    private static FileWriter logsWriter;
+    private static PrintWriter logsOutputFile;
+    private static ZonedDateTime userZDT;
+    private static String loggedInUser;
 
     /**
      * Initializes the controller class.
@@ -104,8 +118,42 @@ public class landingScreenController implements Initializable {
         confirmExit.showAndWait();
 
         if (confirmExit.getResult() == ButtonType.OK) {
+            // Closing MySQL Connection
             System.out.println("Closing MySQL connection.");
             DBConn.closeConnection();
+
+            // Writing logout event to Authentication Logs
+            // Initializing Path and Name for Authentication Log File
+            logsFilename = "src/AuthLogs/calAppAuthLogs.txt";
+
+            //Initializing the FileWriter for writing Authentication Log output
+            try {
+                logsWriter = new FileWriter(logsFilename, true);
+
+            } catch (IOException ex) {
+                Logger.getLogger(loginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Initializing the PrintWriter for writing Authentication Log output
+            logsOutputFile = new PrintWriter(logsWriter);
+
+            // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+            userZDT = HelperMethods.currentUserZDT();
+            loggedInUser = loginScreenController.getLoggedInUser();
+            logEntry = userZDT.toString() + ": User [" + loggedInUser + "] successfully logged out!";
+
+            if (loggedInUser != null) {
+                // Printing logout event to Authentication Logs on app exit
+                System.out.println("Printing authentication event to Authentication Log File.");
+
+                logsOutputFile.println(logEntry);
+
+                // Closing the authentication log file after output written
+                logsOutputFile.close();
+                System.out.println("Entry to Authentication Log successfully written!");
+            }
+
+            // Exiting application
             System.out.println("Exiting application.\nEND.");
             System.exit(0);
         } else {
@@ -171,6 +219,14 @@ public class landingScreenController implements Initializable {
         reportsWindow.setTitle("CalApp | Reports");
         reportsWindow.setScene(reportsScreen);
         reportsWindow.show();
+    }
+
+    @FXML
+    private void viewLogsHandler(ActionEvent event) throws IOException {
+        // Opens the Authentication Logs file
+        File logsFile = new File("src/AuthLogs/calAppAuthLogs.txt");
+        Desktop.getDesktop().open(logsFile);
+
     }
 
 }

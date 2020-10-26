@@ -1,0 +1,14 @@
+2020-10-25T17:55:48.520-07:00[America/Los_Angeles]: test successfully logged in!
+2020-10-25T17:57:39.367-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:05:59.911-07:00[America/Los_Angeles]: User [asd] had a failed login attempt!
+2020-10-25T18:13:03.917-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:20:33.051-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:20:54.251-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:21:03.502-07:00[America/Los_Angeles]: User [test] successfully logged out!
+2020-10-25T18:21:25.749-07:00[America/Los_Angeles]: User [null] successfully logged out!
+2020-10-25T18:25:25.092-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:25:33.825-07:00[America/Los_Angeles]: User [test] successfully logged out!
+2020-10-25T18:34:28.689-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:37:25.810-07:00[America/Los_Angeles]: User [test] successfully logged in!
+2020-10-25T18:37:40.248-07:00[America/Los_Angeles]: User [test] successfully logged out!
+2020-10-25T18:47:49.519-07:00[America/Los_Angeles]: User [shelbourn] successfully logged in!

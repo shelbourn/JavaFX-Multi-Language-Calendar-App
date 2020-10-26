@@ -4,11 +4,16 @@
 package controller;
 
 import DBQueries.DBAuth;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +31,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import utils.DBConn;
+import utils.HelperMethods;
 
 /**
  * FXML Controller class
@@ -63,6 +69,14 @@ public class loginScreenController implements Initializable {
     private String requiredFieldsHeader;
     private String requiredFieldsContext;
     private String openingCalApp;
+    private String printingToAuthLogs;
+    private String logEntryWritten;
+    private String logsFilename;
+    private String logEntry;
+    private FileWriter logsWriter;
+    private PrintWriter logsOutputFile;
+    private ZonedDateTime userZDT;
+    private static String loggedInUser;
 
     /**
      * Initializes the controller class.
@@ -72,6 +86,20 @@ public class loginScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initializing Path and Name for Authentication Log File
+        logsFilename = "src/AuthLogs/calAppAuthLogs.txt";
+
+        //Initializing the FileWriter for writing Authentication Log output
+        try {
+            logsWriter = new FileWriter(logsFilename, true);
+
+        } catch (IOException ex) {
+            Logger.getLogger(loginScreenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Initializing the PrintWriter for writing Authentication Log output
+        logsOutputFile = new PrintWriter(logsWriter);
+
         // Geting the default user locale and assigning it to Resource Bundle
         try {
             rb = ResourceBundle.getBundle("i18n/Lang", Locale.getDefault());
@@ -96,6 +124,8 @@ public class loginScreenController implements Initializable {
                 requiredFieldsHeader = rb.getString("requiredFieldsHeader");
                 requiredFieldsContext = rb.getString("requiredFieldsContext");
                 openingCalApp = rb.getString("openingCalApp");
+                printingToAuthLogs = rb.getString("printingToAuthLogs");
+                logEntryWritten = rb.getString("logEntryWritten");
             }
 
         } catch (MissingResourceException e) {
@@ -108,8 +138,15 @@ public class loginScreenController implements Initializable {
             requiredFieldsHeader = "Username and Password are required fields";
             requiredFieldsContext = "Please enter your Username and Password.";
             openingCalApp = "Username and Password accepted!\nOpening LANDING screen.";
+            printingToAuthLogs = "Printing authentication event to Authentication Log File.";
+            logEntryWritten = "Entry to Authentication Log successfully written!";
             System.err.println("English languauge Resource Bundle not found, nor needed. You may ignore this error.");
         }
+    }
+
+    // Getter for loggedInUser
+    public static String getLoggedInUser() {
+        return loggedInUser;
     }
 
     @FXML
@@ -133,17 +170,20 @@ public class loginScreenController implements Initializable {
         }
     }
 
+    // Clears Username Field
     @FXML
     private void clearUserFieldHandler(MouseEvent event) {
         usernameField.clear();
     }
 
+    // Clears Password Field
     @FXML
     private void clearPasswordFieldHandler(MouseEvent event) {
         passwordField.clear();
 
     }
 
+    // Validates user credentials, throws alerts, opens app if authentication is successful
     @FXML
     private void loginBtnHandler(ActionEvent event) throws IOException {
         userName = usernameField.getText();
@@ -161,6 +201,19 @@ public class loginScreenController implements Initializable {
 
         // Opens application on successful authentication
         if (DBAuth.validateUser(userName, password) == true) {
+            System.out.println(printingToAuthLogs);
+
+            // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+            userZDT = HelperMethods.currentUserZDT();
+            logEntry = userZDT.toString() + ": User [" + userName + "] successfully logged in!";
+            logsOutputFile.println(logEntry);
+
+            // Closing the authentication log file after output written
+            logsOutputFile.close();
+            System.out.println(logEntryWritten);
+
+            // Opening the Main App window
+            loggedInUser = userName;
             System.out.println(openingCalApp);
             Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
             Scene landingScreen = new Scene(root);
@@ -168,6 +221,18 @@ public class loginScreenController implements Initializable {
             loginWindow.setTitle("CalApp | Main Screen");
             loginWindow.setScene(landingScreen);
             loginWindow.show();
+
+        } else {
+            System.out.println(printingToAuthLogs);
+
+            // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+            userZDT = HelperMethods.currentUserZDT();
+            logEntry = userZDT.toString() + ": User [" + userName + "] had a failed login attempt!";
+            logsOutputFile.println(logEntry);
+
+            // Closing the authentication log file after output written
+            logsOutputFile.close();
+            System.out.println(logEntryWritten);
         }
 
     }
@@ -191,6 +256,18 @@ public class loginScreenController implements Initializable {
 
             // Opens application on successful authentication
             if (DBAuth.validateUser(userName, password) == true) {
+                System.out.println(printingToAuthLogs);
+
+                // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+                userZDT = HelperMethods.currentUserZDT();
+                logEntry = userZDT.toString() + ": User [" + userName + "] successfully logged in!";
+                logsOutputFile.println(logEntry);
+
+                // Closing the authentication log file after output written
+                logsOutputFile.close();
+                System.out.println(logEntryWritten);
+
+                // Opening the Main App window
                 System.out.println(openingCalApp);
                 Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
                 Scene landingScreen = new Scene(root);
@@ -198,6 +275,18 @@ public class loginScreenController implements Initializable {
                 loginWindow.setTitle("CalApp | Main Screen");
                 loginWindow.setScene(landingScreen);
                 loginWindow.show();
+
+            } else {
+                System.out.println(printingToAuthLogs);
+
+                // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+                userZDT = HelperMethods.currentUserZDT();
+                logEntry = userZDT.toString() + ": User [" + userName + "] had a failed login attempt!";
+                logsOutputFile.println(logEntry);
+
+                // Closing the authentication log file after output written
+                logsOutputFile.close();
+                System.out.println(logEntryWritten);
             }
         }
     }
@@ -221,6 +310,18 @@ public class loginScreenController implements Initializable {
 
             // Opens application on successful authentication
             if (DBAuth.validateUser(userName, password) == true) {
+                System.out.println(printingToAuthLogs);
+
+                // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+                userZDT = HelperMethods.currentUserZDT();
+                logEntry = userZDT.toString() + ": User [" + userName + "] successfully logged in!";
+                logsOutputFile.println(logEntry);
+
+                // Closing the authentication log file after output written
+                logsOutputFile.close();
+                System.out.println(logEntryWritten);
+
+                // Opening the Main App window
                 System.out.println(openingCalApp);
                 Parent root = FXMLLoader.load(getClass().getResource("/view/landingScreen.fxml"));
                 Scene landingScreen = new Scene(root);
@@ -228,6 +329,18 @@ public class loginScreenController implements Initializable {
                 loginWindow.setTitle("CalApp | Main Screen");
                 loginWindow.setScene(landingScreen);
                 loginWindow.show();
+
+            } else {
+                System.out.println(printingToAuthLogs);
+
+                // Printing authentication event to authentication log file (Package: AuthLogs, File: calAppAuthLogs.txt)
+                userZDT = HelperMethods.currentUserZDT();
+                logEntry = userZDT.toString() + ": User [" + userName + "] had a failed login attempt!";
+                logsOutputFile.println(logEntry);
+
+                // Closing the authentication log file after output written
+                logsOutputFile.close();
+                System.out.println(logEntryWritten);
             }
         }
     }
