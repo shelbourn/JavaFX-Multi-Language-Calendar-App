@@ -3,6 +3,7 @@
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Ellipse?>
@@ -54,11 +55,11 @@
                 </Group>
                 <Group layoutX="131.0" layoutY="212.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <children>
-                        <TextField fx:id="passwordField" onKeyPressed="#passwordEnterHandler" prefHeight="35.0" prefWidth="290.0" promptText="Enter your password">
-                            <font>
-                                <Font name="Segoe UI" size="14.0" />
-                            </font>
-                        </TextField>
+                  <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </PasswordField>
                         <Group layoutX="277.0" layoutY="15.0" onMouseClicked="#clearPasswordFieldHandler" scaleX="0.8" scaleY="0.8">
                             <children>
                                 <Ellipse fill="#dadada" layoutY="1.765625" opacity="0.49" radiusX="10.0" radiusY="10.0" stroke="BLACK" strokeType="INSIDE" />

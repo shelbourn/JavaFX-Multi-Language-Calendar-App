@@ -292,7 +292,6 @@ public class loginScreenController implements Initializable {
     }
 
     // Handling form submission when Enter key is pressed in Password field
-    @FXML
     private void passwordEnterHandler(KeyEvent event) throws IOException {
         if (event.getCode() == KeyCode.ENTER) {
             userName = usernameField.getText();
