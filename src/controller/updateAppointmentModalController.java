@@ -121,6 +121,7 @@ public class updateAppointmentModalController implements Initializable {
         initDate = appointmentToUpdate.getDate();
 
         // Initializes available dates in DatePicker & selects initial appointment date
+        // I used a lambda expression here for brevity (less lines of code) and efficiency
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean isEmpty) {
@@ -182,6 +183,7 @@ public class updateAppointmentModalController implements Initializable {
 
     // Helper method to retrieve the initial user from the database and convert to a User object
     public User initUser() {
+        // I used a lambda expression here for brevity (less lines of code) and efficiency
         allUsers.stream().filter((i) -> (i.getUserName().equals(initUserName))).forEachOrdered((i) -> {
             initUser = i;
         });
@@ -190,6 +192,7 @@ public class updateAppointmentModalController implements Initializable {
 
     // Helper method to retrieve the initial customer from the database and convert to a Customer object
     public Customer initCustomer() {
+        // I used a lambda expression here for brevity (less lines of code) and efficiency
         allCustomers.stream().filter((i) -> (i.getCustomerName().equals(initCustomerName))).forEachOrdered((i) -> {
             initCustomer = i;
         });
@@ -198,6 +201,7 @@ public class updateAppointmentModalController implements Initializable {
 
     // Helper method to retrieve the initial appointment type from the database and convert to a AppointmentType object
     public AppointmentType initType() {
+        // I used a lambda expression here for brevity (less lines of code) and efficiency
         allAppointmentTypes.stream().filter((i) -> (i.getType().equals(initAppointmentType))).forEachOrdered((i) -> {
             initType = i;
         });
