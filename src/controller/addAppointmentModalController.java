@@ -193,6 +193,15 @@ public class addAppointmentModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+        customerId = customer.getValue().getCustomerId();
+        selectedUser = consultant.getValue();
+        selectedCustomer = customer.getValue();
+        userId = consultant.getValue().getUserId();
+        selectedDate = datePicker.getValue();
+        convertedSelectedStartTime = stringToLT(startTime.getValue());
+        convertedSelectedEndTime = stringToLT(endTime.getValue());
+        type = appointmentType.getValue().getType();
+
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
             // Throw alert if any Appointment fields are empty
             Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
@@ -208,15 +217,6 @@ public class addAppointmentModalController implements Initializable {
             // Checks for overlapping appointment start time, end time, or both
             // If overlapping appointment, new Exception thrown and caught
             for (Appointment appt : allAppointments) {
-                customerId = customer.getValue().getCustomerId();
-                selectedUser = consultant.getValue();
-                selectedCustomer = customer.getValue();
-                userId = consultant.getValue().getUserId();
-                selectedDate = datePicker.getValue();
-                convertedSelectedStartTime = stringToLT(startTime.getValue());
-                convertedSelectedEndTime = stringToLT(endTime.getValue());
-                type = appointmentType.getValue().getType();
-
                 try {
                     if ((userId == (appt.getUserId())) && selectedDate.equals(appt.getDate()) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
                         okayToSave = false;

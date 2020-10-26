@@ -99,7 +99,14 @@ public class updateCustomerModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        if (updatedCustomerName == null || updatedAddress == null || updatedPhone == null || city.getValue() == null) {
+        updatedCustomerName = customerName.getText();
+        updatedAddress = address.getText();
+        updatedPhone = phone.getText();
+        customerId = customerToUpdate.getCustomerId();
+        addressId = customerToUpdate.getAddressId();
+        updatedCityId = city.getValue().getCityId();
+
+        if (updatedCustomerName.equals("") || updatedAddress.equals("") || updatedPhone.equals("") || city.getSelectionModel().isEmpty()) {
             // Throw alert if any Appointment fields are empty
             Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
             requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
@@ -110,13 +117,6 @@ public class updateCustomerModalController implements Initializable {
 
         } else {
             // Saves updated customer if validation passes
-            updatedCustomerName = customerName.getText();
-            updatedAddress = address.getText();
-            updatedPhone = phone.getText();
-            customerId = customerToUpdate.getCustomerId();
-            addressId = customerToUpdate.getAddressId();
-            updatedCityId = city.getValue().getCityId();
-
             DBCustomer.updateCustomer(customerId, updatedCustomerName, addressId, updatedAddress, updatedPhone, updatedCityId);
 
             // Closes modal and refreshes customer table view

@@ -82,7 +82,12 @@ public class addCustomerModalController implements Initializable {
 
     @FXML
     private void saveBtnHandler(ActionEvent event) {
-        if (DBCustomerName == null || DBAddress == null || DBphone == null || city.getValue() == null) {
+        DBCustomerName = customerName.getText();
+        DBAddress = address.getText();
+        DBphone = phone.getText();
+        selectedCity = city.getValue();
+
+        if (DBCustomerName.equals("") || DBAddress.equals("") || DBphone.equals("") || selectedCity == null) {
             // Throw alert if any Appointment fields are empty
             Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
             requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
@@ -93,11 +98,7 @@ public class addCustomerModalController implements Initializable {
 
         } else {
             // Saves customer if validation passes
-            DBCustomerName = customerName.getText();
-            DBAddress = address.getText();
-            DBphone = phone.getText();
-            DBCityId = city.getValue().getCityId();
-
+            DBCityId = selectedCity.getCityId();
             DBCustomer.createCustomer(DBCustomerName, DBAddress, DBphone, DBCityId);
 
             // Closes modal on successful submission

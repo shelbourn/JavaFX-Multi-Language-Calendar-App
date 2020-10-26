@@ -120,6 +120,9 @@ public class updateAppointmentModalController implements Initializable {
         // Retrieves the current appointment date and convert to LocalDate object
         initDate = appointmentToUpdate.getDate();
 
+        // Retrieves appointment data for overlapping appointment check
+        allAppointments = DBAppointment.getAllAppointments();
+
         // Initializes available dates in DatePicker & selects initial appointment date
         // I used a lambda expression here for brevity (less lines of code) and efficiency
         datePicker.setDayCellFactory(picker -> new DateCell() {
@@ -247,6 +250,16 @@ public class updateAppointmentModalController implements Initializable {
     // Saves updated appointment after validation
     @FXML
     private void saveBtnHandler(ActionEvent event) {
+        appointmentId = appointmentToUpdate.getAppointmentId();
+        customerId = customer.getValue().getCustomerId();
+        selectedUser = consultant.getValue();
+        selectedCustomer = customer.getValue();
+        userId = consultant.getValue().getUserId();
+        selectedDate = datePicker.getValue();
+        convertedSelectedStartTime = stringToLT(startTime.getValue());
+        convertedSelectedEndTime = stringToLT(endTime.getValue());
+        type = appointmentType.getValue().getType();
+
         if (selectedDate == null || convertedSelectedStartTime == null || convertedSelectedEndTime == null || selectedUser == null || selectedCustomer == null || type == null) {
             // Throw alert if any Appointment fields are empty
             Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
@@ -256,58 +269,49 @@ public class updateAppointmentModalController implements Initializable {
             requiredFields.showAndWait();
             return;
 
-        } else {
-            boolean okayToSave = true;
+        }
 
-            // Checks for overlapping appointment start time, end time, or both
-            // If overlapping appointment, new Exception thrown and caught
-            for (Appointment appt : allAppointments) {
-                appointmentId = appointmentToUpdate.getAppointmentId();
-                customerId = customer.getValue().getCustomerId();
-                selectedUser = consultant.getValue();
-                selectedCustomer = customer.getValue();
-                userId = consultant.getValue().getUserId();
-                selectedDate = datePicker.getValue();
-                convertedSelectedStartTime = stringToLT(startTime.getValue());
-                convertedSelectedEndTime = stringToLT(endTime.getValue());
-                type = appointmentType.getValue().getType();
+        // Checks for overlapping appointment start time, end time, or both
+        // If overlapping appointment, new Exception thrown and caught
+        boolean okayToSave = true;
 
-                try {
-                    if ((userId == (appt.getUserId())) && selectedDate.equals(appt.getDate()) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
-                        okayToSave = false;
-                        throw new Exception("Overlapping appointment error!");
-                    }
-
-                } catch (Exception e) {
-                    System.err.println("Overlapping appointment error!");
-
-                    // Throw alert if any Appointments for a user overlap
-                    Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
-                    requiredFields.setTitle("OVERLAPPING APPOINTMENT VIOLATION");
-                    requiredFields.setHeaderText("Appointment Start and/or End time overlap another appointment for this user");
-                    requiredFields.setContentText("Please select new Start and/or End times for this appointment.");
-                    requiredFields.showAndWait();
-                    e.printStackTrace();
+        for (Appointment appt : allAppointments) {
+            try {
+                if ((userId == appt.getUserId()) && (selectedDate.equals(appt.getDate())) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
+                    okayToSave = false;
+                    throw new Exception("Overlapping appointment error!");
                 }
+
+            } catch (Exception e) {
+                System.err.println("Overlapping appointment error!");
+
+                // Throw alert if any Appointments for a user overlap
+                Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
+                requiredFields.setTitle("OVERLAPPING APPOINTMENT VIOLATION");
+                requiredFields.setHeaderText("Appointment Start and/or End time overlap another appointment for this user");
+                requiredFields.setContentText("Please select new Start and/or End times for this appointment.");
+                requiredFields.showAndWait();
+                e.printStackTrace();
+                return;
             }
+        }
 
-            // Saves appointment if validation passes
-            if (okayToSave == true) {
-                DBAppointment.createAppointment(customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
+        // Saves appointment if validation passes
+        if (okayToSave == true) {
+            DBAppointment.updateAppointment(appointmentId, customerId, userId, selectedDate, convertedSelectedStartTime, convertedSelectedEndTime, type);
 
-                // Closes modal on successful submission
-                Scene scene = saveBtn.getScene();
-                if (scene != null) {
-                    Window window = scene.getWindow();
-                    if (window != null) {
-                        window.hide();
-                    }
+            // Closes modal on successful submission
+            Scene scene = saveBtn.getScene();
+            if (scene != null) {
+                Window window = scene.getWindow();
+                if (window != null) {
+                    window.hide();
                 }
             }
         }
     }
 
-    // Closes modal
+// Closes modal
     @FXML
     private void cancelBtnHandler(ActionEvent event) {
         Scene scene = cancelBtn.getScene();
