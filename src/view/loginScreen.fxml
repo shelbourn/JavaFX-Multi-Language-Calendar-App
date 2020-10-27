@@ -55,7 +55,7 @@
                 </Group>
                 <Group layoutX="131.0" layoutY="212.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <children>
-                  <PasswordField fx:id="passwordField" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password">
+                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordEnterHandler" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password">
                      <font>
                         <Font size="14.0" />
                      </font>

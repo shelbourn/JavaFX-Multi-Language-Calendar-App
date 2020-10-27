@@ -277,7 +277,7 @@ public class updateAppointmentModalController implements Initializable {
 
         for (Appointment appt : allAppointments) {
             try {
-                if ((userId == appt.getUserId()) && (selectedDate.equals(appt.getDate())) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
+                if ((appointmentId != appt.getAppointmentId()) && (userId == appt.getUserId()) && (selectedDate.equals(appt.getDate())) && ((convertedSelectedStartTime.isAfter(appt.getStart().minusSeconds(1)) && convertedSelectedStartTime.isBefore(appt.getEnd().plusSeconds(1))) || (convertedSelectedEndTime.isAfter(appt.getStart()) && convertedSelectedStartTime.isBefore(appt.getEnd())))) {
                     okayToSave = false;
                     throw new Exception("Overlapping appointment error!");
                 }
