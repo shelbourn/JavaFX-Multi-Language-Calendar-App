@@ -1,10 +1,11 @@
 /*
- * Controller for the Add Customer modal
+ * Controller for Update Customer modal
  */
 package controller;
 
 import DBQueries.DBCity;
 import DBQueries.DBCustomer;
+import static controller.customersScreenController.getCustomerToUpdate;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -19,22 +20,23 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 import model.City;
+import model.Customer;
 
 /**
  * FXML Controller class
  *
  * @author Matthew Shelbourn <mshelbo@wgu.edu>
  */
-public class addCustomerModalController implements Initializable {
+public class updateCustomerModalController implements Initializable {
 
     @FXML
     private ComboBox<City> city;
     @FXML
+    private TextField country;
+    @FXML
     private Button saveBtn;
     @FXML
     private Button cancelBtn;
-    @FXML
-    private TextField country;
     @FXML
     private TextField customerName;
     @FXML
@@ -43,13 +45,19 @@ public class addCustomerModalController implements Initializable {
     private TextField phone;
 
     // Additional properties required for functionality
+    private final Customer customerToUpdate = getCustomerToUpdate();
     private static ObservableList<City> allCities = FXCollections.observableArrayList();
     private City selectedCity;
     private String countryName;
-    private int DBCityId;
-    private String DBCustomerName;
-    private String DBAddress;
-    private String DBphone;
+    private final String customerCityName = customerToUpdate.getCity();
+    private City initCustomerCity;
+    private String initCountryName;
+    private String updatedCustomerName;
+    private String updatedAddress;
+    private String updatedPhone;
+    private int customerId;
+    private int addressId;
+    private int updatedCityId;
 
     /**
      * Initializes the controller class.
@@ -59,12 +67,29 @@ public class addCustomerModalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Fetches and sets fields with data from Customer to update
         // Initializes City combo box with data from the database
+        customerName.setText(customerToUpdate.getCustomerName());
+        address.setText(customerToUpdate.getAddress());
+        phone.setText(customerToUpdate.getPhone());
         allCities = DBCity.getAllCities();
         city.setItems(allCities);
+        city.getSelectionModel().select(initCities());
         city.setVisibleRowCount(5);
+        initCountryName = initCustomerCity.getCountry();
+        country.setText(initCountryName);
     }
 
+    // Helper method to retrieve the Customer's current city from the database and convert to a City object
+    public City initCities() {
+        // I used a lambda expression here for brevity (less lines of code) and efficiency
+        allCities.stream().filter((i) -> (i.getCity().equals(customerCityName))).forEachOrdered((i) -> {
+            initCustomerCity = i;
+        });
+        return initCustomerCity;
+    }
+
+    // Sets Country value upon city selection
     @FXML
     private void cityHandler(ActionEvent event) {
         selectedCity = city.getValue();
@@ -73,21 +98,15 @@ public class addCustomerModalController implements Initializable {
     }
 
     @FXML
-    private void clearFieldsHandler(ActionEvent event) {
-        customerName.clear();
-        address.clear();
-        phone.clear();
-        city.getSelectionModel().clearSelection();
-    }
-
-    @FXML
     private void saveBtnHandler(ActionEvent event) {
-        DBCustomerName = customerName.getText();
-        DBAddress = address.getText();
-        DBphone = phone.getText();
-        selectedCity = city.getValue();
+        updatedCustomerName = customerName.getText();
+        updatedAddress = address.getText();
+        updatedPhone = phone.getText();
+        customerId = customerToUpdate.getCustomerId();
+        addressId = customerToUpdate.getAddressId();
+        updatedCityId = city.getValue().getCityId();
 
-        if (DBCustomerName.equals("") || DBAddress.equals("") || DBphone.equals("") || selectedCity == null) {
+        if (updatedCustomerName.equals("") || updatedAddress.equals("") || updatedPhone.equals("") || city.getSelectionModel().isEmpty()) {
             // Throw alert if any Appointment fields are empty
             Alert requiredFields = new Alert(Alert.AlertType.INFORMATION);
             requiredFields.setTitle("REQUIRED FIELDS VIOLATION");
@@ -97,11 +116,10 @@ public class addCustomerModalController implements Initializable {
             return;
 
         } else {
-            // Saves customer if validation passes
-            DBCityId = selectedCity.getCityId();
-            DBCustomer.createCustomer(DBCustomerName, DBAddress, DBphone, DBCityId);
+            // Saves updated customer if validation passes
+            DBCustomer.updateCustomer(customerId, updatedCustomerName, addressId, updatedAddress, updatedPhone, updatedCityId);
 
-            // Closes modal on successful submission
+            // Closes modal and refreshes customer table view
             Scene scene = saveBtn.getScene();
             if (scene != null) {
                 Window window = scene.getWindow();
@@ -122,7 +140,5 @@ public class addCustomerModalController implements Initializable {
                 window.hide();
             }
         }
-
     }
-
 }

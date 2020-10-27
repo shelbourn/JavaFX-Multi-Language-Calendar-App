@@ -38,12 +38,12 @@
         </AnchorPane>
       <AnchorPane layoutX="45.0" layoutY="371.0" prefHeight="207.0" prefWidth="1119.0" style="-fx-border-color: steelblue; -fx-border-radius: 10px; -fx-border-width: 2px; -fx-background-color: eee;">
          <children>
-            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="235.0" layoutY="110.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Customer" translateX="225.0">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="122.0" layoutY="108.0" mnemonicParsing="false" onAction="#addCustHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Customer" translateX="225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
             </Button>
-            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="345.0" layoutY="110.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="309.0" layoutY="108.0" mnemonicParsing="false" onAction="#addApptHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="Add Appointment" translateX="-225.0">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>
@@ -53,7 +53,12 @@
                   <Font name="Helvetica" size="36.0" />
                </font>
             </Label>
-            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="800.0" layoutY="110.0" mnemonicParsing="false" onAction="#viewReportsHandler" prefHeight="51.0" prefWidth="200.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Reports">
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="610.0" layoutY="108.0" mnemonicParsing="false" onAction="#viewReportsHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Reports">
+               <font>
+                  <Font name="Segoe UI" size="18.0" />
+               </font>
+            </Button>
+            <Button accessibleHelp="Click here to exit the application" accessibleText="Exit Application" layoutX="873.0" layoutY="108.0" mnemonicParsing="false" onAction="#viewLogsHandler" prefHeight="51.0" prefWidth="163.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5" style="-fx-border-radius: 5px;" text="View Logs">
                <font>
                   <Font name="Segoe UI" size="18.0" />
                </font>

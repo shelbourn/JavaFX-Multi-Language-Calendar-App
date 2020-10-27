@@ -31,11 +31,16 @@
          <children>
             <TableView fx:id="calendarTable" layoutX="13.0" layoutY="56.0" prefHeight="518.0" prefWidth="945.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="customerIdCol" editable="false" prefWidth="76.0" text="Customer ID" />
+                <TableColumn fx:id="customerNameCol" editable="false" prefWidth="155.0" text="Customer Name" />
+                  <TableColumn fx:id="consultantCol" editable="false" minWidth="0.0" prefWidth="155.0" text="Consultant" />
+                  <TableColumn fx:id="dateCol" editable="false" minWidth="0.0" prefWidth="108.0" text="Date" />
+                  <TableColumn fx:id="startTimeCol" editable="false" prefWidth="160.0" text="Start Time" />
+                  <TableColumn fx:id="endTimeCol" editable="false" prefWidth="160.0" text="End Time" />
+                  <TableColumn fx:id="typeCol" editable="false" prefWidth="142.0" text="Type" />
               </columns>
             </TableView>
-            <Label layoutX="339.0" layoutY="10.0" prefHeight="34.0" prefWidth="293.0" text="Appointments Calendar" textFill="STEELBLUE">
+            <Label fx:id="appointmentLabel" alignment="CENTER" layoutX="63.0" layoutY="9.0" prefHeight="34.0" prefWidth="846.0" text="Appointments Calendar" textFill="STEELBLUE">
                <font>
                   <Font name="Helvetica" size="28.0" />
                </font>
@@ -89,7 +94,7 @@
                   <Font name="Helvetica Oblique" size="18.0" />
                </font>
             </Label>
-            <RadioButton layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#weekViewHandler" text="Week View">
+            <RadioButton fx:id="weekViewToggle" layoutX="14.0" layoutY="34.0" mnemonicParsing="false" onAction="#weekViewHandler" text="Week View">
                <font>
                   <Font size="16.0" />
                </font>
@@ -97,12 +102,12 @@
                   <ToggleGroup fx:id="calViewToggleGroup" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="14.0" layoutY="60.0" mnemonicParsing="false" onAction="#monthViewHandler" text="Month View" toggleGroup="$calViewToggleGroup">
+            <RadioButton fx:id="monthViewToggle" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" onAction="#monthViewHandler" text="Month View" toggleGroup="$calViewToggleGroup">
                <font>
                   <Font size="16.0" />
                </font>
             </RadioButton>
-            <RadioButton layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#allAppointmentsHandler" text="All Appointments View" toggleGroup="$calViewToggleGroup">
+            <RadioButton fx:id="allAppointmentsToggle" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#allAppointmentsHandler" text="All Appointments View" toggleGroup="$calViewToggleGroup">
                <font>
                   <Font size="16.0" />
                </font>

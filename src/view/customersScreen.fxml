@@ -29,8 +29,12 @@
             <children>
                 <TableView fx:id="customersTable" layoutX="13.0" layoutY="56.0" prefHeight="518.0" prefWidth="945.0">
                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
+                        <TableColumn fx:id="customerIdCol" editable="false" prefWidth="120.0" text="Customer ID" />
+                        <TableColumn fx:id="customerNameCol" prefWidth="161.0" text="Customer Name" />
+                  <TableColumn fx:id="addressCol" prefWidth="207.0" text="Address" />
+                  <TableColumn fx:id="cityCol" prefWidth="157.0" text="City" />
+                  <TableColumn fx:id="countryCol" prefWidth="162.0" text="Country" />
+                  <TableColumn fx:id="phoneCol" prefWidth="137.0" text="Phone" />
                     </columns>
                 </TableView>
             <Label layoutX="376.0" layoutY="10.0" prefHeight="3.0" prefWidth="220.0" text="Customers Table" textFill="STEELBLUE">
