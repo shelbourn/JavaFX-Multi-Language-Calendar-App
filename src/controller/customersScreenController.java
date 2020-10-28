@@ -91,7 +91,6 @@ public class customersScreenController implements Initializable {
         Scene addCustomerScreen = new Scene(root);
         addCustomerModal.setTitle("CalApp | Add Customer");
         addCustomerModal.setScene(addCustomerScreen);
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         addCustomerModal.setOnHidden((WindowEvent event1) -> {
             updateCustomersTable();
         });
@@ -110,7 +109,6 @@ public class customersScreenController implements Initializable {
         Scene UpdateCustomerScreen = new Scene(root);
         updateCustomerModal.setTitle("CalApp | Update Customer");
         updateCustomerModal.setScene(UpdateCustomerScreen);
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         updateCustomerModal.setOnHidden((WindowEvent event1) -> {
             updateCustomersTable();
         });

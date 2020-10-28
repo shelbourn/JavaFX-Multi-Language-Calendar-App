@@ -93,7 +93,6 @@ public class calendarScreenController implements Initializable {
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         dateCol.setCellFactory(col -> new TableCell<Appointment, LocalDate>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
@@ -107,7 +106,6 @@ public class calendarScreenController implements Initializable {
             }
         });
         startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         startTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
             @Override
             protected void updateItem(LocalTime item, boolean empty) {
@@ -121,7 +119,6 @@ public class calendarScreenController implements Initializable {
             }
         });
         endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         endTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
             @Override
             protected void updateItem(LocalTime item, boolean empty) {
@@ -167,7 +164,6 @@ public class calendarScreenController implements Initializable {
         Scene addAppointmentScreen = new Scene(root);
         addAppointmentModal.setTitle("CalApp | Add Appointment");
         addAppointmentModal.setScene(addAppointmentScreen);
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         addAppointmentModal.setOnHidden((WindowEvent event1) -> {
             if (allAppointmentsToggle.isSelected()) {
                 updateAllAppointmentsTable();
@@ -196,7 +192,6 @@ public class calendarScreenController implements Initializable {
         Scene updateAppointmentScreen = new Scene(root);
         updateAppointmentModal.setTitle("CalApp | Update Appointment");
         updateAppointmentModal.setScene(updateAppointmentScreen);
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         updateAppointmentModal.setOnHidden((WindowEvent event1) -> {
             if (allAppointmentsToggle.isSelected()) {
                 updateAllAppointmentsTable();

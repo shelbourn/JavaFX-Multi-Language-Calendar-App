@@ -101,8 +101,6 @@ public class addAppointmentModalController implements Initializable {
         appointmentType.setVisibleRowCount(5);
 
         // Initializes available dates in DatePicker & selects current date by default
-        // I used a lambda expression here for brevity (less lines of code) and to harness the lambda's ability to
-        // write and inline function expression instead of having to declare a function elsewhere, return a value, and then use that value here
         datePicker.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean isEmpty) {
