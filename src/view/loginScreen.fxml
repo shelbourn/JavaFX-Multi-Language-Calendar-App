@@ -55,7 +55,12 @@
                 </Group>
                 <Group layoutX="131.0" layoutY="212.0" scaleX="1.5" scaleY="1.5" scaleZ="1.5">
                     <children>
-                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordEnterHandler" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password">
+                  <TextField fx:id="passwordTextField" onKeyPressed="#passwordEnterHandler" onKeyTyped="#passwordTextFieldHandler" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="passwordField" onKeyPressed="#passwordEnterHandler" onKeyTyped="#passwordFieldHandler" prefHeight="35.0" prefWidth="290.0" promptText="Enter Your Password">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -70,6 +75,16 @@
                                 </Text>
                             </children>
                         </Group>
+                  <Label fx:id="showLabel" layoutX="240.0" layoutY="10.0" onMouseClicked="#showHandler" prefHeight="0.0" prefWidth="24.0" text="Show" textFill="STEELBLUE">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="hideLabel" layoutX="240.0" layoutY="10.0" onMouseClicked="#hideHandler" prefHeight="0.0" prefWidth="24.0" text="Hide" textFill="STEELBLUE" visible="false">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
                     </children>
                 </Group>
                 <Label fx:id="usernameLabel" layoutX="58.0" layoutY="81.0" prefHeight="29.0" prefWidth="326.0" text="Username" textFill="STEELBLUE">
