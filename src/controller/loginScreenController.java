@@ -51,6 +51,8 @@ public class loginScreenController implements Initializable {
     @FXML
     private TextField passwordField;
     @FXML
+    private TextField passwordTextField;
+    @FXML
     private Label usernameLabel;
     @FXML
     private Label passwordLabel;
@@ -77,6 +79,10 @@ public class loginScreenController implements Initializable {
     private PrintWriter logsOutputFile;
     private ZonedDateTime userZDT;
     private static String loggedInUser;
+    @FXML
+    private Label showLabel;
+    @FXML
+    private Label hideLabel;
 
     /**
      * Initializes the controller class.
@@ -176,14 +182,44 @@ public class loginScreenController implements Initializable {
         usernameField.clear();
     }
 
-    // Clears Password Field
+    // Clears Password and Password Text Fields
     @FXML
     private void clearPasswordFieldHandler(MouseEvent event) {
         passwordField.clear();
-
+        passwordTextField.clear();
     }
 
-    // Validates user credentials, throws alerts, opens app if authentication is successful
+    // Binds the passwordField to the passwordTextField
+    @FXML
+    private void passwordFieldHandler(KeyEvent event) {
+        passwordTextField.setText(passwordField.getText());
+    }
+
+    // Binds the passwordTextField to the passwordField
+    @FXML
+    private void passwordTextFieldHandler(KeyEvent event) {
+        passwordField.setText(passwordTextField.getText());
+    }
+
+    // Unmasks user's typed password
+    @FXML
+    private void showHandler(MouseEvent event) {
+        passwordField.setVisible(false);
+        passwordTextField.setVisible(true);
+        showLabel.setVisible(false);
+        hideLabel.setVisible(true);
+    }
+
+    // Masks user's typed password
+    @FXML
+    private void hideHandler(MouseEvent event) {
+        passwordField.setVisible(true);
+        passwordTextField.setVisible(false);
+        showLabel.setVisible(true);
+        hideLabel.setVisible(false);
+    }
+
+// Validates user credentials, throws alerts, opens app if authentication is successful
     @FXML
     private void loginBtnHandler(ActionEvent event) throws IOException {
         userName = usernameField.getText();
@@ -344,5 +380,4 @@ public class loginScreenController implements Initializable {
             }
         }
     }
-
 }
