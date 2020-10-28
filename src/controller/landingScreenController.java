@@ -83,7 +83,6 @@ public class landingScreenController implements Initializable {
 
         // 15-Minute Warning: Iterates through appointments and check whether an appointment start within 15 minutes
         // If appointment is within 15 minutes then is added to list of appointments to be alerted
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         appointments.forEach((appt) -> {
             if ((appt.getDate().equals(userDate))
                     && (((Duration.between(userTime, appt.getStart()).toMinutes()) >= 0)
@@ -93,7 +92,6 @@ public class landingScreenController implements Initializable {
         });
 
         // 15-Minute Warning: Alerts user of appointments starting within 15 minutes
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         alertAppointments.forEach((appt) -> {
             fifteenMinuteWarningText += appt.getUserName() + " has a " + appt.getType()
                     + " appointment with " + appt.getCustomerName() + " starting in "

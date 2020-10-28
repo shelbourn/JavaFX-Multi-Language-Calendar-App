@@ -100,7 +100,6 @@ public class reportsScreenController implements Initializable {
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         consultantCol.setCellValueFactory(new PropertyValueFactory<>("userName"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         dateCol.setCellFactory(col -> new TableCell<Appointment, LocalDate>() {
             @Override
             protected void updateItem(LocalDate item, boolean empty) {
@@ -114,7 +113,6 @@ public class reportsScreenController implements Initializable {
             }
         });
         startTimeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         startTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
             @Override
             protected void updateItem(LocalTime item, boolean empty) {
@@ -128,7 +126,6 @@ public class reportsScreenController implements Initializable {
             }
         });
         endTimeCol.setCellValueFactory(new PropertyValueFactory<>("end"));
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         endTimeCol.setCellFactory(col -> new TableCell<Appointment, LocalTime>() {
             @Override
             protected void updateItem(LocalTime item, boolean empty) {
@@ -185,7 +182,6 @@ public class reportsScreenController implements Initializable {
         if (apptTypesConsultant.getValue().getUserId() == 999) {
             typesList = DBReports.getNumAppointmentTypesAll();
 
-            // I used a lambda expression here for brevity (less lines of code) and efficiency
             typesList.forEach((type) -> {
                 apptTypesResults.appendText(type.getType() + ": " + type.getTypeCount() + (type.getTypeCount() > 1 ? " appointments\n" : " appointment\n"));
             });
@@ -193,7 +189,6 @@ public class reportsScreenController implements Initializable {
             selectedUserTypes = apptTypesConsultant.getValue().getUserId();
             typesList = DBReports.getNumAppointmentTypes(selectedUserTypes);
 
-            // I used a lambda expression here for brevity (less lines of code) and efficiency
             typesList.forEach((type) -> {
                 apptTypesResults.appendText(type.getType() + ": " + type.getTypeCount() + (type.getTypeCount() > 1 ? " appointments\n" : " appointment\n"));
             });

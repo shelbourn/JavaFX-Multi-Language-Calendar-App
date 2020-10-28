@@ -82,7 +82,6 @@ public class updateCustomerModalController implements Initializable {
 
     // Helper method to retrieve the Customer's current city from the database and convert to a City object
     public City initCities() {
-        // I used a lambda expression here for brevity (less lines of code) and efficiency
         allCities.stream().filter((i) -> (i.getCity().equals(customerCityName))).forEachOrdered((i) -> {
             initCustomerCity = i;
         });
